@@ -40,10 +40,10 @@
             <a class="nav-link text-uppercase" href="about.php">About</a>
           </li>
           <li class="nav-item px-lg-4">
-            <a class="nav-link text-uppercase" href="products.php">Products</a>
+            <a class="nav-link text-uppercase" href="catalog.php">Catalog</a>
           </li>
           <li class="nav-item px-lg-4">
-            <a class="nav-link text-uppercase" href="store.php">Store</a>
+            <a class="nav-link text-uppercase" href="order.php">Order</a>
           </li>
         </ul>
       </div>
