@@ -76,6 +76,7 @@ if (isset($_POST['submit'])) {
             <ul>
               <li>Place an order</li>
               <li>Keep track of your previous orders</li>
+              <li>Post advertisements if you found a pet</li>
             </ul>
 
           </div>
