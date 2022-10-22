@@ -1,15 +1,23 @@
 <?php include_once 'includes/header.php'; ?>
 <?php
+$errors = array(
+  'emptyEmail' => ['status' => false, 'message' => ''],
+  'invalidEmail' => ['status' => false, 'message' => ''],
+  'emptyPwd' => ['status' => false, 'message' => '']
+);
 $btnPressed = false;
-$emptyemail = false;
-$emptypwd = false;
 // Handles POST requests
 if (isset($_POST['submit'])) {
   if (empty($_POST['email'])) {
-    $emptyemail = true;
+    $errors['emptyEmail']['status'] = true;
+    $errors['emptyEmail']['message'] = 'Email cannot be left empty.';
+  } else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    $errors['invalidEmail']['status'] = true;
+    $errors['invalidEmail']['message'] = 'Email must be of valid format (example@domain.com)';
   }
   if (empty($_POST['password'])) {
-    $emptypwd = true;
+    $errors['emptyPwd']['status'] = true;
+    $errors['emptyPwd']['message'] = 'Password cannot be left empty.';
   }
 }
 ?>
@@ -24,25 +32,24 @@ if (isset($_POST['submit'])) {
           </h2>
           <form action="login.php" method="POST">
             <div class="form-floating mb-3">
-              <input value="<?= htmlspecialchars($_POST['email']?? '')  ?>" name="email" type="email" class="form-control">
+              <input value="<?= htmlspecialchars($_POST['email'] ?? '')  ?>" name="email" type="email" class="form-control">
               <label for="floatingInput">Email address</label>
+              <?php if ($errors['invalidEmail']['status']) : ?>
+                <h5 class="userwarn"><?= $errors['invalidEmail']['message'] ?></h5>
+              <?php endif; ?>
+              <?php if ($errors['emptyEmail']['status']) : ?>
+                <h5 class="userwarn"><?= $errors['emptyEmail']['message'] ?></h5>
+              <?php endif; ?>
             </div>
             <div class="form-floating">
-              <input value="<?= htmlspecialchars($_POST['password']?? '')  ?>" name="password" type="password" class="form-control">
+              <input value="<?= htmlspecialchars($_POST['password'] ?? '')  ?>" name="password" type="password" class="form-control">
               <label for="floatingPassword">Password</label>
+              <?php if ($errors['emptyPwd']['status']) : ?>
+                <h5 class="userwarn"><?= $errors['emptyPwd']['message'] ?></h5>
+              <?php endif; ?>
               <br>
               <button value="true" name="submit" class="btn btn-secondary btn-sm">Log In</button>
             </div>
-            <?php if ($emptyemail && $emptypwd) : ?>
-              <h3 class="userwarn">Email and password cannot be left empty.</h3>
-            <?php endif; ?>
-            <?php if ($emptyemail && !$emptypwd) : ?>
-              <h3 class="userwarn">Email cannot be left empty.</h3>
-            <?php endif; ?>
-            <?php if (!$emptyemail && $emptypwd) : ?>
-              <h3 class="userwarn">Password cannot be left empty.</h3>
-            <?php endif; ?>
-            </h3 class="userwarn">
           </form>
           <p class="mb-0">
             <small><em>Issues?</em></small>
