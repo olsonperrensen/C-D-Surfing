@@ -8,7 +8,7 @@
                         <span class="section-heading-upper">Come On In</span>
                         <span class="section-heading-lower">LOG IN</span>
                     </h2>
-                    
+                    <?php require_once "login.php" ?>
                     <p class="mb-0">
                         <small><em>Issues?</em></small>
                         <br />
@@ -44,5 +44,4 @@
 </section>
 <?php require_once 'includes/footer.php' ?>
 </body>
-
 </html>
