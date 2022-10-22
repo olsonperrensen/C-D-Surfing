@@ -1,23 +1,24 @@
 <?php include_once 'includes/header.php'; ?>
 <?php
 $errors = array(
-  'emptyEmail' => ['status' => false, 'message' => ''],
-  'invalidEmail' => ['status' => false, 'message' => ''],
-  'emptyPwd' => ['status' => false, 'message' => '']
+  'emptyEmail' => '',
+  'invalidEmail' => '',
+  'emptyPwd' => ''
 );
 $btnPressed = false;
 // Handles POST requests
 if (isset($_POST['submit'])) {
   if (empty($_POST['email'])) {
-    $errors['emptyEmail']['status'] = true;
-    $errors['emptyEmail']['message'] = 'Email cannot be left empty.';
+    $errors['emptyEmail'] = 'Email cannot be left empty.';
   } else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-    $errors['invalidEmail']['status'] = true;
-    $errors['invalidEmail']['message'] = 'Email must be of valid format (example@domain.com)';
+    $errors['invalidEmail'] = 'Email must be of valid format (example@domain.com)';
   }
   if (empty($_POST['password'])) {
-    $errors['emptyPwd']['status'] = true;
-    $errors['emptyPwd']['message'] = 'Password cannot be left empty.';
+    $errors['emptyPwd'] = 'Password cannot be left empty.';
+  }
+
+  if (!array_filter($errors)) {
+    header('Location: order.php');
   }
 }
 ?>
@@ -34,18 +35,18 @@ if (isset($_POST['submit'])) {
             <div class="form-floating mb-3">
               <input value="<?= htmlspecialchars($_POST['email'] ?? '')  ?>" name="email" type="email" class="form-control">
               <label for="floatingInput">Email address</label>
-              <?php if ($errors['invalidEmail']['status']) : ?>
-                <h5 class="userwarn"><?= $errors['invalidEmail']['message'] ?></h5>
+              <?php if ($errors['invalidEmail']) : ?>
+                <h5 class="userwarn"><?= $errors['invalidEmail'] ?></h5>
               <?php endif; ?>
-              <?php if ($errors['emptyEmail']['status']) : ?>
-                <h5 class="userwarn"><?= $errors['emptyEmail']['message'] ?></h5>
+              <?php if ($errors['emptyEmail']) : ?>
+                <h5 class="userwarn"><?= $errors['emptyEmail'] ?></h5>
               <?php endif; ?>
             </div>
             <div class="form-floating">
               <input value="<?= htmlspecialchars($_POST['password'] ?? '')  ?>" name="password" type="password" class="form-control">
               <label for="floatingPassword">Password</label>
-              <?php if ($errors['emptyPwd']['status']) : ?>
-                <h5 class="userwarn"><?= $errors['emptyPwd']['message'] ?></h5>
+              <?php if ($errors['emptyPwd']) : ?>
+                <h5 class="userwarn"><?= $errors['emptyPwd'] ?></h5>
               <?php endif; ?>
               <br>
               <button value="true" name="submit" class="btn btn-secondary btn-sm">Log In</button>
