@@ -1,5 +1,5 @@
-<?php include_once 'includes/header.php'; ?>
-<?php if (isset($POST['usr'])) : ?>
+<?php if (isset($_POST['submit'])) : ?>
+    <?php include_once 'includes/header.php'; ?>
     <section class="h-50 w-100 p-3 d-inline-block" style="background-color: #d69465;">
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -67,51 +67,11 @@
             </div>
         </div>
     </section>
-<?php endif; ?>
-<?php if (!isset($POST['usr'])) : ?>
-    <section class="page-section cta">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-9 mx-auto">
-                    <div class="cta-inner bg-faded text-center rounded">
-                        <h2 class="section-heading mb-5">
-                            <span class="section-heading-upper">Come On In</span>
-                            <span class="section-heading-lower">LOG IN</span>
-                        </h2>
-                        <?php require_once "login.php" ?>
-                        <p class="mb-0">
-                            <small><em>Issues?</em></small>
-                            <br />
-                            <a href="mailto:webmaster@C&D.be">webmaster@C&D.be</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="page-section about-heading"> 
-    <div class="container">
-            <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="assets/img/about.jpg" alt="..." />
-            <div class="about-heading-content">
-                <div class="row">
-                    <div class="col-xl-9 col-lg-10 mx-auto">
-                        <div class="bg-faded rounded p-5">
-                            <h2 class="section-heading mb-4">
-                                <span class="section-heading-upper">Stay with us, Stay Logged</span>
-                                <span class="section-heading-lower">Account benefits</span>
-                            </h2>
-                            <ul>
-                                <li>Place an order</li>
-                                <li>Keep track of your previous orders</li>
-                            </ul>
-            
-                        </div>
-                </div>
-            </div>
-        </div>
-    </section>
-<?php endif; ?>
-<?php require_once 'includes/footer.php' ?>
-</body>
+    <?php require_once 'includes/footer.php' ?>
+    </body>
 
-</html>
+    </html>
+<?php endif; ?>
+<?php if (!isset($_POST['submit']))
+    header('Location: login.php');
+?>

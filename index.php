@@ -16,7 +16,7 @@
           Humane Society.
         </p>
         <div class="intro-button mx-auto">
-          <a class="btn btn-primary btn-xl" href="#!">Browse for pets</a>
+          <a class="btn btn-primary btn-xl" href="catalog.php">Browse for pets</a>
         </div>
       </div>
     </div>

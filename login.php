@@ -1,21 +1,81 @@
+<?php include_once 'includes/header.php'; ?>
 <?php
-if (isset($_POST['usr']) && isset($_POST['pwd'])) {
-  $usr = $_POST['usr'];
-  $pwd = $_POST['pwd'];
-  if ($usr == 'w@w.w' & $pwd = 'w@w.w') {
-    header("Location: products.php");
+$btnPressed = false;
+$emptyusr = false;
+$emptypwd = false;
+// Handles POST requests
+if (isset($_POST['submit'])) {
+  if (empty($_POST['username'])) {
+    $emptyusr = true;
+  }
+  if (empty($_POST['password'])) {
+    $emptypwd = true;
   }
 }
 ?>
-<form action="login.php" method="POST">
-  <div class="form-floating mb-3">
-    <input type="email" class="form-control" id="usr" placeholder="name@example.com">
-    <label for="floatingInput">Email address</label>
+<section class="page-section cta">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <div class="cta-inner bg-faded text-center rounded">
+          <h2 class="section-heading mb-5">
+            <span class="section-heading-upper">Come On In</span>
+            <span class="section-heading-lower">LOG IN</span>
+          </h2>
+          <form action="login.php" method="POST">
+            <div class="form-floating mb-3">
+              <input name="username" type="email" class="form-control" placeholder="name@example.com">
+              <label for="floatingInput">Email address</label>
+            </div>
+            <div class="form-floating">
+              <input name="password" type="password" class="form-control" placeholder="Password">
+              <label for="floatingPassword">Password</label>
+              <br>
+              <button value="true" name="submit" class="btn btn-secondary btn-sm">Log In</button>
+            </div>
+            <?php if ($emptyusr && $emptypwd) : ?>
+              <h3 class="userwarn">Username and password cannot be left empty.</h3>
+            <?php endif; ?>
+            <?php if ($emptyusr && !$emptypwd) : ?>
+              <h3 class="userwarn">Username cannot be left empty.</h3>
+            <?php endif; ?>
+            <?php if (!$emptyusr && $emptypwd) : ?>
+              <h3 class="userwarn">Password cannot be left empty.</h3>
+            <?php endif; ?>
+            </h3 class="userwarn">
+          </form>
+          <p class="mb-0">
+            <small><em>Issues?</em></small>
+            <br />
+            <a href="mailto:webmaster@C&D.be">webmaster@C&D.be</a>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="form-floating">
-    <input type="password" class="form-control" id="pwd" placeholder="Password">
-    <label for="floatingPassword">Password</label>
-    <br>
-    <button class="btn btn-secondary btn-sm">Log In</button>
-  </div>
-</form>
+</section>
+<section class="page-section about-heading">
+  <div class="container">
+    <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="assets/img/about.jpg" alt="..." />
+    <div class="about-heading-content">
+      <div class="row">
+        <div class="col-xl-9 col-lg-10 mx-auto">
+          <div class="bg-faded rounded p-5">
+            <h2 class="section-heading mb-4">
+              <span class="section-heading-upper">Stay with us, Stay Logged</span>
+              <span class="section-heading-lower">Account benefits</span>
+            </h2>
+            <ul>
+              <li>Place an order</li>
+              <li>Keep track of your previous orders</li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<?php require_once 'includes/footer.php' ?>
+</body>
+
+</html>
