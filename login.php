@@ -1,12 +1,12 @@
 <?php include_once 'includes/header.php'; ?>
 <?php
 $btnPressed = false;
-$emptyusr = false;
+$emptyemail = false;
 $emptypwd = false;
 // Handles POST requests
 if (isset($_POST['submit'])) {
-  if (empty($_POST['username'])) {
-    $emptyusr = true;
+  if (empty($_POST['email'])) {
+    $emptyemail = true;
   }
   if (empty($_POST['password'])) {
     $emptypwd = true;
@@ -24,22 +24,22 @@ if (isset($_POST['submit'])) {
           </h2>
           <form action="login.php" method="POST">
             <div class="form-floating mb-3">
-              <input value="<?= htmlspecialchars($_POST['username']) ?>" name="username" type="email" class="form-control">
+              <input value="<?= htmlspecialchars($_POST['email']?? '')  ?>" name="email" type="email" class="form-control">
               <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating">
-              <input value="<?= htmlspecialchars($_POST['password']) ?>" name="password" type="password" class="form-control">
+              <input value="<?= htmlspecialchars($_POST['password']?? '')  ?>" name="password" type="password" class="form-control">
               <label for="floatingPassword">Password</label>
               <br>
               <button value="true" name="submit" class="btn btn-secondary btn-sm">Log In</button>
             </div>
-            <?php if ($emptyusr && $emptypwd) : ?>
-              <h3 class="userwarn">Username and password cannot be left empty.</h3>
+            <?php if ($emptyemail && $emptypwd) : ?>
+              <h3 class="userwarn">Email and password cannot be left empty.</h3>
             <?php endif; ?>
-            <?php if ($emptyusr && !$emptypwd) : ?>
-              <h3 class="userwarn">Username cannot be left empty.</h3>
+            <?php if ($emptyemail && !$emptypwd) : ?>
+              <h3 class="userwarn">Email cannot be left empty.</h3>
             <?php endif; ?>
-            <?php if (!$emptyusr && $emptypwd) : ?>
+            <?php if (!$emptyemail && $emptypwd) : ?>
               <h3 class="userwarn">Password cannot be left empty.</h3>
             <?php endif; ?>
             </h3 class="userwarn">
