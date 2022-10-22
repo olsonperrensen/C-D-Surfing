@@ -24,11 +24,11 @@ if (isset($_POST['submit'])) {
           </h2>
           <form action="login.php" method="POST">
             <div class="form-floating mb-3">
-              <input name="username" type="email" class="form-control" placeholder="name@example.com">
+              <input value="<?= htmlspecialchars($_POST['username']) ?>" name="username" type="email" class="form-control">
               <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating">
-              <input name="password" type="password" class="form-control" placeholder="Password">
+              <input value="<?= htmlspecialchars($_POST['password']) ?>" name="password" type="password" class="form-control">
               <label for="floatingPassword">Password</label>
               <br>
               <button value="true" name="submit" class="btn btn-secondary btn-sm">Log In</button>
