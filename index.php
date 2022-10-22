@@ -37,7 +37,7 @@
             direct from C&D a cat and pet wellness company. Whether
             it's Cat Nip, Treats, Food, Toys, or a Dog Scratcher we want to
             help the transition for your new pet to be as seamless as
-            possible. We are there for you.
+            possible. We are there for you 🐾
           </p>
         </div>
       </div>

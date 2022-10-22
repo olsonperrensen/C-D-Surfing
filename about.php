@@ -1,20 +1,25 @@
 <?php include_once 'includes/header.php'; ?>
 <section class="page-section about-heading">
     <div class="container">
-        <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="assets/img/about.jpg" alt="..." />
+        <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0 d-block m-auto" src="assets/img/about.jpg" alt="..." />
         <div class="about-heading-content">
             <div class="row">
                 <div class="col-xl-9 col-lg-10 mx-auto">
                     <div class="bg-faded rounded p-5">
                         <h2 class="section-heading mb-4">
-                            <span class="section-heading-upper">Strong Coffee, Strong Roots</span>
-                            <span class="section-heading-lower">About Our Cafe</span>
+                            <span class="section-heading-upper">Strong health, Strong Roots</span>
+                            <span class="section-heading-lower">About Our Care</span>
                         </h2>
-                        <p>Founded in 1987 by the Hernandez brothers, our establishment has been serving up rich coffee sourced from artisan farmers in various regions of South and Central America. We are dedicated to travelling the world, finding the best coffee, and bringing back to you here in our cafe.</p>
+                        <p>Founded in 1997 by two Flemish brothers,
+                            our establishment has been an online,
+                            searchable database of animals who need homes for quite a while.
+                            It is also a directory of additional adoption services
+                            across our latest capabilities, all held in Mechelen.
+                            Approved users maintain their own pet pages and available-pet information.</p>
                         <p class="mb-0">
                             We guarantee that you will fall in
-                            <em>lust</em>
-                            with our decadent blends the moment you walk inside until you finish your last sip. Join us for your daily routine, an outing with friends, or simply just to enjoy some alone time.
+                            <em>love</em>
+                            with our loyal little-fellows the moment you walk inside until you finish your last shared moment with them. We aim bringing you back to the best companion you can have on earth.
                         </p>
                     </div>
                 </div>
