@@ -1,4 +1,9 @@
 <?php include_once 'includes/header.php'; ?>
+<div class="p-3 mb-2 bg-dark text-white">
+    <p class="lead text-white text-center">
+        <a href="add.php">Add post</a>
+    </p>
+</div>
 <section class="">
     <div class="container">
         <div class="row">
