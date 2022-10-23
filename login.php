@@ -1,9 +1,11 @@
 <?php include_once 'includes/header.php'; ?>
+<?php require_once 'pdo.php' ?>
 <?php
 $errors = array(
   'emptyEmail' => '',
   'invalidEmail' => '',
-  'emptyPwd' => ''
+  'emptyPwd' => '',
+  'invalidLogin' => '',
 );
 $btnPressed = false;
 // Handles POST requests
@@ -18,9 +20,22 @@ if (isset($_POST['submit'])) {
   }
 
   if (!array_filter($errors)) {
-    session_start();
-    $_SESSION['email'] = $_POST['email'];
-    header('Location: order.php');
+    if (!isset($_COOKIE["PHPSESSID"])) {
+      session_start();
+    }
+    $email = $_POST['email'];
+    $pwd = $_POST['password'];
+    $sql = "SELECT ID FROM USERS WHERE email = :em AND password = :pwd";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(array(':em' => $email, ':pwd' => $pwd));
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if (!empty($row)) {
+      unset($_SESSION["invalidLogin"]);
+      $_SESSION['email'] = $email;
+      header('Location: order.php');
+    } else {
+      $_SESSION['invalidLogin'] = $errors['invalidLogin'] = 'You have used invalid credentials.';
+    }
   }
 }
 ?>
@@ -33,7 +48,7 @@ if (isset($_POST['submit'])) {
             <span class="section-heading-upper">Come On In</span>
             <span class="section-heading-lower">LOG IN</span>
           </h2>
-          <form action=<?= $_SERVER['PHP_SELF']; ?> method="POST">
+          <form action=<?= $_SERVER['PHP_SELF'] ?> method="POST">
             <div class="form-floating mb-3">
               <input value="<?= htmlspecialchars($_POST['email'] ?? '')  ?>" name="email" type="email" class="form-control">
               <label for="floatingInput">Email address</label>
@@ -49,6 +64,9 @@ if (isset($_POST['submit'])) {
               <label for="floatingPassword">Password</label>
               <?php if ($errors['emptyPwd']) : ?>
                 <h5 class="userwarn"><?= $errors['emptyPwd'] ?></h5>
+              <?php endif; ?>
+              <?php if (isset($_SESSION['invalidLogin'])) : ?>
+                <h5 class="userwarn"><?= $errors['invalidLogin'] ?></h5>
               <?php endif; ?>
               <br>
               <button value="true" name="submit" class="btn btn-secondary btn-sm">Log In</button>
