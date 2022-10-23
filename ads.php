@@ -31,7 +31,7 @@
                 <div class="col-md-6 col-lg-4">
                 <div class="card my-3">
                 <div class="card-thumbnail">
-                <img src="./assets/img/generic_$isDog.jpg" width="200" class="img-fluid mx-auto d-block" alt="thumbnail">
+                <img src="./assets/img/generic_$isDog.png" width="200" class="img-fluid mx-auto d-block" alt="thumbnail">
                 </div>
                 <div class="card-body">
                 <div class="row">
