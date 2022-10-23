@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
                             <span class="section-heading-upper">Transform someone's life</span>
                             <span class="section-heading-lower">Add a pet to our database</span>
                         </h2>
-                        <form action="add.php" method="POST">
+                        <form action=<?= $_SERVER['PHP_SELF']; ?> method="POST">
                             <div class="form-floating mb-3">
                                 <input value="<?= htmlspecialchars($_POST['petname'] ?? '')  ?>" name="petname" type="petname" class="form-control">
                                 <label for="floatingInput">Pet name</label>

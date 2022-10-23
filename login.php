@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
             <span class="section-heading-upper">Come On In</span>
             <span class="section-heading-lower">LOG IN</span>
           </h2>
-          <form action="login.php" method="POST">
+          <form action=<?= $_SERVER['PHP_SELF']; ?> method="POST">
             <div class="form-floating mb-3">
               <input value="<?= htmlspecialchars($_POST['email'] ?? '')  ?>" name="email" type="email" class="form-control">
               <label for="floatingInput">Email address</label>
