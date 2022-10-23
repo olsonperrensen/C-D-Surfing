@@ -1,6 +1,5 @@
 <?php include_once 'includes/header.php'; ?>
 <?php require_once 'pdo.php'; ?>
-<?php require_once 'fetch_one.php'; ?>
 <div class="product-item-title d-flex">
     <div class="bg-faded p-5 d-flex ms-auto rounded">
         <h2 class="section-heading mb-0">
@@ -13,7 +12,9 @@
     <div class="container">
         <div class="row">
             <?php
+            $i = 0;
             while ($row) {
+                $i++;
                 $id = $row['id'];
                 $length = $row['length'];
                 $origin = $row['origin'];
@@ -40,13 +41,13 @@
                     <div class="card-body">
                     <h5 class="card-title">$name</h5>
                     <p class="card-text">Learn more about $name ($origin).</p>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal$i">
                     See details</button>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="exampleModal$i" tabindex="-1" aria-labelledby="exampleModalLabel$i" aria-hidden="true">
                     <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Details</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel$i">Learn more about $name</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -62,7 +63,7 @@
                 </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary">Add to basket</button>
                     </div>
                     </div>
                     </div>
