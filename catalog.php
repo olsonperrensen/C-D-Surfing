@@ -54,6 +54,9 @@
                     <ul>
                 T;
                 foreach ($row as $key => $value) {
+                    if ($key == 'image_link' || $key == 'id') {
+                        continue;
+                    }
                     echo <<<P
                     <li><strong>$key</strong> : <em>$value</em></li>
                     P;
