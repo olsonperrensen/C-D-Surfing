@@ -18,7 +18,7 @@
             while ($row) {
                 $i++;
                 $ownerID = $row['ownerID'];
-                $breed = $row['breed'];
+                $breedID = $row['breedID'];
                 $name = $row['name'];
                 $gender = $row['gender'];
                 $age = $row['age'];
@@ -31,7 +31,7 @@
                 <div class="col-md-6 col-lg-4">
                 <div class="card my-3">
                 <div class="card-thumbnail">
-                <img src="./assets/img/generic_cat.jpg" width="200" class="img-fluid" alt="thumbnail">
+                <img src="./assets/img/generic_$isDog.jpg" width="200" class="img-fluid mx-auto d-block" alt="thumbnail">
                 </div>
                 <div class="card-body">
                 <div class="row">
@@ -45,7 +45,7 @@
                 </div>
                 <div class="col-8">
                 <div class="bg-light tab-content" id="nav-tabContent$i">
-                <div class="tab-pane active" id="list-home$i" role="tabpanel" aria-labelledby="list-home-list">$breed $name $gender $age $size $color</div>
+                <div class="tab-pane active" id="list-home$i" role="tabpanel" aria-labelledby="list-home-list">$breedID $name $gender $age $size $color</div>
                 <div class="tab-pane" id="list-profile$i" role="tabpanel" aria-labelledby="list-profile-list">$story</div>
                 <div class="tab-pane" id="list-messages$i" role="tabpanel" aria-labelledby="list-messages-list">$diet</div>
                 <div class="tab-pane" id="list-settings$i" role="tabpanel" aria-labelledby="list-settings-list">$ownerID</div>
