@@ -76,6 +76,7 @@ function checkLogin()
                     P;
                 }
                 echo <<<Q
+                <video autoplay src="./assets/vid/cat.mp4"></video>
                 </ul>
                 </div>
                     <div class="modal-footer">
@@ -175,6 +176,7 @@ function checkLogin()
                     P;
                 }
                 echo <<<Q
+                <video autoplay src="./assets/vid/dog.mp4"></video>
                 </ul>
                 </div>
                     <div class="modal-footer">
