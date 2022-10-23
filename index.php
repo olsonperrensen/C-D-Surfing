@@ -1,3 +1,7 @@
+<?php
+$rootFolder = dirname(__DIR__);
+require_once $rootFolder . '/private/lib/vendor/autoload.php';
+?>
 <?php include_once 'includes/header.php'; ?>
 <section class="page-section clearfix">
   <div class="container">
