@@ -1,5 +1,15 @@
 <?php include_once 'includes/header.php'; ?>
 <?php require_once 'pdo.php'; ?>
+<?php
+function checkLogin()
+{
+    if (empty($email)) {
+        return "login.php";
+    } else {
+        return "ads.php";
+    }
+}
+?>
 <div class="product-item-title d-flex">
     <div class="bg-faded p-5 d-flex ms-auto rounded">
         <h2 class="section-heading mb-0">
@@ -70,15 +80,23 @@
                 </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary"><a class="text-decoration-none text-black" href="login.php">Check availability</a></button>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    </div>
+                    <button type="button" class="btn btn-primary"><a class="text-decoration-none text-black"
                 Q;
+                if (empty($email)) {
+                    echo 'href="login.php"';
+                } else {
+                    echo 'href="ads.php"';
+                }
+                echo <<<R
+                >Check availability</a></button>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                R;
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
             }
             ?>

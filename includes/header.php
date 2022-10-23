@@ -52,6 +52,11 @@ if (isset($_SESSION['email'])) {
           <li class="nav-item px-lg-4">
             <a class="nav-link text-uppercase" href="order.php">Order</a>
           </li>
+          <?php if (!empty($email)) : ?>
+            <li class="nav-item px-lg-4">
+              <a class="nav-link text-uppercase" href="ads.php">Ads</a>
+            </li>
+          <?php endif; ?>
         </ul>
         <li class="float-end nav-item px-lg-4">
           <?php if (empty($email)) : ?>
