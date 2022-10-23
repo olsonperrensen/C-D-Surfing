@@ -1,5 +1,6 @@
 <?php include_once 'includes/header.php'; ?>
 <?php require_once 'pdo.php'; ?>
+<?php require_once 'fetch_one.php'; ?>
 <div class="product-item-title d-flex">
     <div class="bg-faded p-5 d-flex ms-auto rounded">
         <h2 class="section-heading mb-0">
@@ -39,11 +40,37 @@
                     <div class="card-body">
                     <h5 class="card-title">$name</h5>
                     <p class="card-text">Learn more about $name ($origin).</p>
-                    <a href="#" class="btn btn-primary">See details</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    See details</button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Details</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    </div>
-                    </div>
+                    <div class="modal-body">
+                    <ul>
                 T;
+                foreach ($row as $key => $value) {
+                    echo <<<P
+                    <li><strong>$key</strong> : <em>$value</em></li>
+                    P;
+                }
+                echo <<<Q
+                </ul>
+                </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                Q;
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
             }
             ?>
