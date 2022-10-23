@@ -1,5 +1,5 @@
-<?php if (isset($_POST['submit'])) : ?>
-    <?php include_once 'includes/header.php'; ?>
+<?php include_once 'includes/header.php'; ?>
+<?php if (!empty($email)) : ?>
     <section class="h-50 w-100 p-3 d-inline-block" style="background-color: #d69465;">
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -72,6 +72,6 @@
 
     </html>
 <?php endif; ?>
-<?php if (!isset($_POST['submit']))
+<?php if (empty($email))
     header('Location: login.php');
 ?>

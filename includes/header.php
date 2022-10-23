@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (isset($_SESSION['email'])) {
+  $email = $_SESSION['email'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,6 +53,15 @@
             <a class="nav-link text-uppercase" href="order.php">Order</a>
           </li>
         </ul>
+        <li class="float-end nav-item px-lg-4">
+          <?php if (empty($email)) : ?>
+            <button class="btn btn-success"><a class="text-decoration-none text-white" href="login.php">Login</a></button>
+          <?php endif; ?>
+          <?php if (!empty($email)) : ?>
+            <button class="btn btn-outline-warning">Account</button>
+            <button class="btn btn-outline-light"><a class="text-decoration-none text-white" href="logout.php">Logout</a></button>
+          <?php endif; ?>
+        </li>
       </div>
     </div>
   </nav>

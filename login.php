@@ -18,6 +18,8 @@ if (isset($_POST['submit'])) {
   }
 
   if (!array_filter($errors)) {
+    session_start();
+    $_SESSION['email'] = $_POST['email'];
     header('Location: order.php');
   }
 }
