@@ -45,7 +45,23 @@
                 </div>
                 <div class="col-8">
                 <div class="bg-light tab-content" id="nav-tabContent$i">
-                <div class="tab-pane active" id="list-home$i" role="tabpanel" aria-labelledby="list-home-list">$breedID $name $gender $age $size $color</div>
+                <div class="tab-pane active" id="list-home$i" role="tabpanel" aria-labelledby="list-home-list">
+                AD;
+                if ($isDog) {
+                    $sql2 = "SELECT name from dogs where id = $breedID";
+                    $stmt2 = $pdo->prepare($sql2);
+                    $stmt2->execute();
+                    $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+                    echo $row2['name'];
+                } else {
+                    $sql3 = "SELECT name from cats where id = $breedID";
+                    $stmt3 = $pdo->prepare($sql3);
+                    $stmt3->execute();
+                    $row3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+                    echo $row3['name'];
+                }
+                echo <<<ADD
+                 $breedID $name $gender $age $size $color</div>
                 <div class="tab-pane" id="list-profile$i" role="tabpanel" aria-labelledby="list-profile-list">$story</div>
                 <div class="tab-pane" id="list-messages$i" role="tabpanel" aria-labelledby="list-messages-list">$diet</div>
                 <div class="tab-pane" id="list-settings$i" role="tabpanel" aria-labelledby="list-settings-list">$ownerID</div>
@@ -105,7 +121,8 @@
                 });
                 });
                 </script>
-                AD;
+
+                ADD;
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
             }
             ?>
