@@ -10,7 +10,23 @@
     <div class="container">
         <div class="row">
             <?php
-            for ($i = 0; $i < 6; $i++) {
+            $sql = "SELECT * FROM ads;";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $i = 0;
+            while ($row) {
+                $i++;
+                $ownerID = $row['ownerID'];
+                $breed = $row['breed'];
+                $name = $row['name'];
+                $gender = $row['gender'];
+                $age = $row['age'];
+                $size = $row['size'];
+                $color = $row['color'];
+                $story = $row['story'];
+                $diet = $row['diet'];
+                $isDog = $row['isDog'];
                 echo <<<AD
                 <div class="col-md-6 col-lg-4">
                 <div class="card my-3">
@@ -29,10 +45,10 @@
                 </div>
                 <div class="col-8">
                 <div class="bg-light tab-content" id="nav-tabContent$i">
-                <div class="tab-pane active" id="list-home$i" role="tabpanel" aria-labelledby="list-home-list">...</div>
-                <div class="tab-pane" id="list-profile$i" role="tabpanel" aria-labelledby="list-profile-list">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt maxime reprehenderit vel, repellat, eos nobis necessitatibus natus temporibus nam nulla quisquam, at minima tempore. Neque, quidem modi. Magnam, totam labore.</div>
-                <div class="tab-pane" id="list-messages$i" role="tabpanel" aria-labelledby="list-messages-list">B</div>
-                <div class="tab-pane" id="list-settings$i" role="tabpanel" aria-labelledby="list-settings-list">C</div>
+                <div class="tab-pane active" id="list-home$i" role="tabpanel" aria-labelledby="list-home-list">$breed $name $gender $age $size $color</div>
+                <div class="tab-pane" id="list-profile$i" role="tabpanel" aria-labelledby="list-profile-list">$story</div>
+                <div class="tab-pane" id="list-messages$i" role="tabpanel" aria-labelledby="list-messages-list">$diet</div>
+                <div class="tab-pane" id="list-settings$i" role="tabpanel" aria-labelledby="list-settings-list">$ownerID</div>
                 </div>
                 </div>
                 </div>
@@ -90,6 +106,7 @@
                 });
                 </script>
                 AD;
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
             }
             ?>
         </div>
