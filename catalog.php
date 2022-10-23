@@ -76,7 +76,7 @@ function checkLogin()
                     P;
                 }
                 echo <<<Q
-                <video autoplay src="./assets/vid/cat.mp4"></video>
+                <li><em><a href="https://duckduckgo.com/?q=$name">Learn more</a></em></li>
                 </ul>
                 </div>
                     <div class="modal-footer">
@@ -176,7 +176,7 @@ function checkLogin()
                     P;
                 }
                 echo <<<Q
-                <video autoplay src="./assets/vid/dog.mp4"></video>
+                <li><em><a href="https://duckduckgo.com/?q=$name">Learn more</a></em></li>
                 </ul>
                 </div>
                     <div class="modal-footer">
