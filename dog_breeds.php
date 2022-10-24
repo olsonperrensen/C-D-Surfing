@@ -49,7 +49,7 @@ function checkLogin()
                     <ul>
                 T;
                 foreach ($row as $key => $value) {
-                    if ($key == 'image_link' || $key == 'id') {
+                    if ($key == 'image_link' || $key == 'breed_id') {
                         continue;
                     }
                     echo <<<P
@@ -57,7 +57,7 @@ function checkLogin()
                     P;
                 }
                 echo <<<Q
-                <li><em><a href="https://duckduckgo.com/?q=$breed->name">Learn more</a></em></li>
+                <li><em><a href="breed_details.php?q=$breed->breed_id">Learn more</a></em></li>
                 </ul>
                 </div>
                     <div class="modal-footer">
