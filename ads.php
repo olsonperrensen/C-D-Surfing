@@ -38,7 +38,7 @@
                     <div class="col-8">
                     <div class="bg-light tab-content" id="nav-tabContent$pet->pet_id">
                     <div class="tab-pane active" id="list-home$pet->pet_id" role="tabpanel" aria-labelledby="list-home-list">
-                    $pet->name is a $pet->gender pet of age $pet->age who is looking for a warm home.
+                    <p class='lead'>$pet->name is a $pet->gender pet of age $pet->age who is looking for a warm home.</p> <hr><em><p>Pet Collar identification number is $pet->pet_id</p></em>
                     AD;
                     echo <<<ADD
                     </div>
