@@ -98,7 +98,9 @@
                                 if (empty($email)) {
                                     echo 'href="login.php"';
                                 } else {
-                                    echo 'href="ads.php"';
+                                    echo <<<Z
+                                    href="ads.php?q=$breed_id"
+                                    Z;
                                 }
                                 echo <<<R
                                     >Check availability</a></button></div>

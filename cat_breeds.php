@@ -67,7 +67,9 @@ function checkLogin()
                 if (empty($email)) {
                     echo 'href="login.php"';
                 } else {
-                    echo 'href="ads.php"';
+                    echo <<<G
+                    href="ads.php?q=$breed->breed_id"
+                    G;
                 }
                 echo <<<R
                 >Check availability</a></button>
