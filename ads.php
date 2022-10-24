@@ -32,15 +32,14 @@
                     <a class="list-group-item list-group-item-action" id="list-profile-list$pet->pet_id" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Story</a>
                     <a class="list-group-item list-group-item-action" id="list-messages-list$pet->pet_id" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Diet</a>
                     <a class="list-group-item list-group-item-action" id="list-settings-list$pet->pet_id" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Location</a>
+                    <a class="text-white bg-success list-group-item list-group-item-action" id="list-settings-list$pet->pet_id" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Adopt me</a>
                     </div>
                     </div>
                     <div class="col-8">
                     <div class="bg-light tab-content" id="nav-tabContent$pet->pet_id">
                     <div class="tab-pane active" id="list-home$pet->pet_id" role="tabpanel" aria-labelledby="list-home-list">
+                    $pet->name is a $pet->gender pet of age $pet->age who is looking for a warm home.
                     AD;
-                    foreach ($pet as $key => $value) {
-                        echo "$key:$value,";
-                    }
                     echo <<<ADD
                     </div>
                     <div class="tab-pane" id="list-profile$pet->pet_id" role="tabpanel" aria-labelledby="list-profile-list">$pet->story</div>
