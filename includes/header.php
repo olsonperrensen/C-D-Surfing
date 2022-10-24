@@ -23,6 +23,7 @@ if (isset($_SESSION['email'])) {
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
   <link href="css/styles.css" rel="stylesheet" />
   <link href="css/login.css" rel="stylesheet" />
+  <link href="css/breeds.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -48,7 +49,7 @@ if (isset($_SESSION['email'])) {
             <a class="nav-link text-uppercase" href="about.php">About</a>
           </li>
           <li class="nav-item px-lg-4">
-            <a class="nav-link text-uppercase" href="catalog.php">Catalog</a>
+            <a class="nav-link text-uppercase" href="breeds.php">Breeds</a>
           </li>
           <li class="nav-item px-lg-4">
             <a class="nav-link text-uppercase" href="order.php">Order</a>
