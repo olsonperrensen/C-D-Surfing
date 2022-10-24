@@ -57,7 +57,7 @@ function checkLogin()
                     P;
                 }
                 echo <<<Q
-                <li><em><a href="https://duckduckgo.com/?q=$name">Learn more</a></em></li>
+                <li><em><a href="https://duckduckgo.com/?q=$breed->name">Learn more</a></em></li>
                 </ul>
                 </div>
                     <div class="modal-footer">

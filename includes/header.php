@@ -28,10 +28,12 @@ if (isset($_SESSION['email'])) {
 
 <body>
   <header>
-    <h1 class="site-heading text-center text-faded d-none d-lg-block">
-      <span class="site-heading-upper text-primary mb-3">Find your new best friend</span>
-      <span class="site-heading-lower">C&D Surfing</span>
-    </h1>
+    <a class="text-decoration-none" href=<?= $_SERVER['PHP_SELF']; ?>>
+      <h1 class="site-heading text-center text-faded d-none d-lg-block">
+        <span class="site-heading-upper text-primary mb-3">Find your new best friend</span>
+        <span class="site-heading-lower">C&D Surfing</span>
+      </h1>
+    </a>
   </header>
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
