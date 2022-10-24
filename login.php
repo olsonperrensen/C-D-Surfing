@@ -25,7 +25,7 @@ if (isset($_POST['submit'])) {
     }
     $email = $_POST['email'];
     $pwd = $_POST['password'];
-    $sql = "SELECT ID FROM USERS WHERE email = :em AND password = :pwd";
+    $sql = "SELECT USER_ID FROM USERS WHERE email = :em AND password = :pwd";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(':em' => $email, ':pwd' => $pwd));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);

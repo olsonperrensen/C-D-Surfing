@@ -19,7 +19,7 @@
     ?>
     <section class="page-section about-heading">
         <div class="container">
-            <img width="500" height="500" class="img-fluid rounded about-heading-img mb-3 mb-lg-0 d-block m-auto" src=<?= $breed->image_link ?> alt="..." />
+            <img width="500" height="500" class="rounded-circle img-fluid rounded about-heading-img mb-3 mb-lg-0 d-block m-auto" src=<?= $breed->image_link ?> alt="..." />
             <div class="about-heading-content">
                 <div class="row">
                     <div class="col-xl-9 col-lg-10 mx-auto">
@@ -28,17 +28,82 @@
                                 <span class="section-heading-upper">Understand breeds, Love your pet</span>
                                 <span class="section-heading-lower">Learn more about <?= $breed->name ?></span>
                             </h2>
-                            <p>Founded in 1997 by two Flemish brothers,
-                                our establishment has been an online,
-                                searchable database of animals who need homes for quite a while.
-                                It is also a directory of additional adoption services
-                                across our latest capabilities, all held in Mechelen.
-                                Approved users maintain their own pet pages and available-pet information.</p>
-                            <p class="mb-0">
-                                We guarantee that you will fall in
-                                <em>love</em>
-                                with our loyal little-fellows the moment you walk inside until you finish your last shared moment with them. We aim bringing you back to the best companion you can have on earth.
+                            <p>The <strong><?= $breed->name ?></strong><?= $breed->isFeline ? " (cat) " : " (dog) " ?>
+                                has the following common traits:
                             </p>
+                            <section class="py-4 my-5">
+                                <div class="container">
+                                    <div class="row">
+                                        <?php
+                                        foreach ($breed as $key => $value) {
+                                            if (
+                                                $key == 'breed_id' || $key == 'isFeline' || $key == 'image_link'
+                                                || $key == 'name'
+                                            ) {
+                                                continue;
+                                            }
+                                            $tint = '';
+                                            echo <<<A
+                                            <div class="col-md-6 col-lg-4">
+                                            <p><strong>$key</strong></p>
+                                           A;
+                                            if (is_numeric($value)) {
+                                                $og_value = $value;
+                                                switch ($value) {
+                                                    case 1:
+                                                        $value = 20;
+                                                        $tint = 'danger';
+                                                        break;
+                                                    case 2:
+                                                        $value = 40;
+                                                        $tint = 'warning';
+                                                        break;
+                                                    case 3:
+                                                        $value = 60;
+                                                        $tint = 'info';
+                                                        break;
+                                                    case 4:
+                                                        $value = 80;
+                                                        $tint = 'success';
+                                                        break;
+                                                    case 5:
+                                                        $value = 100;
+                                                        $tint = 'success';
+                                                        break;
+                                                    default:
+                                                        $value = 100;
+                                                        $tint = 'success';
+                                                        # code...
+                                                        break;
+                                                }
+                                                echo <<<B
+                                                <div class="progress">
+                                                    <div class="progress-bar bg-$tint" role="progressbar" style="width: $value%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">$og_value</div>
+                                                </div>
+                                            </div>
+                                            B;
+                                            } else {
+                                                echo "<div><samp class='text-white bg-dark'>$value</samp></div></div>";
+                                            }
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </section>
+                            <?php
+                                echo <<<QQ
+                                    <div class="text-center">
+                                    <button type="button" class="btn btn-primary"><a class="text-decoration-none text-black"
+                                    QQ;
+                                if (empty($email)) {
+                                    echo 'href="login.php"';
+                                } else {
+                                    echo 'href="ads.php"';
+                                }
+                                echo <<<R
+                                    >Check availability</a></button></div>
+                                    R;
+                                ?>
                         </div>
                     </div>
                 </div>
