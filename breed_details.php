@@ -8,11 +8,18 @@
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(':u' => $breed_id));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    $breed = new Breed($row);
+    ?>
+    <?php
+    if (!empty($row)) {
+        $breed = new Breed($row);
+    } else {
+        header('Location: 404.php');
+        exit();
+    }
     ?>
     <section class="page-section about-heading">
         <div class="container">
-            <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0 d-block m-auto" src="assets/img/breed_details.jpg" alt="..." />
+            <img width="500" height="500" class="img-fluid rounded about-heading-img mb-3 mb-lg-0 d-block m-auto" src=<?= $breed->image_link ?> alt="..." />
             <div class="about-heading-content">
                 <div class="row">
                     <div class="col-xl-9 col-lg-10 mx-auto">
