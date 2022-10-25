@@ -1,26 +1,37 @@
 <?php include_once 'includes/header.php'; ?>
+<?php include_once 'pdo.php'; ?>
 <?php
-$errors = array(
-    'emptypetname' => '',
-    'invalidpetname' => '',
-    'emptyDeliveryDate' => ''
-);
-$btnPressed = false;
-// Handles POST requests
-if (isset($_POST['submit'])) {
-    if (empty($_POST['petname'])) {
-        $errors['emptypetname'] = 'Pet name cannot be left empty.';
-    }
-    if (empty($_POST['deliveryDate'])) {
-        $errors['emptyDeliveryDate'] = 'Delivery date cannot be left empty.';
-    }
-
-    if (!array_filter($errors)) {
-        header('Location: thank-you.php');
-    }
+$sql = "SELECT can_advertise FROM USERS WHERE email = :em";
+$stmt = $pdo->prepare($sql);
+$stmt->execute(array(':em' => $email));
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+if (empty($row->can_advertise)) {
+    header('Location: account.php');
+    die();
 }
 ?>
-<?php if (true) : ?>
+<?php if (!empty($email)) : ?>
+    <?php
+    $errors = array(
+        'emptypetname' => '',
+        'invalidpetname' => '',
+        'emptyDeliveryDate' => ''
+    );
+    $btnPressed = false;
+    // Handles POST requests
+    if (isset($_POST['submit'])) {
+        if (empty($_POST['petname'])) {
+            $errors['emptypetname'] = 'Pet name cannot be left empty.';
+        }
+        if (empty($_POST['deliveryDate'])) {
+            $errors['emptyDeliveryDate'] = 'Delivery date cannot be left empty.';
+        }
+
+        if (!array_filter($errors)) {
+            header('Location: thank-you.php');
+        }
+    }
+    ?>
     <section class="page-section cta">
         <div class="container">
             <div class="row">
@@ -69,6 +80,6 @@ if (isset($_POST['submit'])) {
 
     </html>
 <?php endif; ?>
-<?php if (false)
+<?php if (empty($email)) {
     header('Location: login.php');
-?>
+}

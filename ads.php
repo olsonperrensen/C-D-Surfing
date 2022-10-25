@@ -2,12 +2,34 @@
 <?php if (!empty($email)) : ?>
     <?php include_once "pdo.php" ?>
     <?php include_once "models/Pet.php" ?>
+    <?php include_once "models/User.php" ?>
+    <?php
+    $sql = "SELECT can_advertise FROM USERS WHERE email = :u;";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(array(':u' => $email));
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = new User($row);
+    ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <div class="p-3 mb-2 bg-dark text-white">
-        <p class="lead text-white text-center">
-            <a href="add.php">Add post</a>
-        </p>
-    </div>
+    <script>
+        function unauth() {
+            alert("Want to post an ad? Contact the admin for extra rights.");
+        }
+    </script>
+    <?php if ($user->can_advertise) : ?>
+        <div class="p-3 mb-2 bg-dark text-white">
+            <p class="lead text-white text-center">
+                <a href="add.php">Add post</a>
+            </p>
+        </div>
+    <?php endif; ?>
+    <?php if (!$user->can_advertise) : ?>
+        <div class="p-3 mb-2 bg-dark text-white">
+            <p class="lead text-white text-center">
+                <a onclick="unauth()" href="">Add post</a>
+            </p>
+        </div>
+    <?php endif; ?>
     <section class="">
         <div class="container">
             <div class="row">
