@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
     if (!empty($row)) {
       unset($_SESSION["invalidLogin"]);
       $_SESSION['email'] = $email;
-      header('Location: order.php');
+      header('Location: account.php');
     } else {
       $_SESSION['invalidLogin'] = $errors['invalidLogin'] = 'You have used invalid credentials.';
     }

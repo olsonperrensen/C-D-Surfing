@@ -12,7 +12,9 @@
         <div class="container">
             <div class="row">
                 <?php
-                $sql = "SELECT * FROM pet_details where on_adoption = 1;";
+                $sql = "SELECT * FROM pet_details p
+                 join ads a on p.pet_id=a.pet_id
+                 order by a.pet_id;";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -22,6 +24,7 @@
                     <div class="col-md-6 col-lg-4">
                     <div class="card my-3">
                     <div class="card-thumbnail">
+                    <div class="text-center"><samp>2 days ago</samp></div>
                     <img src="./assets/img/breed_details.jpg" width="200" class="img-fluid mx-auto d-block" alt="thumbnail">
                     </div>
                     <div class="card-body">
