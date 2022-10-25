@@ -12,8 +12,9 @@
         <div class="container">
             <div class="row">
                 <?php
-                $sql = "SELECT * FROM pet_details p
+                $sql = "SELECT p.pet_id,age,story,diet,u.zipcode,datediff(now(),a.advertised_date) as days FROM pet_details p
                  join ads a on p.pet_id=a.pet_id
+                 join users u on p.owner_id =u.user_id
                  order by a.pet_id;";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
@@ -24,7 +25,7 @@
                     <div class="col-md-6 col-lg-4">
                     <div class="card my-3">
                     <div class="card-thumbnail">
-                    <div class="text-center"><samp>2 days ago</samp></div>
+                    <div class="text-center"><samp>$pet->days days ago</samp></div>
                     <img src="./assets/img/breed_details.jpg" width="200" class="img-fluid mx-auto d-block" alt="thumbnail">
                     </div>
                     <div class="card-body">
@@ -47,7 +48,7 @@
                     </div>
                     <div class="tab-pane" id="list-profile$pet->pet_id" role="tabpanel" aria-labelledby="list-profile-list">$pet->story</div>
                     <div class="tab-pane" id="list-messages$pet->pet_id" role="tabpanel" aria-labelledby="list-messages-list">$pet->diet</div>
-                    <div class="tab-pane" id="list-settings$pet->pet_id" role="tabpanel" aria-labelledby="list-settings-list">$pet->owner_id</div>
+                    <div class="tab-pane" id="list-settings$pet->pet_id" role="tabpanel" aria-labelledby="list-settings-list">This pet resides at a residence with zipcode $pet->zipcode</div>
                     </div>
                     </div>
                     </div>

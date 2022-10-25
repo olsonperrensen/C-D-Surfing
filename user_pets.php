@@ -57,7 +57,7 @@
                             echo <<<H
                             <td><a href="healthcare_details.php?h=$pet->healthcare_id">$value</a></td>
                         H;
-                        continue;
+                            continue;
                         }
                         echo <<<T
                             <td>$value</td>
