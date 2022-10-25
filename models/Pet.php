@@ -17,5 +17,6 @@ class Pet
     public $color;
     public $story;
     public $diet;
-    public $on_adoption;
+    public $register_date;
+    public $healthcare_id;
 }
