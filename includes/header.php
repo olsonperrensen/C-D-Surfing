@@ -67,7 +67,7 @@ if (isset($_SESSION['email'])) {
             <button class="btn btn-success"><a class="text-decoration-none text-white" href="login.php">Login</a></button>
           <?php endif; ?>
           <?php if (!empty($email)) : ?>
-            <button class="btn btn-outline-warning">Account</button>
+            <button class="btn btn-outline-warning"><a class="text-decoration-none" href="account.php">Account</a></button>
             <button class="btn btn-outline-light"><a class="text-decoration-none text-white" href="logout.php">Logout</a></button>
           <?php endif; ?>
         </li>
