@@ -1,11 +1,13 @@
 <?php include_once 'includes/header.php'; ?>
 <?php include_once 'pdo.php'; ?>
+<?php include_once 'models/User.php' ?>
 <?php
 $sql = "SELECT can_advertise FROM USERS WHERE email = :em";
 $stmt = $pdo->prepare($sql);
 $stmt->execute(array(':em' => $email));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-if (empty($row->can_advertise)) {
+$user = new User($row);
+if (empty($user->can_advertise)) {
     header('Location: account.php');
     die();
 }
