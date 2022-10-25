@@ -12,10 +12,10 @@
         <div class="container">
             <div class="row">
                 <?php
-                $sql = "SELECT p.pet_id,age,story,diet,u.zipcode,datediff(now(),a.advertised_date) as days FROM pet_details p
+                $sql = "SELECT p.pet_id,age,name,story,diet,u.zipcode,datediff(now(),a.advertised_date) as days FROM pet_details p
                  join ads a on p.pet_id=a.pet_id
                  join users u on p.owner_id =u.user_id
-                 order by a.pet_id;";
+                 order by days;";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
