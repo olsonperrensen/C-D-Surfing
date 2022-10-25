@@ -3,10 +3,12 @@ $rootFolder = dirname(__DIR__);
 require_once $rootFolder . '/private/lib/vendor/autoload.php';
 ?>
 <?php include_once 'includes/header.php'; ?>
+<?php
+?>
 <section class="page-section clearfix">
   <div class="container">
     <div class="intro">
-      <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="assets/img/intro.jpg" alt="..." />
+      <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="assets/img/intro<?= strtotime("now") % 2 ?? 0 ?>.jpg" alt="..." />
       <div class="intro-text left-0 text-center bg-faded p-5 rounded">
         <h2 class="section-heading mb-4">
           <span class="section-heading-upper">NEW GOOD BOY</span>
