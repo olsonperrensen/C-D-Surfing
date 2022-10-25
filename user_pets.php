@@ -6,7 +6,7 @@
         <thead>
             <tr>
                 <?php
-                $sql = "SELECT p.name, gender, age, size, color, diet, h.healthcare_name, register_date from pet_details p
+                $sql = "SELECT p.name, gender, age, size, color, diet, h.healthcare_id, h.healthcare_name, register_date from pet_details p
                 join users u on p.owner_id = u.user_id
                 join healthcare h on h.healthcare_id = p.healthcare_id
                 where email = :u
@@ -15,6 +15,7 @@
                 $stmt->execute(array(':u' => $email));
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 foreach ($row as $key => $value) {
+                    if ($key == 'healthcare_id') continue;
                     echo <<<Q
             <td>$key</td>
             Q;
@@ -51,6 +52,13 @@
                     }
                     echo '">';
                     foreach ($row as $key => $value) {
+                        if ($key == 'healthcare_id') continue;
+                        else if ($key == 'healthcare_name') {
+                            echo <<<H
+                            <td><a href="healthcare_details.php?h=$pet->healthcare_id">$value</a></td>
+                        H;
+                        continue;
+                        }
                         echo <<<T
                             <td>$value</td>
                         T;

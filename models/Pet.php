@@ -19,4 +19,5 @@ class Pet
     public $diet;
     public $register_date;
     public $healthcare_id;
+    public $healthcare_name;
 }
