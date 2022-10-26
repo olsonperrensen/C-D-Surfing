@@ -73,6 +73,10 @@
                 <button value="true" name="submit" class="btn btn-secondary btn-sm">Log In</button>
               </div>
             </form>
+            <br>
+            <p class="lead">
+              <a href="signup.php" class="text-secondary"><em>Sign up instead</em></a>
+            </p>
             <p class="mb-0">
               <small><em>Issues?</em></small>
               <br />
