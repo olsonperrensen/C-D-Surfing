@@ -22,7 +22,7 @@ require_once $rootFolder . '/private/lib/vendor/autoload.php';
           Humane Society.
         </p>
         <div class="intro-button mx-auto">
-          <a class="btn btn-primary btn-xl" href="catalog.php">Browse for pets</a>
+          <a class="btn btn-primary btn-xl" href="breeds.php">Browse for pets</a>
         </div>
       </div>
     </div>

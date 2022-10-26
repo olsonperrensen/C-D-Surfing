@@ -1,5 +1,5 @@
 <?php include_once 'includes/header.php'; ?>
-<?php if (!empty($_GET['q']) && is_numeric($_GET['q'])) : ?>
+<?php if (!empty(htmlspecialchars($_GET['q'], ENT_QUOTES)) && is_numeric(htmlspecialchars($_GET['q'], ENT_QUOTES))) : ?>
     <?php include_once 'pdo.php'; ?>
     <?php include_once 'models/Breed.php'; ?>
     <?php
@@ -91,21 +91,21 @@
                                 </div>
                             </section>
                             <?php
-                                echo <<<QQ
+                            echo <<<QQ
                                     <div class="text-center">
                                     <button type="button" class="btn btn-primary"><a class="text-decoration-none text-black"
                                     QQ;
-                                if (empty($email)) {
-                                    echo 'href="login.php"';
-                                } else {
-                                    echo <<<Z
+                            if (empty($email)) {
+                                echo 'href="login.php"';
+                            } else {
+                                echo <<<Z
                                     href="ads.php?q=$breed_id"
                                     Z;
-                                }
-                                echo <<<R
+                            }
+                            echo <<<R
                                     >Check availability</a></button></div>
                                     R;
-                                ?>
+                            ?>
                         </div>
                     </div>
                 </div>

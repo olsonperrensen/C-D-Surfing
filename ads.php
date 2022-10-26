@@ -4,6 +4,14 @@
     <?php include_once "models/Pet.php" ?>
     <?php include_once "models/User.php" ?>
     <?php
+    if (
+        !empty($_GET['q'])
+        && is_numeric($_GET['q'])
+    ) {
+        $breed_id = htmlspecialchars($_GET['q'], ENT_QUOTES);
+    }
+    ?>
+    <?php
     $sql = "SELECT can_advertise FROM USERS WHERE email = :u;";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(':u' => $email));
@@ -34,12 +42,27 @@
         <div class="container">
             <div class="row">
                 <?php
-                $sql = "SELECT p.pet_id,age,name,story,diet,u.zipcode,datediff(now(),a.advertised_date) as days FROM pet_details p
-                 join ads a on p.pet_id=a.pet_id
-                 join users u on p.owner_id =u.user_id
-                 order by days;";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute();
+                if (
+                    !empty($breed_id)
+                    && is_numeric($breed_id)
+                ) {
+                    $sql = "SELECT p.pet_id,b.name as bname, b.isFeline, gender, age,p.name,story,diet,u.zipcode,datediff(now(),a.advertised_date) as days FROM pet_details p
+                    join ads a on p.pet_id=a.pet_id
+                    join users u on p.owner_id =u.user_id
+                    join breeds b on p.breed_id= b.breed_id
+                    where p.breed_id = :b
+                    order by days;";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute(array(":b" => $breed_id));
+                } else {
+                    $sql = "SELECT p.pet_id,b.name as bname,b.isFeline,gender, age,p.name,story,diet,u.zipcode,datediff(now(),a.advertised_date) as days FROM pet_details p
+                    join ads a on p.pet_id=a.pet_id
+                    join users u on p.owner_id =u.user_id
+                    join breeds b on p.breed_id= b.breed_id
+                    order by days;";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute();
+                }
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 while ($row) {
                     $pet = new Pet($row);
@@ -64,7 +87,17 @@
                     <div class="col-8">
                     <div class="bg-light tab-content" id="nav-tabContent$pet->pet_id">
                     <div class="tab-pane active" id="list-home$pet->pet_id" role="tabpanel" aria-labelledby="list-home-list">
-                    <p class='lead'>$pet->name is a $pet->gender pet of age $pet->age who is looking for a warm home.</p> <hr><em><p>Pet Collar identification number is $pet->pet_id</p></em>
+                    <p class='lead'>$pet->name is a $pet->gender 
+                    AD;
+                    if($pet->isFeline){
+                        echo "cat";
+                    }
+                    else
+                    {
+                        echo "dog";
+                    }
+                    echo <<<AD
+                     of age $pet->age who is looking for a warm home.</p> <samp>Breed: $pet->bname</samp> <hr><em><p>Pet Collar identification number is $pet->pet_id</p></em>
                     AD;
                     echo <<<ADD
                     </div>
