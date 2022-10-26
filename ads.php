@@ -64,6 +64,15 @@
                     $stmt->execute();
                 }
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                if (empty($row)) {
+                    echo <<<G
+                    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="0">
+                    <h4 id="scrollspyHeading1">We're sorry</h4>
+                    <p>No one has placed an add for this breed type yet... Come back later.</p>
+                    </div>
+
+                    G;
+                }
                 while ($row) {
                     $pet = new Pet($row);
                     echo <<<AD
@@ -89,11 +98,9 @@
                     <div class="tab-pane active" id="list-home$pet->pet_id" role="tabpanel" aria-labelledby="list-home-list">
                     <p class='lead'>$pet->name is a $pet->gender 
                     AD;
-                    if($pet->isFeline){
+                    if ($pet->isFeline) {
                         echo "cat";
-                    }
-                    else
-                    {
+                    } else {
                         echo "dog";
                     }
                     echo <<<AD
@@ -103,7 +110,7 @@
                     </div>
                     <div class="tab-pane" id="list-profile$pet->pet_id" role="tabpanel" aria-labelledby="list-profile-list">$pet->story</div>
                     <div class="tab-pane" id="list-messages$pet->pet_id" role="tabpanel" aria-labelledby="list-messages-list">$pet->diet</div>
-                    <div class="tab-pane" id="list-settings$pet->pet_id" role="tabpanel" aria-labelledby="list-settings-list">This pet resides at a residence with zipcode $pet->zipcode</div>
+                    <div class="tab-pane" id="list-settings$pet->pet_id" role="tabpanel" aria-labelledby="list-settings-list">This pet resides at a shelter with zipcode $pet->zipcode.</br></br>Adopt it soon so it becomes part of your home.</div>
                     </div>
                     </div>
                     </div>
