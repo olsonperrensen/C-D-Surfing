@@ -43,7 +43,12 @@
                                             <div class="col-md-6 col-lg-4">
                                             <p><strong>$key</strong></p>
                                            A;
-                                                echo "<div><samp class='text-white bg-dark'>$value</samp></div></div>";
+                                                echo "<div><samp class='text-white bg-dark'>";
+                                                if ($key == 'price') {
+                                                    echo "&#8364; $value</samp></div></div>";
+                                                } else {
+                                                    echo "$value</samp></div></div>";
+                                                }
                                             }
                                             ?>
                                         </div>

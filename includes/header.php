@@ -54,7 +54,7 @@ if (isset($_SESSION['email'])) {
             <a class="nav-link text-uppercase" href="breeds.php">Breeds</a>
           </li>
           <li class="nav-item px-lg-4">
-            <a class="nav-link text-uppercase" href="order.php">Order</a>
+            <a class="nav-link text-uppercase" href="healthcare.php">Plans</a>
           </li>
           <?php if (!empty($email)) : ?>
             <li class="nav-item px-lg-4">
@@ -62,6 +62,9 @@ if (isset($_SESSION['email'])) {
             </li>
           <?php endif; ?>
         </ul>
+        <?php if (!empty($email)) : ?>
+          <button><a href="order.php">🛒</a></button>
+        <?php endif; ?>
         <li class="float-end nav-item px-lg-4">
           <?php if (empty($email)) : ?>
             <button class="btn btn-success"><a class="text-decoration-none text-white" href="login.php">Login</a></button>
