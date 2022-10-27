@@ -3,6 +3,7 @@ session_start();
 if (isset($_SESSION['email'])) {
   $email = $_SESSION['email'];
 }
+$basketCounter = $_SESSION['basketCounter'] ?? 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +64,7 @@ if (isset($_SESSION['email'])) {
           <?php endif; ?>
         </ul>
         <?php if (!empty($email)) : ?>
-          <button><a href="order.php">🛒</a></button>
+          <button><a class="text-decoration-none" href="order.php">🛒<samp class="text-decoration-none" id="basketCounter"><?= $basketCounter ?></samp></a></button>
         <?php endif; ?>
         <li class="float-end nav-item px-lg-4">
           <?php if (empty($email)) : ?>

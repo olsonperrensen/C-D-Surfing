@@ -22,6 +22,15 @@
     <script>
         function unauth() {
             alert("Want to post an ad? Contact the admin for extra rights.");
+            document.getElementById('addPost').style.display = 'none';
+        }
+
+        function addToBasket(btn) {
+            clickedBtn = "#" + btn;
+            let counter = document.getElementById('basketCounter').innerHTML;
+            document.getElementById('basketCounter').innerHTML = parseInt(counter) + 1;
+            $(clickedBtn).attr("disabled", true);
+            $(clickedBtn).text("Added to cart");
         }
     </script>
     <?php if ($user->can_advertise) : ?>
@@ -32,9 +41,9 @@
         </div>
     <?php endif; ?>
     <?php if (!$user->can_advertise) : ?>
-        <div class="p-3 mb-2 bg-dark text-white">
-            <p class="lead text-white text-center">
-                <a onclick="unauth()" href="">Add post</a>
+        <div id="addPost" class="p-3 mb-2 bg-dark">
+            <p class="lead text-center">
+                <a class="text-muted" onclick="unauth()" href="#">Add post</a>
             </p>
         </div>
     <?php endif; ?>
@@ -90,7 +99,7 @@
                     <a class="list-group-item list-group-item-action" id="list-profile-list$pet->pet_id" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Story</a>
                     <a class="list-group-item list-group-item-action" id="list-messages-list$pet->pet_id" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Diet</a>
                     <a class="list-group-item list-group-item-action" id="list-settings-list$pet->pet_id" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Location</a>
-                    <a class="text-white bg-success list-group-item list-group-item-action" id="list-settings-list$pet->pet_id" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Adopt me</a>
+                    <button class="btn text-white bg-success list-group-item list-group-item-action" id="list-adopt-list$pet->pet_id" data-bs-toggle="list" href="#added" onclick="addToBasket('list-adopt-list$pet->pet_id')" role="tab" aria-controls="list-settings">Adopt me</a>
                     </div>
                     </div>
                     <div class="col-8">
