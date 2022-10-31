@@ -3,6 +3,7 @@
 <?php
 $errors = array(
     'emptyName' => '',
+    'invalidName' => '',
     'shortName' => '',
     'emptyEmail' => '',
     'invalidEmail' => '',
@@ -17,6 +18,7 @@ $errors = array(
     'noLetterPwd' => '',
     'invalidLookingFor' => '',
     'invalidCanAdvertise' => '',
+    'duplicateEmail' => '',
     'unexpectedError' => ''
 );
 $btnPressed = false;
@@ -26,6 +28,9 @@ if (isset($_POST['submit'])) {
         $errors['emptyName'] = 'Name cannot be left empty.';
     } else if (strlen($_POST['fullName']) < 3) {
         $errors['shortName'] = 'Name cannot be shorter than three characters.';
+    }
+    if (!preg_match('/^[a-zA-Z ]*$/', $_POST['fullName'])) {
+        $errors['invalidName'] = 'Only letters allowed.';
     }
     if (empty($_POST['email'])) {
         $errors['emptyEmail'] = 'Email cannot be left empty.';
@@ -49,9 +54,7 @@ if (isset($_POST['submit'])) {
     }
     if (empty($_POST['zipcode'])) {
         $errors['emptyZipcode'] = 'Zipcode cannot be empty.';
-    }
-
-    else if ((int)$_POST['zipcode'] < 1000 || (int)$_POST['zipcode'] > 10000) {
+    } else if ((int)$_POST['zipcode'] < 1000 || (int)$_POST['zipcode'] > 10000) {
         $errors['invalidZipcode'] = 'Zipcode must be Belgian.';
     }
     if (empty($_POST['lookingFor'])) {
@@ -83,8 +86,11 @@ if (isset($_POST['submit'])) {
             echo "<script>alert('Sign up successfull!')</script>";
             header('Location: login.php');
         } catch (PDOException $e) {
-            var_dump($e);
-            $errors['unexpectedError'] = 'An unexpected error occured.';
+            if ((int)$e->getCode() === 23000) {
+                $errors['duplicateEmail'] = 'An account already exists under this email';
+            } else {
+                $errors['unexpectedError'] = 'An unexpected error occured.';
+            }
         }
     }
 }
@@ -105,6 +111,9 @@ if (isset($_POST['submit'])) {
                             <?php if ($errors['emptyName']) : ?>
                                 <h5 class="userwarn"><?= $errors['emptyName'] ?></h5>
                             <?php endif; ?>
+                            <?php if ($errors['invalidName']) : ?>
+                                <h5 class="userwarn"><?= $errors['invalidName'] ?></h5>
+                            <?php endif; ?>
                             <?php if ($errors['shortName']) : ?>
                                 <h5 class="userwarn"><?= $errors['shortName'] ?></h5>
                             <?php endif; ?>
@@ -114,6 +123,9 @@ if (isset($_POST['submit'])) {
                             <label for="floatingInput">Email address</label>
                             <?php if ($errors['invalidEmail']) : ?>
                                 <h5 class="userwarn"><?= $errors['invalidEmail'] ?></h5>
+                            <?php endif; ?>
+                            <?php if ($errors['duplicateEmail']) : ?>
+                                <h5 class="userwarn"><?= $errors['duplicateEmail'] ?></h5>
                             <?php endif; ?>
                             <?php if ($errors['emptyEmail']) : ?>
                                 <h5 class="userwarn"><?= $errors['emptyEmail'] ?></h5>
