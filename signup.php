@@ -51,11 +51,11 @@ if (isset($_POST['submit'])) {
         $errors['emptyZipcode'] = 'Zipcode cannot be empty.';
     }
 
-    if ((int)$_POST['zipcode'] < 1000 || (int)$_POST['zipcode'] > 10000) {
+    else if ((int)$_POST['zipcode'] < 1000 || (int)$_POST['zipcode'] > 10000) {
         $errors['invalidZipcode'] = 'Zipcode must be Belgian.';
     }
     if (empty($_POST['lookingFor'])) {
-        $errors['invalidLookingFor'] = 'Please choose.';
+        $errors['invalidLookingFor'] = 'Choose "Cats", "Dogs" or "Can\'t adopt".';
     }
 
     if (!array_filter($errors)) {
@@ -67,14 +67,14 @@ if (isset($_POST['submit'])) {
         $lookingFor = $_POST['lookingFor'];
         $canAdvertise = $_POST['canAdvertise'] ?? '0';
         $email = $_POST['email'];
-        $pwd = $_POST['password'];
+        $pw = password_hash($_POST['password'], PASSWORD_DEFAULT);
         try {
             $sql = "INSERT INTO USERS(email,password,naam,zipcode,looking_for,can_advertise)
         VALUES(:em,:pw,:n,:z,:l,:c)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute(array(
                 ':em' => $email,
-                ':pw' => $pwd,
+                ':pw' => $pw,
                 ':n' => $fullName,
                 ':z' => $zipcode,
                 ':l' => $lookingFor,

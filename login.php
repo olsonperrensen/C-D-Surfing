@@ -26,16 +26,20 @@
       }
       $email = $_POST['email'];
       $pwd = $_POST['password'];
-      $sql = "SELECT USER_ID FROM USERS WHERE email = :em AND password = :pwd";
+      $sql = "SELECT * FROM USERS WHERE email = :em";
       $stmt = $pdo->prepare($sql);
-      $stmt->execute(array(':em' => $email, ':pwd' => $pwd));
+      $stmt->execute(array(':em' => $email));
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
       if (!empty($row)) {
-        unset($_SESSION["invalidLogin"]);
-        $_SESSION['email'] = $email;
-        header('Location: account.php');
+        if (password_verify($pwd, $row['password'])) {
+          unset($_SESSION["invalidLogin"]);
+          $_SESSION['email'] = $email;
+          header('Location: account.php');
+        } else {
+          $_SESSION['invalidLogin'] = $errors['invalidLogin'] = 'You have entered invalid credentials.';
+        }
       } else {
-        $_SESSION['invalidLogin'] = $errors['invalidLogin'] = 'You have used invalid credentials.';
+        $_SESSION['invalidLogin'] = $errors['invalidLogin'] = 'You must register first.';
       }
     }
   }
