@@ -3,7 +3,7 @@
 <?php
 $errors = array(
     'emptyName' => '',
-    'invalidName' => '',
+    'shortName' => '',
     'emptyEmail' => '',
     'invalidEmail' => '',
     'emptyPwd' => '',
@@ -15,10 +15,18 @@ $errors = array(
     'invalidZipcode' => '',
     'noNumPwd' => '',
     'noLetterPwd' => '',
+    'invalidLookingFor' => '',
+    'invalidCanAdvertise' => '',
 );
 $btnPressed = false;
 // Handles POST requests
 if (isset($_POST['submit'])) {
+    if (empty($_POST['fullName'])) {
+        $errors['emptyName'] = 'Name cannot be left empty.';
+    }
+    else if (strlen($_POST['fullName']) < 3) {
+        $errors['shortName'] = 'Name cannot be shorter than three characters.';
+    }
     if (empty($_POST['email'])) {
         $errors['emptyEmail'] = 'Email cannot be left empty.';
     } else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -38,6 +46,16 @@ if (isset($_POST['submit'])) {
     }
     if ($_POST['password'] !== $_POST['passwordConfirmation']) {
         $errors['unmatch'] = 'Passwords must match.';
+    }
+    if (empty($_POST['zipcode'])) {
+        $errors['emptyZipcode'] = 'Zipcode cannot be empty.';
+    }
+
+    if ((int)$_POST['zipcode'] < 1000 || (int)$_POST['zipcode'] > 10000) {
+        $errors['invalidZipcode'] = 'Zipcode must be Belgian.';
+    }
+    if ($_POST['lookingFor'] !== '1' || $_POST['lookingFor'] !== '2' || $_POST['lookingFor'] !== '3') {
+        $errors['invalidLookingFor'] = 'You must either adopt cats, dogs, or do not adopt.';
     }
 
     if (!array_filter($errors)) {
@@ -71,13 +89,13 @@ if (isset($_POST['submit'])) {
                     </h2>
                     <form action=<?= $_SERVER['PHP_SELF'] ?> method="POST">
                         <div class="form-floating mb-3">
-                            <input value="<?= htmlspecialchars($_POST['name'] ?? '')  ?>" name="name" type="text" class="form-control">
+                            <input value="<?= htmlspecialchars($_POST['fullName'] ?? '')  ?>" id="fullName" name="fullName" type="text" class="form-control">
                             <label for="floatingInput">Full name</label>
-                            <?php if ($errors['invalidName']) : ?>
-                                <h5 class="userwarn"><?= $errors['invalidName'] ?></h5>
-                            <?php endif; ?>
                             <?php if ($errors['emptyName']) : ?>
                                 <h5 class="userwarn"><?= $errors['emptyName'] ?></h5>
+                            <?php endif; ?>
+                            <?php if ($errors['shortName']) : ?>
+                                <h5 class="userwarn"><?= $errors['shortName'] ?></h5>
                             <?php endif; ?>
                         </div>
                         <div class="form-floating mb-3">
@@ -103,10 +121,13 @@ if (isset($_POST['submit'])) {
                         <div class="form-floating mb-3">
                             <select name="lookingFor" id="lookingFor" class="form-select" aria-label="Default select example">
                                 <option selected>I am looking for ...</option>
-                                <option value="1">Cats</option>
-                                <option value="2">Dogs</option>
-                                <option value="3">Can't adopt</option>
+                                <option value="Cat">Cats</option>
+                                <option value="Dog">Dogs</option>
+                                <option value="None">Can't adopt</option>
                             </select>
+                            <?php if ($errors['invalidLookingFor']) : ?>
+                                <h5 class="userwarn"><?= $errors['invalidLookingFor'] ?></h5>
+                            <?php endif; ?>
                         </div>
                         <div class="form-floating mb-3">
                             <input value="<?= htmlspecialchars($_POST['password'] ?? '')  ?>" name="password" type="password" class="form-control">
@@ -141,17 +162,20 @@ if (isset($_POST['submit'])) {
                                 <h5 class="userwarn"><?= $errors['invalidLogin'] ?></h5>
                             <?php endif; ?>
                             <br>
-                            </div>
+                        </div>
                         <div class="form-floating mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <input name="canAdvertise" id="canAdvertise" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     I want to post my pet for adoption
                                 </label>
+                                <?php if ($errors['invalidCanAdvertise']) : ?>
+                                    <h5 class="userwarn"><?= $errors['invalidCanAdvertise'] ?></h5>
+                                <?php endif; ?>
                             </div>
                             <br>
                             <button value="true" name="submit" class="btn btn-secondary btn-sm">Sign Up</button>
-                        
+
                         </div>
                     </form>
                     <br>
