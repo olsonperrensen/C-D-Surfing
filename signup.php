@@ -17,14 +17,14 @@ $errors = array(
     'noLetterPwd' => '',
     'invalidLookingFor' => '',
     'invalidCanAdvertise' => '',
+    'unexpectedError' => ''
 );
 $btnPressed = false;
 // Handles POST requests
 if (isset($_POST['submit'])) {
     if (empty($_POST['fullName'])) {
         $errors['emptyName'] = 'Name cannot be left empty.';
-    }
-    else if (strlen($_POST['fullName']) < 3) {
+    } else if (strlen($_POST['fullName']) < 3) {
         $errors['shortName'] = 'Name cannot be shorter than three characters.';
     }
     if (empty($_POST['email'])) {
@@ -38,10 +38,10 @@ if (isset($_POST['submit'])) {
     if (strlen($_POST['password']) < 8) {
         $errors['shortPwd'] = 'Password cannot be shorter than eight characters.';
     }
-    if (preg_match("/[0-9]/", $_POST['password']) < 8) {
+    if (!preg_match("/[0-9]/", $_POST['password'])) {
         $errors['noNumPwd'] = 'Password must contain at least one number.';
     }
-    if (preg_match("/[a-z]/i", $_POST['password']) < 8) {
+    if (!preg_match("/[a-z]/i", $_POST['password'])) {
         $errors['noLetterPwd'] = 'Password must contain at least one letter.';
     }
     if ($_POST['password'] !== $_POST['passwordConfirmation']) {
@@ -54,26 +54,37 @@ if (isset($_POST['submit'])) {
     if ((int)$_POST['zipcode'] < 1000 || (int)$_POST['zipcode'] > 10000) {
         $errors['invalidZipcode'] = 'Zipcode must be Belgian.';
     }
-    if ($_POST['lookingFor'] !== '1' || $_POST['lookingFor'] !== '2' || $_POST['lookingFor'] !== '3') {
-        $errors['invalidLookingFor'] = 'You must either adopt cats, dogs, or do not adopt.';
+    if (empty($_POST['lookingFor'])) {
+        $errors['invalidLookingFor'] = 'Please choose.';
     }
 
     if (!array_filter($errors)) {
         if (!isset($_COOKIE["PHPSESSID"])) {
             session_start();
         }
+        $fullName = $_POST['fullName'];
+        $zipcode = $_POST['zipcode'];
+        $lookingFor = $_POST['lookingFor'];
+        $canAdvertise = $_POST['canAdvertise'] ?? '0';
         $email = $_POST['email'];
         $pwd = $_POST['password'];
-        // $sql = "";
-        // $stmt = $pdo->prepare($sql);
-        // $stmt->execute(array(':em' => $email, ':pwd' => $pwd));
-        // $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (!empty($row)) {
-            unset($_SESSION["invalidLogin"]);
-            $_SESSION['email'] = $email;
-            header('Location: account.php');
-        } else {
-            $_SESSION['invalidLogin'] = $errors['invalidLogin'] = 'You have used invalid credentials.';
+        try {
+            $sql = "INSERT INTO USERS(email,password,naam,zipcode,looking_for,can_advertise)
+        VALUES(:em,:pw,:n,:z,:l,:c)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':em' => $email,
+                ':pw' => $pwd,
+                ':n' => $fullName,
+                ':z' => $zipcode,
+                ':l' => $lookingFor,
+                ':c' => $canAdvertise
+            ));
+            echo "<script>alert('Sign up successfull!')</script>";
+            header('Location: login.php');
+        } catch (PDOException $e) {
+            var_dump($e);
+            $errors['unexpectedError'] = 'An unexpected error occured.';
         }
     }
 }
@@ -120,10 +131,10 @@ if (isset($_POST['submit'])) {
                         </div>
                         <div class="form-floating mb-3">
                             <select name="lookingFor" id="lookingFor" class="form-select" aria-label="Default select example">
-                                <option selected>I am looking for ...</option>
+                                <option value="">I am looking for ...</option>
                                 <option value="Cat">Cats</option>
                                 <option value="Dog">Dogs</option>
-                                <option value="None">Can't adopt</option>
+                                <option value="Cant">Can't adopt</option>
                             </select>
                             <?php if ($errors['invalidLookingFor']) : ?>
                                 <h5 class="userwarn"><?= $errors['invalidLookingFor'] ?></h5>
@@ -171,6 +182,9 @@ if (isset($_POST['submit'])) {
                                 </label>
                                 <?php if ($errors['invalidCanAdvertise']) : ?>
                                     <h5 class="userwarn"><?= $errors['invalidCanAdvertise'] ?></h5>
+                                <?php endif; ?>
+                                <?php if ($errors['unexpectedError']) : ?>
+                                    <h5 class="userwarn"><?= $errors['unexpectedError'] ?></h5>
                                 <?php endif; ?>
                             </div>
                             <br>
