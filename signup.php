@@ -58,7 +58,7 @@ if (isset($_POST['submit'])) {
         $errors['invalidZipcode'] = 'Zipcode must be Belgian.';
     }
     if (empty($_POST['lookingFor'])) {
-        $errors['invalidLookingFor'] = 'Choose "Cats", "Dogs" or "Can\'t adopt".';
+        $errors['invalidLookingFor'] = 'Choose "Cats", "Dogs" or "None".';
     }
 
     if (!array_filter($errors)) {
@@ -146,7 +146,7 @@ if (isset($_POST['submit'])) {
                                 <option value="">I am looking for ...</option>
                                 <option value="Cat">Cats</option>
                                 <option value="Dog">Dogs</option>
-                                <option value="Cant">Can't adopt</option>
+                                <option value="None">None</option>
                             </select>
                             <?php if ($errors['invalidLookingFor']) : ?>
                                 <h5 class="userwarn"><?= $errors['invalidLookingFor'] ?></h5>
