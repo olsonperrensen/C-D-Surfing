@@ -1,9 +1,27 @@
 <?php include_once 'pdo.php'; ?>
 <?php include_once './models/Basket.php'; ?>
 <?php
+$errors = array(
+  'taken' => '',
+);
 session_start();
 if (isset($_SESSION['email'])) {
   $email = $_SESSION['email'];
+  if (!empty($_GET['adopted_pet'])) {
+    try {
+      $adopting_pet = $_GET['adopted_pet'];
+      $sql = "insert into shopping_cart(pet_id,userid)
+      values(:p,(select user_id from users where email = :em));";
+      $stmt = $pdo->prepare($sql);
+      $stmt->execute(array(':p' => $adopting_pet, ':em' => $email));
+    } catch (PDOException $e) {
+      if ((int)$e->getCode() === 23000) {
+        $errors['taken'] = $adopting_pet;
+      } else {
+        $errors['unexpectedError'] = 'An unexpected error occured.';
+      }
+    }
+  }
   $sql = "select count(*)
   from shopping_cart
   where userid = (select user_id from users where email = :em)";
