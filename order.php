@@ -17,6 +17,7 @@
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(':em' => $email));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $order_total = 0;
     ?>
     <section class="h-50 w-100 p-3 d-inline-block" style="background-color: #d69465;">
         <div class="container h-100">
@@ -35,6 +36,9 @@
                         </div>
                         AD;
                         foreach ($pet as $key => $value) {
+                            if ($key == 'Healthcare Price') {
+                                $order_total += $value;
+                            }
                             if (!empty($value)) {
                                 echo <<<Q
                             <div class="col-md-2 d-flex justify-content-center">
@@ -54,14 +58,24 @@
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     }
                     ?>
+                    <div class="card mb-5">
+                        <div class="card-body p-4">
 
+                            <div class="float-end">
+                                <p class="mb-0 me-5 d-flex align-items-center">
+                                    <span class="small text-muted me-4">Regional fee:</span> <span class="lead fw-normal">2800 (pet) : 2580 (you) = $20</span>
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
 
                     <div class="card mb-5">
                         <div class="card-body p-4">
 
                             <div class="float-end">
                                 <p class="mb-0 me-5 d-flex align-items-center">
-                                    <span class="small text-muted me-2">Order total:</span> <span class="lead fw-normal">$799</span>
+                                    <span class="small text-muted me-2">Order total:</span> <span class="lead fw-normal">€ <?= $order_total ?></span>
                                 </p>
                             </div>
 
@@ -69,8 +83,8 @@
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-light btn-lg me-2">Continue shopping</button>
-                        <button type="button" class="btn btn-primary btn-lg">Add to cart</button>
+                        <button type="button" class="btn btn-light btn-lg me-2"> <a href="ads.php">Continue shopping</a> </button>
+                        <button type="button" class="btn btn-primary btn-lg">Checkout</button>
                     </div>
 
                 </div>
