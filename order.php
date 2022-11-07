@@ -3,8 +3,11 @@
     <?php include_once 'pdo.php'; ?>
     <?php include_once "models/Pet.php" ?>
     <?php
-    $sql = "SELECT p.pet_id, u.naam, b.name, p.name, p.age, p.size, p.color, h.healthcare_name,
-    h.price, s.dateAdded from pet_details p
+    $sql = "SELECT p.pet_id 'Pet Identification Number', 
+    u.naam 'Ex-Owner', 
+    b.name 'Breed Name', p.name 'Pet Name', p.age 'Pet Age', 
+    p.size 'Pet Size', p.color 'Skin Color', h.healthcare_name 'Healthcare Plan (mandatory)',
+    h.price 'Healthcare Price', s.dateAdded 'Added to basket on' from pet_details p
     join users u on p.owner_id=u.user_id
     join breeds b on p.breed_id=b.breed_id
     join healthcare h on p.healthcare_id=h.healthcare_id
@@ -19,7 +22,7 @@
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col">
-                    <p><span class="h2">Shopping Cart </span><span class="h4">(1 item in your cart)</span></p>
+                    <p><span class="h2">Shopping Cart </span><span class="h4">(<?= $basketCounter ?? 0 ?> in your cart)</span></p>
                     <?php
                     while ($row) {
                         $pet = new Pet($row);
@@ -28,39 +31,22 @@
                         <div class="card-body p-4">
                         <div class="row align-items-center">
                         <div class="col-md-2">
-                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/1.webp" class="img-fluid" alt="Generic placeholder image">
+                        <img src="./assets/img/paw.jpg" class="img-fluid" alt="Generic placeholder image">
                         </div>
-                        <div class="col-md-2 d-flex justify-content-center">
-                        <div>
-                        <p class="small text-muted mb-4 pb-2">Name</p>
-                        <p class="lead fw-normal mb-0">iPad Air</p>
-                        </div>
-                        </div>
-                        <div class="col-md-2 d-flex justify-content-center">
-                        <div>
-                        <p class="small text-muted mb-4 pb-2">Color</p>
-                        <p class="lead fw-normal mb-0"><i class="fas fa-circle me-2" style="color: #fdd8d2;"></i>
-                        pink rose</p>
-                        </div>
-                        </div>
-                        <div class="col-md-2 d-flex justify-content-center">
-                        <div>
-                        <p class="small text-muted mb-4 pb-2">Quantity</p>
-                        <p class="lead fw-normal mb-0">1</p>
-                        </div>
-                        </div>
-                        <div class="col-md-2 d-flex justify-content-center">
-                        <div>
-                        <p class="small text-muted mb-4 pb-2">Price</p>
-                        <p class="lead fw-normal mb-0">$799</p>
-                        </div>
-                        </div>
-                        <div class="col-md-2 d-flex justify-content-center">
-                        <div>
-                        <p class="small text-muted mb-4 pb-2">Total</p>
-                        <p class="lead fw-normal mb-0">$799</p>
-                        </div>
-                        </div>
+                        AD;
+                        foreach ($pet as $key => $value) {
+                            if (!empty($value)) {
+                                echo <<<Q
+                            <div class="col-md-2 d-flex justify-content-center">
+                            <div>
+                            <p class="small text-muted mb-4 pb-2">$key</p>
+                            <p class="lead fw-normal mb-0">$value</p>
+                            </div>
+                            </div>
+                            Q;
+                            }
+                        }
+                        echo <<<AD
                         </div>
                         </div>
                         </div>
