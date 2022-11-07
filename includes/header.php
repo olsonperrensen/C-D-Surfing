@@ -1,9 +1,18 @@
+<?php include_once 'pdo.php'; ?>
+<?php include_once './models/Basket.php'; ?>
 <?php
 session_start();
 if (isset($_SESSION['email'])) {
   $email = $_SESSION['email'];
+  $sql = "select count(*)
+  from shopping_cart
+  where userid = (select user_id from users where email = :em)";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute(array(':em' => $email));
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  $count = $row['count(*)'];
+  $basketCounter =  $count;
 }
-$basketCounter = $_SESSION['basketCounter'] ?? 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +73,7 @@ $basketCounter = $_SESSION['basketCounter'] ?? 0;
           <?php endif; ?>
         </ul>
         <?php if (!empty($email)) : ?>
-          <button><a class="text-decoration-none" href="order.php">🛒<samp class="text-decoration-none" id="basketCounter"><?= $basketCounter ?></samp></a></button>
+          <button><a class="text-decoration-none" href="order.php">🛒<samp class="text-decoration-none" id="basketCounter"><?= $basketCounter ?? 0 ?></samp></a></button>
         <?php endif; ?>
         <li class="float-end nav-item px-lg-4">
           <?php if (empty($email)) : ?>
