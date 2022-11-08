@@ -25,7 +25,9 @@
                 <div class="col">
                     <p><span class="h2">Shopping Cart </span><span class="h4">(<?= $basketCounter ?? 0 ?> in your cart)</span></p>
                     <?php
+                    $petid = 0;
                     while ($row) {
+                        $petid = $row['Pet Identification Number'];
                         $pet = new Pet($row);
                         echo <<<AD
                         <div class="card mb-4">
@@ -51,6 +53,12 @@
                             }
                         }
                         echo <<<AD
+                        <div class="col-md-2 d-flex justify-content-center">
+                            <div>
+                            <p class="small text-muted mb-4 pb-2"><strong>Remove</strong></p>
+                            <p class="lead fw-normal mb-0"><a href='remove.php?pet_id=$petid'>❌</a></p>
+                            </div>
+                            </div>
                         </div>
                         </div>
                         </div>
