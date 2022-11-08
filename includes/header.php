@@ -52,6 +52,7 @@ if (isset($_SESSION['email'])) {
   <link href="css/styles.css" rel="stylesheet" />
   <link href="css/login.css" rel="stylesheet" />
   <link href="css/breeds.css" rel="stylesheet" />
+  <link href="css/checkout.css" rel="stylesheet" />
 </head>
 
 <body>
