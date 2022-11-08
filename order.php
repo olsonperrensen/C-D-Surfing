@@ -51,6 +51,13 @@
         }
     }
     ?>
+    <script>
+        function confirmOrder() {
+            if (confirm('Are you completely sure you want to place an order?')) {
+                window.location.replace("order.php");
+            };
+        }
+    </script>
     <section class="h-50 w-100 p-3 d-inline-block" style="background-color: #d69465;">
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
@@ -135,8 +142,8 @@
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-light btn-lg me-2"> <a href="ads.php">Continue shopping</a> </button>
-                        <button type="button" class="btn btn-primary btn-lg">Checkout</button>
+                        <button type="button" class="btn btn-light btn-lg me-2"> <a class="text-decoration-none" href="ads.php">Continue shopping</a> </button>
+                        <button type="submit" onclick="confirmOrder()" class="btn btn-primary btn-lg">Checkout</button>
                     </div>
 
                 </div>
