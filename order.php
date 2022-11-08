@@ -18,6 +18,38 @@
     $stmt->execute(array(':em' => $email));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $order_total = 0;
+    if (!empty($row)) {
+        // Calculate regional fee (if any)
+        // Buyer's ZIP
+        $bsql = 'select distinct zipcode
+    from users
+    join shopping_cart sc on users.user_id = sc.userid
+    where user_id = (select user_id
+                     from users
+                     where email = :bem);';
+        $bstmt = $pdo->prepare($bsql);
+        $bstmt->execute(array(':bem' => $email));
+        $brow = $bstmt->fetch(PDO::FETCH_ASSOC);
+        $buyer_zipcode = $brow['zipcode'];
+        // Seller's ZIP
+        $ssql = 'select distinct zipcode
+        from users
+        join pet_details
+        on owner_id = user_id
+        join shopping_cart
+        on pet_details.pet_id = shopping_cart.pet_id
+        where shopping_cart.userid = (select user_id
+                         from users
+                         where email = :sem);';
+        $sstmt = $pdo->prepare($ssql);
+        $sstmt->execute(array(':sem' => $email));
+        $srow = $sstmt->fetch(PDO::FETCH_ASSOC);
+        $seller_zipcode = array();
+        while ($srow) {
+            array_push($seller_zipcode, $srow['zipcode']);
+            $srow = $sstmt->fetch(PDO::FETCH_ASSOC);
+        }
+    }
     ?>
     <section class="h-50 w-100 p-3 d-inline-block" style="background-color: #d69465;">
         <div class="container h-100">
@@ -66,17 +98,29 @@
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     }
                     ?>
-                    <div class="card mb-5">
-                        <div class="card-body p-4">
+                    <?php if ($order_total != 0) : ?>
+                        <?php
+                        $regional_cost = 0;
+                        foreach ($seller_zipcode as $key => $value) {
+                            if ($value != $buyer_zipcode) {
+                                $regional_cost += 0.62;
+                            }
+                        }
+                        $order_total += $regional_cost;
+                        ?>
+                        <div class="card mb-5">
+                            <div class="card-body p-4">
 
-                            <div class="float-end">
-                                <p class="mb-0 me-5 d-flex align-items-center">
-                                    <span class="small text-muted me-4">Regional fee:</span> <span class="lead fw-normal">2800 (pet) : 2580 (you) = $20</span>
-                                </p>
+                                <div class="float-end">
+                                    <p class="mb-0 me-5 d-flex align-items-center">
+                                        <span class="small text-muted me-4">Regional fee:</span>
+                                        <span class="lead fw-normal">€ <?= $regional_cost ?? 0 ?></span>
+                                    </p>
+                                </div>
+
                             </div>
-
                         </div>
-                    </div>
+                    <?php endif; ?>
 
                     <div class="card mb-5">
                         <div class="card-body p-4">
