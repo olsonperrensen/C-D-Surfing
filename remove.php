@@ -1,6 +1,6 @@
 <?php
 include_once 'pdo.php';
-if (!empty($_GET['pet_id'])) {
+if (!empty($_GET['pet_id']) && is_numeric($_GET['pet_id'])) {
     try {
         $pid = htmlspecialchars($_GET['pet_id'], ENT_QUOTES);
         $sql = "DELETE FROM shopping_cart WHERE pet_id = :pid";

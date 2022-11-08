@@ -7,7 +7,7 @@ $errors = array(
 session_start();
 if (isset($_SESSION['email'])) {
   $email = $_SESSION['email'];
-  if (!empty($_GET['adopted_pet'])) {
+  if (!empty($_GET['adopted_pet']) && is_numeric($_GET['adopted_pet'])) {
     try {
       $adopting_pet = $_GET['adopted_pet'];
       $sql = "insert into shopping_cart(pet_id,userid)
