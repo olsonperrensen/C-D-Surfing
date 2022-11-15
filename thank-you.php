@@ -11,6 +11,7 @@
                     <p class="mb-0">
                         <small><em>We will make sure our staff personally takes care of the matter A.S.A.P.</em></small>
                         <br />
+                    <p class="lead">In the meantime, you can check your new pets <a href="user_pets.php">here</a>!</p>
                     </p>
                 </div>
             </div>
