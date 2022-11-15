@@ -46,6 +46,15 @@
             ':oid' => $order_id, ':u' => $user_id,
             'sid' => $shipping_id
         ));
+        // Cleanups : Adjust new owner + take out pet from sale
+        $sql_new_owner = "update pet_details set owner_id = :u 
+    where pet_id = :pid;";
+        $stmt_new_owner = $pdo->prepare($sql_new_owner);
+        $stmt_new_owner->execute(array(':u' => $user_id, ':pid' => $pet_id));
+        $sql_ads = "delete from ads
+    where pet_id = :pid;";
+        $stmt_ads = $pdo->prepare($sql_ads);
+        $stmt_ads->execute(array(':pid' => $pet_id));
         // Get next pet on basket
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -53,6 +62,7 @@
     $sql = "DELETE FROM shopping_cart WHERE userid = :u;";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(':u' => $user_id));
+    // Redirect 
     header('Location: thank-you.php');
     ?>
 <?php endif; ?>
