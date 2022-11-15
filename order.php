@@ -3,23 +3,6 @@
     <?php include_once 'pdo.php'; ?>
     <?php include_once "models/Pet.php" ?>
     <?php
-    // POST ORDER HANDLING
-    if (!empty($_POST['user_id'])) {
-        $buyer = htmlentities($_POST['user_id'], ENT_QUOTES);
-        try {
-            $sql = "insert into shipping_info(shipping_cost, shipping_region_id) VALUES
-            (:c,:zip);
-            ";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(array(
-                ':c' => $_SESSION['regional_cost'],
-                ':zip' => $_SESSION['buyer_zipcode']
-            ));
-        } catch (PDOException $e) {
-        }
-    }
-    ?>
-    <?php
     $sql = "SELECT p.pet_id 'Pet Identification Number', 
     u.naam 'Ex-Owner', 
     b.name 'Breed Name', p.name 'Pet Name', p.age 'Pet Age', 
@@ -79,7 +62,6 @@
                     $petid = 0;
                     while ($row) {
                         $petid = $row['Pet Identification Number'];
-                        $_SESSION['petid'] = $petid;
                         $pet = new Pet($row);
                         echo <<<AD
                         <div class="card mb-4">
@@ -91,7 +73,6 @@
                         AD;
                         foreach ($pet as $key => $value) {
                             if ($key == 'Healthcare Price') {
-                                $_SESSION['unit_cost'] = $value;
                                 $order_total += $value;
                             }
                             if (!empty($value)) {
@@ -123,11 +104,11 @@
                         <?php
                         $regional_cost = 0;
                         foreach ($seller_zipcode as $key => $value) {
+                            $_SESSION['seller_zipcodes'][] = $value;
                             if ($value != $buyer_zipcode) {
                                 $regional_cost += 0.62;
                             }
                         }
-                        $_SESSION['regional_cost'] = $regional_cost;
                         $order_total += $regional_cost;
                         ?>
                         <div class="card mb-5">
@@ -158,7 +139,7 @@
 
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-light btn-lg me-2"> <a class="text-decoration-none" href="ads.php">Continue shopping</a> </button>
-                        <form action=<?= $_SERVER['PHP_SELF'] ?> method="POST">
+                        <form action="process_order.php" method="POST">
                             <button name="user_id" value="<?= $user_id ?>" type="submit" class="btn btn-primary btn-lg">Checkout</button>
                         </form>
                     </div>
