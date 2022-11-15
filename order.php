@@ -19,6 +19,7 @@
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $order_total = 0;
     if (!empty($row)) {
+        $_SESSION['hasBasket'] = 1;
         // Calculate regional fee (if any)
         // Buyer's ZIP
         $bsql = 'select distinct zipcode, user_id
@@ -51,6 +52,8 @@
             array_push($seller_zipcode, $srow['zipcode']);
             $srow = $sstmt->fetch(PDO::FETCH_ASSOC);
         }
+    } else {
+        unset($_SESSION['hasBasket']);
     }
     ?>
     <section class="h-50 w-100 p-3 d-inline-block" style="background-color: #d69465;">
@@ -140,7 +143,9 @@
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-light btn-lg me-2"> <a class="text-decoration-none" href="ads.php">Continue shopping</a> </button>
                         <form action="process_order.php" method="POST">
-                            <button name="user_id" value="<?= $user_id ?>" type="submit" class="btn btn-primary btn-lg">Checkout</button>
+                            <?php if (!empty($_SESSION['hasBasket'])) : ?>
+                                <button name="user_id" value="<?= $user_id ?>" type="submit" class="btn btn-primary btn-lg">Checkout</button>
+                            <?php endif; ?>
                         </form>
                     </div>
 

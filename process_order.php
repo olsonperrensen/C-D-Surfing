@@ -1,5 +1,5 @@
 <?php include_once 'includes/header.php'; ?>
-<?php if (!empty($email)) : ?>
+<?php if (!empty($email) && !empty($_SESSION['hasBasket'])) : ?>
     <?php include_once 'pdo.php'; ?>
     <?php include_once "models/Pet.php" ?>
     <?php
@@ -66,6 +66,6 @@
     header('Location: thank-you.php');
     ?>
 <?php endif; ?>
-<?php if (empty($email))
+<?php if (empty($email) || empty($_SESSION['hasBasket']))
     header('Location: login.php');
 ?>
