@@ -1,8 +1,8 @@
 <?php include_once 'includes/header.php'; ?>
 <div class="container mAdminContainer" *ngIf="secret">
-    <div class="row">
-        <div class="col-xs-12">
-            <form #f="ngForm" (ngSubmit)="1" class="example-form mform">
+    <div class="row mAdminContainer">
+        <div class="col-xs-12 mAdminContainer">
+            <form #f="ngForm" (ngSubmit)="1" class="example-form mform mAdminContainer">
                 <h1 class="lead">Kies een actie</h1>
                 <pre [@bounceOnEnter] [@bounceOutOnLeave] *ngIf="isBackendDown" style="color: red">Krijg je niks? Laad de pagina opnieuw... (F5)</pre>
                 <div class="container">
