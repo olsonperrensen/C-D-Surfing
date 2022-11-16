@@ -47,10 +47,10 @@
             'sid' => $shipping_id
         ));
         // Cleanups : Adjust new owner + take out pet from sale
-        $sql_new_owner = "update pet_details set owner_id = :u 
+        $sql_new_owner = "update pet_details set owner_id = :u, online_purchased = :op 
     where pet_id = :pid;";
         $stmt_new_owner = $pdo->prepare($sql_new_owner);
-        $stmt_new_owner->execute(array(':u' => $user_id, ':pid' => $pet_id));
+        $stmt_new_owner->execute(array(':u' => $user_id, ':pid' => $pet_id, ':op' => 1));
         $sql_ads = "delete from ads
     where pet_id = :pid;";
         $stmt_ads = $pdo->prepare($sql_ads);

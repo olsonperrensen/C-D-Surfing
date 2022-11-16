@@ -5,6 +5,11 @@ require_once $rootFolder . '/private/lib/vendor/autoload.php';
 <?php include_once 'includes/header.php'; ?>
 <?php
 ?>
+<script>
+  if (document.referrer.includes('checkout')) {
+    alert("Tip: Check your new pets by going to Account -> My Home Pets");
+  }
+</script>
 <section class="page-section clearfix">
   <div class="container">
     <div class="intro">
