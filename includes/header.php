@@ -1,6 +1,7 @@
 <?php include_once 'pdo.php'; ?>
 <?php include_once './models/Basket.php'; ?>
 <?php
+$isAdmin = false;
 define('REGIONAL_FEE', 0.62);
 $errors = array(
   'taken' => '',
@@ -8,6 +9,7 @@ $errors = array(
 session_start();
 if (isset($_SESSION['email'])) {
   $email = $_SESSION['email'];
+  $isAdmin = $_SESSION['isAdmin'];
   if (!empty($_GET['adopted_pet']) && is_numeric($_GET['adopted_pet'])) {
     try {
       $adopting_pet = $_GET['adopted_pet'];
@@ -82,6 +84,7 @@ if (isset($_SESSION['email'])) {
   <link href="css/login.css" rel="stylesheet" />
   <link href="css/breeds.css" rel="stylesheet" />
   <link href="css/checkout.css" rel="stylesheet" />
+  <link href="css/header.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -135,3 +138,18 @@ if (isset($_SESSION['email'])) {
       </div>
     </div>
   </nav>
+  <?php if ($isAdmin) : ?>
+    <nav class="navbar navbar-expand-lg" id="ADMIN">
+      <div class="container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item px-lg-4">
+              <a class="nav-link text-uppercase text-white" href="admin.php">
+                <strong>Admin Panel</strong>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  <?php endif; ?>

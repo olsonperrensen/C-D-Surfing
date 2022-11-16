@@ -34,6 +34,7 @@
         if (password_verify($pwd, $row['password'])) {
           unset($_SESSION["invalidLogin"]);
           $_SESSION['email'] = $email;
+          $_SESSION['isAdmin'] = $row['isAdmin'];
           $_SESSION['user_id'] = $row['user_id'];
           $_SESSION['buyer_zipcode'] = $row['zipcode'];
 
