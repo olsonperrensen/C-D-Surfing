@@ -3,6 +3,9 @@
     <?php include_once 'pdo.php'; ?>
     <?php include_once "models/Pet.php" ?>
     <?php
+    if (!empty($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+    }
     $regional_cost = 0.00;
     $sql = "SELECT p.pet_id 'Pet Identification Number', s.is_regional 'Is Regional',
     u.naam 'Ex-Owner', 

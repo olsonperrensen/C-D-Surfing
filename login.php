@@ -34,6 +34,9 @@
         if (password_verify($pwd, $row['password'])) {
           unset($_SESSION["invalidLogin"]);
           $_SESSION['email'] = $email;
+          $_SESSION['user_id'] = $row['user_id'];
+          $_SESSION['buyer_zipcode'] = $row['zipcode'];
+
           header('Location: account.php');
         } else {
           $_SESSION['invalidLogin'] = $errors['invalidLogin'] = 'You have entered invalid credentials.';

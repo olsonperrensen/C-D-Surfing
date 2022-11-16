@@ -24,7 +24,6 @@ if (isset($_SESSION['email'])) {
       $brow = $bstmt->fetch(PDO::FETCH_ASSOC);
       $user_id = $brow['user_id'];
       $buyer_zipcode = $brow['zipcode'];
-      $_SESSION['buyer_zipcode'] = $buyer_zipcode;
       // SELLER ZIP
       // Seller's ZIP
       $ssql = 'select zipcode
