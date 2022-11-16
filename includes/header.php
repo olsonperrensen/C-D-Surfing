@@ -1,6 +1,7 @@
 <?php include_once 'pdo.php'; ?>
 <?php include_once './models/Basket.php'; ?>
 <?php
+define('REGIONAL_FEE', 0.62);
 $errors = array(
   'taken' => '',
 );
@@ -10,10 +11,39 @@ if (isset($_SESSION['email'])) {
   if (!empty($_GET['adopted_pet']) && is_numeric($_GET['adopted_pet'])) {
     try {
       $adopting_pet = $_GET['adopted_pet'];
-      $sql = "insert into shopping_cart(pet_id,userid)
-      values(:p,(select user_id from users where email = :em));";
+      // BUYER ZIP
+      // Calculate regional fee (if any)
+      // Buyer's ZIP
+      $bsql = 'select zipcode, user_id
+    from users
+    where user_id = (select user_id
+                     from users
+                     where email = :bem);';
+      $bstmt = $pdo->prepare($bsql);
+      $bstmt->execute(array(':bem' => $email));
+      $brow = $bstmt->fetch(PDO::FETCH_ASSOC);
+      $user_id = $brow['user_id'];
+      $buyer_zipcode = $brow['zipcode'];
+      $_SESSION['buyer_zipcode'] = $buyer_zipcode;
+      // SELLER ZIP
+      // Seller's ZIP
+      $ssql = 'select zipcode
+      from users
+      join pet_details
+      on owner_id = user_id
+      where pet_id = :pid;';
+      $sstmt = $pdo->prepare($ssql);
+      $sstmt->execute(array(':pid' => $adopting_pet));
+      $srow = $sstmt->fetch(PDO::FETCH_ASSOC);
+      $seller_zipcode = $srow['zipcode'];
+      $is_regional = true;
+      if ($seller_zipcode != $buyer_zipcode) {
+        $is_regional = false;
+      }
+      $sql = "insert into shopping_cart(pet_id,userid,is_regional)
+      values(:p,(select user_id from users where email = :em),:re);";
       $stmt = $pdo->prepare($sql);
-      $stmt->execute(array(':p' => $adopting_pet, ':em' => $email));
+      $stmt->execute(array(':p' => $adopting_pet, ':em' => $email, ':re' => $is_regional));
     } catch (PDOException $e) {
       if ((int)$e->getCode() === 23000) {
         $errors['taken'] = $adopting_pet;

@@ -3,7 +3,8 @@
     <?php include_once 'pdo.php'; ?>
     <?php include_once "models/Pet.php" ?>
     <?php
-    $sql = "SELECT p.pet_id 'Pet Identification Number', 
+    $regional_cost = 0.00;
+    $sql = "SELECT p.pet_id 'Pet Identification Number', s.is_regional 'Is Regional',
     u.naam 'Ex-Owner', 
     b.name 'Breed Name', p.name 'Pet Name', p.age 'Pet Age', 
     p.size 'Pet Size', p.color 'Skin Color', h.healthcare_name 'Healthcare Plan (mandatory)',
@@ -20,38 +21,6 @@
     $order_total = 0;
     if (!empty($row)) {
         $_SESSION['hasBasket'] = 1;
-        // Calculate regional fee (if any)
-        // Buyer's ZIP
-        $bsql = 'select distinct zipcode, user_id
-    from users
-    join shopping_cart sc on users.user_id = sc.userid
-    where user_id = (select user_id
-                     from users
-                     where email = :bem);';
-        $bstmt = $pdo->prepare($bsql);
-        $bstmt->execute(array(':bem' => $email));
-        $brow = $bstmt->fetch(PDO::FETCH_ASSOC);
-        $user_id = $brow['user_id'];
-        $buyer_zipcode = $brow['zipcode'];
-        $_SESSION['buyer_zipcode'] = $buyer_zipcode;
-        // Seller's ZIP
-        $ssql = 'select distinct zipcode
-        from users
-        join pet_details
-        on owner_id = user_id
-        join shopping_cart
-        on pet_details.pet_id = shopping_cart.pet_id
-        where shopping_cart.userid = (select user_id
-                         from users
-                         where email = :sem);';
-        $sstmt = $pdo->prepare($ssql);
-        $sstmt->execute(array(':sem' => $email));
-        $srow = $sstmt->fetch(PDO::FETCH_ASSOC);
-        $seller_zipcode = array();
-        while ($srow) {
-            array_push($seller_zipcode, $srow['zipcode']);
-            $srow = $sstmt->fetch(PDO::FETCH_ASSOC);
-        }
     } else {
         unset($_SESSION['hasBasket']);
     }
@@ -65,6 +34,7 @@
                     $petid = 0;
                     while ($row) {
                         $petid = $row['Pet Identification Number'];
+                        $is_regional = $row['Is Regional'];
                         $pet = new Pet($row);
                         echo <<<AD
                         <div class="card mb-4">
@@ -77,6 +47,11 @@
                         foreach ($pet as $key => $value) {
                             if ($key == 'Healthcare Price') {
                                 $order_total += $value;
+                            }
+                            if ($key == 'Is Regional') {
+                                if ($value == false) {
+                                    $regional_cost += REGIONAL_FEE;
+                                }
                             }
                             if (!empty($value)) {
                                 echo <<<Q
@@ -105,13 +80,6 @@
                     ?>
                     <?php if ($order_total != 0) : ?>
                         <?php
-                        $regional_cost = 0;
-                        foreach ($seller_zipcode as $key => $value) {
-                            $_SESSION['seller_zipcodes'][] = $value;
-                            if ($value != $buyer_zipcode) {
-                                $regional_cost += 0.62;
-                            }
-                        }
                         $order_total += $regional_cost;
                         ?>
                         <div class="card mb-5">
