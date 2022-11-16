@@ -85,6 +85,7 @@ if (isset($_SESSION['email'])) {
   <link href="css/breeds.css" rel="stylesheet" />
   <link href="css/checkout.css" rel="stylesheet" />
   <link href="css/header.css" rel="stylesheet" />
+  <link href="css/admin.css" rel="stylesheet" />
 </head>
 
 <body>

@@ -1,0 +1,53 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  * {
+    text-align: center;
+    margin: 0 auto
+  }
+  
+  .mform {
+    padding: 30px;
+  }
+  
+  .mAdminContainer {
+    background: gainsboro;
+    color: black;
+  }
+  
+  .mbutton {
+    margin: 20px;
+  }
+  
+  .example-box {
+    color: white;
+    background: black;
+  }
+  
+  .whiteish,
+  .msvg {
+    background: white;
+  }
+  
+  .example-card {
+    margin: 10px;
+  }
+  
+  .locked {
+    background: gainsboro;
+  }
+  .mAdminContainer
+{
+    font-size: small;
+}
+.msvg
+  {
+    width: 10%;
+  }
