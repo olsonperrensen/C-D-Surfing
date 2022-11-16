@@ -3,7 +3,8 @@
     <?php include_once 'pdo.php'; ?>
     <?php include_once 'models/Pet.php'; ?>
     <?php
-    $sql = "SELECT p.name, gender, age, size, color, diet, h.healthcare_id, h.healthcare_name, register_date from pet_details p
+    $sql = "SELECT p.name, gender, age, size, color, diet, h.healthcare_id, h.healthcare_name, 
+    register_date from pet_details p
     join users u on p.owner_id = u.user_id
     join healthcare h on h.healthcare_id = p.healthcare_id
     where email = :u
@@ -27,7 +28,9 @@
         <thead>
             <tr>
                 <?php
-                $sql = "SELECT p.name, gender, age, size, color, diet, h.healthcare_id, h.healthcare_name, register_date from pet_details p
+                $total_paid = 0.00;
+                $sql = "SELECT p.name, gender, age, size, color, diet, h.healthcare_id, h.healthcare_name, register_date,
+                h.price from pet_details p
                 join users u on p.owner_id = u.user_id
                 join healthcare h on h.healthcare_id = p.healthcare_id
                 where email = :u
@@ -38,7 +41,7 @@
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 if (!empty($row)) {
                     foreach ($row as $key => $value) {
-                        if ($key == 'healthcare_id') continue;
+                        if ($key == 'healthcare_id' || $key == 'price') continue;
                         echo <<<Q
                 <td>$key</td>
                 Q;
@@ -75,7 +78,7 @@
                         }
                         echo '">';
                         foreach ($row as $key => $value) {
-                            if ($key == 'healthcare_id') continue;
+                            if ($key == 'healthcare_id' || $key == 'price') continue;
                             else if ($key == 'healthcare_name') {
                                 echo <<<H
                                 <td><a href="healthcare_details.php?h=$pet->healthcare_id">$value</a></td>
@@ -87,6 +90,7 @@
                             T;
                         }
                         echo '</tr>';
+                        $total_paid += $row['price'];
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     }
                 } else {
@@ -96,6 +100,23 @@
                 }
                 ?>
     </table>
+    <div>
+        <?php
+        $sql = "select shipping_cost from shipping_info
+            join orders o on shipping_info.shipping_id = o.shipping_id
+            where user_id = :u;";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(':u' => $_SESSION['user_id']));
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        while ($row) {
+            $total_paid += $row['shipping_cost'];
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        echo <<<Q
+        <p class='bg-light text-center'>Total money spent: €$total_paid</p>
+        Q;
+        ?>
+    </div>
     <div class="product-item-title d-flex">
         <div class="bg-faded p-5 d-flex ms-auto rounded">
             <h2 class="section-heading mb-0">
