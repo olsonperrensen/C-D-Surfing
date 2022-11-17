@@ -12,4 +12,6 @@ if (!empty($_GET['email'])) {
     } else {
         echo json_encode(["vrij" => true]);
     }
+} else {
+    header('Location: index.php');
 }
