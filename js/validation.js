@@ -21,6 +21,14 @@ if (window.location.href.includes('signup.php')) {
       {
         rule: 'number',
       },
+      {
+        rule: 'minNumber',
+        value: 1000,
+      },
+      {
+        rule: 'maxNumber',
+        value: 10000,
+      },
     ])
     .addField('#lookingFor', [
       {
