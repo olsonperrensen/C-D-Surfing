@@ -60,9 +60,11 @@
                                 <?php if ($errors['emptyDeliveryDate']) : ?>
                                     <h5 class="userwarn"><?= $errors['emptyDeliveryDate'] ?></h5>
                                 <?php endif; ?>
-                                <br>
+                            </div>
+                            <br>
+                            <div class="form-floating">
                                 <input value="<?= htmlspecialchars($_POST['petPhoto'] ?? '')  ?>" name="petPhoto" type="file" class="form-control">
-                                <label for="floatingdeliveryDate">Photo</label>
+                                <label for="floatingpetPhoto">Photo</label>
                                 <br>
                                 <button value="true" name="submit" class="btn btn-secondary btn-sm">Send</button>
                             </div>
