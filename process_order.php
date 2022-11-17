@@ -1,5 +1,13 @@
 <?php include_once 'includes/header.php'; ?>
-<?php if (!empty($email) && !empty($_SESSION['hasBasket'])) : ?>
+<?php if (
+    !empty($email)
+    &&
+    !empty($_SESSION['hasBasket'])
+    &&
+    !empty($_POST['user_id']) // && !empty($_SESSION['user_id'])
+    &&
+    $_SESSION['user_id'] == $_POST['user_id']
+) : ?>
     <?php include_once 'pdo.php'; ?>
     <?php include_once "models/Pet.php" ?>
     <?php
@@ -79,6 +87,25 @@
     header('Location: checkout.php');
     ?>
 <?php endif; ?>
-<?php if (empty($email) || empty($_SESSION['hasBasket']))
+<?php if (
+    empty($email)
+    ||
+    empty($_SESSION['hasBasket'])
+    ||
+    empty($_POST['user_id']) // || !empty($_SESSION['user_id'])
+    ||
+    $_SESSION['user_id'] != $_POST['user_id']
+) {
+    if (
+        !empty($_SESSION['user_id']) && !empty($_POST['user_id'])
+        && is_numeric($_POST['user_id'])
+        && $_POST['user_id'] != $_SESSION['user_id']
+    ) {
+        $sql = "UPDATE users set warnings = warnings+1 WHERE user_id = :uid;";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(':uid' => $_SESSION['user_id']));
+        $_SESSION['warning'] = true;
+    }
     header('Location: login.php');
+}
 ?>

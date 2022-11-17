@@ -17,6 +17,9 @@
         <div class="container">
             <div class="row d-flex align-items-center justify-content-center">
                 <?php
+                if (!empty($_SESSION['warning'])) {
+                    echo '<h3 class="lead bg-white text-dark text-center">Be careful with what you <samp class="text-danger">do</samp> on our site...</h3>';
+                }
                 echo <<<Q
             <p class="lead text-white text-center">Logged in as <samp class="text-warning">$user->naam</samp>. You <strong class="text-info">$advertise_word</strong>
                 place advertisements under this account.</p>
