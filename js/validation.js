@@ -55,3 +55,23 @@ if (window.location.href.includes('signup.php')) {
       mForm = document.getElementById('signup').submit();
     });
 }
+if (window.location.href.includes('login.php')) {
+  const validation = new JustValidate('#login');
+  validation
+    .addField('#email', [
+      {
+        rule: 'required',
+      },
+      {
+        rule: 'email',
+      },
+    ])
+    .addField('#password', [
+      {
+        rule: 'required',
+      },
+    ])
+    .onSuccess((event) => {
+      mForm = document.getElementById('login').submit();
+    });
+}

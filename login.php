@@ -10,7 +10,7 @@
   );
   $btnPressed = false;
   // Handles POST requests
-  if (isset($_POST['submit'])) {
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_POST['email'])) {
       $errors['emptyEmail'] = 'Email cannot be left empty.';
     } else if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -57,9 +57,9 @@
               <span class="section-heading-upper">Come On In</span>
               <span class="section-heading-lower">LOG IN</span>
             </h2>
-            <form action=<?= $_SERVER['PHP_SELF'] ?> method="POST">
+            <form name="login" id="login" action=<?= $_SERVER['PHP_SELF'] ?> method="POST">
               <div class="form-floating mb-3">
-                <input value="<?= htmlspecialchars($_POST['email'] ?? '')  ?>" name="email" type="email" class="form-control">
+                <input value="<?= htmlspecialchars($_POST['email'] ?? '')  ?>" name="email" id="email" type="email" class="form-control">
                 <label for="floatingInput">Email address</label>
                 <?php if ($errors['invalidEmail']) : ?>
                   <h5 class="userwarn"><?= $errors['invalidEmail'] ?></h5>
@@ -69,7 +69,7 @@
                 <?php endif; ?>
               </div>
               <div class="form-floating">
-                <input value="<?= htmlspecialchars($_POST['password'] ?? '')  ?>" name="password" type="password" class="form-control">
+                <input value="<?= htmlspecialchars($_POST['password'] ?? '')  ?>" name="password" type="password" id="password" class="form-control">
                 <label for="floatingPassword">Password</label>
                 <?php if ($errors['emptyPwd']) : ?>
                   <h5 class="userwarn"><?= $errors['emptyPwd'] ?></h5>
@@ -78,7 +78,7 @@
                   <h5 class="userwarn"><?= $errors['invalidLogin'] ?></h5>
                 <?php endif; ?>
                 <br>
-                <button value="true" name="submit" class="btn btn-secondary btn-sm">Log In</button>
+                <button value="true" name="msubmit" id="msubmit" class="btn btn-secondary btn-sm">Log In</button>
               </div>
             </form>
             <br>
