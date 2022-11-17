@@ -22,8 +22,8 @@ $errors = array(
     'unexpectedError' => ''
 );
 $btnPressed = false;
-// Handles POST requests
-if (isset($_POST['submit'])) {
+// Server-Side form validation : Handles POST requests
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($_POST['fullName'])) {
         $errors['emptyName'] = 'Name cannot be left empty.';
     } else if (strlen($_POST['fullName']) < 3) {
@@ -104,7 +104,7 @@ if (isset($_POST['submit'])) {
                         <span class="section-heading-upper">Be part of the group</span>
                         <span class="section-heading-lower">SIGN UP</span>
                     </h2>
-                    <form action=<?= $_SERVER['PHP_SELF'] ?> method="POST">
+                    <form id="signup" name="signup" action=<?= $_SERVER['PHP_SELF'] ?> method="POST">
                         <div class="form-floating mb-3">
                             <input value="<?= htmlspecialchars($_POST['fullName'] ?? '')  ?>" id="fullName" name="fullName" type="text" class="form-control">
                             <label for="floatingInput">Full name</label>
@@ -119,7 +119,7 @@ if (isset($_POST['submit'])) {
                             <?php endif; ?>
                         </div>
                         <div class="form-floating mb-3">
-                            <input value="<?= htmlspecialchars($_POST['email'] ?? '')  ?>" name="email" type="email" class="form-control">
+                            <input value="<?= htmlspecialchars($_POST['email'] ?? '')  ?>" name="email" id="email" type="email" class="form-control">
                             <label for="floatingInput">Email address</label>
                             <?php if ($errors['invalidEmail']) : ?>
                                 <h5 class="userwarn"><?= $errors['invalidEmail'] ?></h5>
@@ -132,7 +132,7 @@ if (isset($_POST['submit'])) {
                             <?php endif; ?>
                         </div>
                         <div class="form-floating mb-3">
-                            <input value="<?= htmlspecialchars($_POST['zipcode'] ?? '')  ?>" name="zipcode" type="number" class="form-control">
+                            <input value="<?= htmlspecialchars($_POST['zipcode'] ?? '')  ?>" name="zipcode" id="zipcode" type="text" class="form-control">
                             <label for="floatingInput">Zipcode</label>
                             <?php if ($errors['invalidZipcode']) : ?>
                                 <h5 class="userwarn"><?= $errors['invalidZipcode'] ?></h5>
@@ -153,7 +153,7 @@ if (isset($_POST['submit'])) {
                             <?php endif; ?>
                         </div>
                         <div class="form-floating mb-3">
-                            <input value="<?= htmlspecialchars($_POST['password'] ?? '')  ?>" name="password" type="password" class="form-control">
+                            <input value="<?= htmlspecialchars($_POST['password'] ?? '')  ?>" name="password" id="password" type="password" class="form-control">
                             <label for="floatingPassword">Password</label>
                             <?php if ($errors['emptyPwd']) : ?>
                                 <h5 class="userwarn"><?= $errors['emptyPwd'] ?></h5>
@@ -173,7 +173,7 @@ if (isset($_POST['submit'])) {
 
                         </div>
                         <div class="form-floating">
-                            <input value="<?= htmlspecialchars($_POST['passwordConfirmation'] ?? '')  ?>" name="passwordConfirmation" type="password" class="form-control">
+                            <input value="<?= htmlspecialchars($_POST['passwordConfirmation'] ?? '')  ?>" name="passwordConfirmation" id="passwordConfirmation" type="password" class="form-control">
                             <label for="floatingPassword">Repeat Password</label>
                             <?php if ($errors['emptyPwdConfirmation']) : ?>
                                 <h5 class="userwarn"><?= $errors['emptyPwdConfirmation'] ?></h5>
@@ -190,7 +190,7 @@ if (isset($_POST['submit'])) {
                             <div class="form-check">
                                 <input name="canAdvertise" id="canAdvertise" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
-                                    I want to post my pet for adoption
+                                    I want to post my pet for adoption <strong>(advertisements)</strong>
                                 </label>
                                 <?php if ($errors['invalidCanAdvertise']) : ?>
                                     <h5 class="userwarn"><?= $errors['invalidCanAdvertise'] ?></h5>
@@ -200,7 +200,7 @@ if (isset($_POST['submit'])) {
                                 <?php endif; ?>
                             </div>
                             <br>
-                            <button value="true" name="submit" class="btn btn-secondary btn-sm">Sign Up</button>
+                            <button type="submit" value="true" name="bsubmit" id="bsubmit" class="btn btn-secondary btn-sm">Sign Up</button>
 
                         </div>
                     </form>
