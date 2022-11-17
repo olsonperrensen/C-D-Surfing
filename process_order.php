@@ -84,6 +84,7 @@
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(':u' => $user_id));
     // Redirect 
+    $_SESSION['allowedToCheckout'] = true;
     header('Location: checkout.php');
     ?>
 <?php endif; ?>

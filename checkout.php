@@ -1,5 +1,5 @@
 <?php include_once 'includes/header.php'; ?>
-<?php if (!empty($email)) : ?>
+<?php if (!empty($email) && !empty($_SESSION['allowedToCheckout'])) : ?>
     <script>
         setTimeout(() => {
             document.getElementById('redirecting').innerHTML = 'Redirecting...';
@@ -25,12 +25,15 @@
             </div>
         </div>
     </section>
+    <?php
+    unset($_SESSION['allowedToCheckout']);
+    ?>
     <?php include_once 'includes/footer.php'; ?>
     </body>
 
     </html>
 <?php endif; ?>
-<?php if (empty($email)) {
+<?php if (empty($email) || empty($_SESSION['allowedToCheckout'])) {
     header('Location: login.php');
 }
 ?>
