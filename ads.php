@@ -24,14 +24,6 @@
             alert("Want to post an ad? Contact the admin for extra rights.");
             document.getElementById('addPost').style.display = 'none';
         }
-
-        function addToBasket(btn) {
-            clickedBtn = "#" + btn;
-            let counter = document.getElementById('basketCounter').innerHTML;
-            document.getElementById('basketCounter').innerHTML = parseInt(counter) + 1;
-            $(clickedBtn).attr("disabled", true);
-            $(clickedBtn).text("Added to cart");
-        }
     </script>
     <?php if ($user->can_advertise) : ?>
         <div class="p-3 mb-2 bg-dark text-white">
