@@ -13,6 +13,20 @@ if (window.location.href.includes('signup.php')) {
       {
         rule: 'email',
       },
+      {
+        validator: (value) => () => {
+          // USE AJAX
+          return fetch('validate-email.php?email=' + encodeURIComponent(value))
+            .then((res) => {
+              return res.json();
+            })
+            .then((json) => {
+              return json.vrij;
+            });
+        },
+        errorMessage:
+          'someone already has an account at our site with this email',
+      },
     ])
     .addField('#zipcode', [
       {
