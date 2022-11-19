@@ -89,3 +89,20 @@ if (window.location.href.includes('login.php')) {
       mForm = document.getElementById('login').submit();
     });
 }
+if (window.location.href.includes('ads.php')) {
+  const validation = new JustValidate('#petsearch');
+  validation.addField('#petinput', [
+    {
+      validator: (value) => () => {
+        // USE AJAX
+        return fetch(
+          'validate-pet-search.php?q=' + encodeURIComponent(value)
+        ).then((res) => {
+          document.write(res.json());
+          return res.json();
+        });
+      },
+      errorMessage: 'We do not have breeds like this yet. Come back soon.',
+    },
+  ]);
+}

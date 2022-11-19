@@ -42,6 +42,52 @@
     <section class="">
         <div class="container">
             <div class="row">
+                <form id="petsearch" name="petsearch" action="validate-pet-search.php" method="POST">
+                    <div class="input-group" id="boot-search-box">
+                        <input name="petinput" id="petinput" type="text" class="form-control" placeholder="Type a breed type like: Havana Brown">
+                        <div class="input-group-btn">
+                            <div class="btn-group" role="group">
+                                <div class="dropdown dropdown-lg">
+                                    <button type="button" class="btn btn-default bg-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">⚙️</button>
+                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-group">
+                                                <label for="filter">Narrow the search:</label>
+                                                <select class="form-control">
+                                                    <option value="catalogue" selected="">Whole catalogue</option>
+                                                    <option value="modal">Modal</option>
+                                                    <option value="price">Price</option>
+                                                    <option value="popular">Most Popular</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="contain">Brand:</label>
+                                                <input class="form-control" type="text">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="contain">Category:</label>
+                                                <input class="form-control" type="text">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="password1" class="col-sm-3 control-label">Price Range:</label>
+                                                <div class="col-sm-3">
+                                                    <input type="text" class="form-control" id="max-price" placeholder="Max"> <br><br>
+                                                    <input type="text" class="form-control" id="min-price" placeholder="Min">
+                                                </div>
+                                                <br><br><br><br>
+                                                <button type="submit" class="btn btn-primary btn-block">Search :: <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <button type="button" class="btn btn-success ">🔍</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
                 <?php
                 if (
                     !empty($breed_id)
