@@ -60,8 +60,6 @@
                                 Q;
                         }
                         echo <<<T
-                            <br>
-                            <button value="true" name="msubmit" id="msubmit" class="btn btn-secondary btn-sm">Log In</button>
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
