@@ -18,7 +18,6 @@
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $user = new User($row);
     ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
         function unauth() {
             alert("Want to post an ad? Contact the admin for extra rights.");

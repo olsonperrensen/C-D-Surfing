@@ -77,6 +77,7 @@ if (isset($_SESSION['email'])) {
   <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
   <script defer src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
   <script defer src="./js/validation.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
   <!-- Google fonts-->
   <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
@@ -143,6 +144,10 @@ if (isset($_SESSION['email'])) {
     </div>
   </nav>
   <?php if ($isAdmin && !strpos($_SERVER['REQUEST_URI'], "admin.php")) : ?>
+    <?php if (strpos($_SERVER['REQUEST_URI'], "signup.php")) {
+      header('Location: account.php');
+    }
+    ?>
     <nav class="navbar navbar-expand-lg" id="ADMIN">
       <div class="container">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">

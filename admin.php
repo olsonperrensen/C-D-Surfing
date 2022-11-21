@@ -6,7 +6,7 @@
                     <form #f="ngForm" (ngSubmit)="1" class="example-form mform mAdminContainer">
                         <h1 class="lead">Kies een actie</h1>
                         <div class="container">
-                            <div *ngIf="!wantsToEdit&&!wantsToAdd&&!wantsToPO&&!wantsToGR&&!wantsToSalesRep">
+                            <div id="adminoverview">
                                 <mat-grid-list cols="2" rowHeight="2:1">
                                     <mat-card class="example-card whiteish">
                                         <mat-card-title-group class="whiteish">
@@ -22,10 +22,10 @@
                                         </mat-card-content>
                                         <mat-divider inset></mat-divider>
                                         <mat-card-actions class="whiteish">
-                                            <button class="mbutton" (click)="onUserWantsToEdit()" type="button" mat-raised-button color="accent">Add user</button>
-                                            <button class="mbutton" (click)="onUserWantsToAdd()" type="button" mat-raised-button color="accent">Edit
+                                            <button class="mbutton" type="button" id="adduser" mat-raised-button color="accent"><a href="signup.php">Add user</a></button>
+                                            <button class="mbutton" type="button" id="edituser" mat-raised-button color="accent">Edit
                                                 User</button>
-                                            <button class="mbutton" (click)="onUserWantsToAdd()" type="button" mat-raised-button color="accent">Remove
+                                            <button class="mbutton" id="removeuser" type="button" mat-raised-button color="accent">Remove
                                                 User</button>
                                         </mat-card-actions>
                                         <mat-card-footer>
@@ -46,9 +46,9 @@
                                         </mat-card-content>
                                         <mat-divider inset></mat-divider>
                                         <mat-card-actions class="whiteish">
-                                            <button (click)="onUserWantsToPO()" type="button" class="mbutton" mat-raised-button color="accent">Add breed</button>
-                                            <button (click)="onUserWantsToGR()" type="button" class="mbutton" mat-raised-button color="accent">Edit breed</button>
-                                            <button (click)="onUserWantsToGR()" type="button" class="mbutton" mat-raised-button color="accent">Remove breed</button>
+                                            <button id="addbreed" type="button" class="mbutton" mat-raised-button color="accent">Add breed</button>
+                                            <button id="editbreed" type="button" class="mbutton" mat-raised-button color="accent">Edit breed</button>
+                                            <button id="removebreed" type="button" class="mbutton" mat-raised-button color="accent">Remove breed</button>
                                         </mat-card-actions>
                                         <mat-card-footer>
                                             <mat-progress-bar mode="buffer"></mat-progress-bar>
@@ -69,13 +69,13 @@
                                         </mat-card-content>
                                         <mat-divider inset></mat-divider>
                                         <mat-card-actions class="whiteish">
-                                            <button (click)="onUserWantsToSalesRep()" type="button" class="mbutton" mat-raised-button color="accent">Add ad
+                                            <button id="addad" type="button" class="mbutton" mat-raised-button color="accent">Add ad
 
                                             </button>
-                                            <button (click)="onUserWantsToSalesRep()" type="button" class="mbutton" mat-raised-button color="accent">Edit ad
+                                            <button id="editad" type="button" class="mbutton" mat-raised-button color="accent">Edit ad
 
                                             </button>
-                                            <button (click)="onUserWantsToSalesRep()" type="button" class="mbutton" mat-raised-button color="accent">Delete ad
+                                            <button id="deletead" type="button" class="mbutton" mat-raised-button color="accent">Delete ad
 
                                             </button>
                                         </mat-card-actions>
@@ -85,7 +85,9 @@
                                     </mat-card>
                                 </mat-grid-list>
                             </div>
-                          
+                            <div id="userdiv">
+
+                            </div>
                         </div>
                     </form>
                 </div>
