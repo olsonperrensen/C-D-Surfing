@@ -8,7 +8,7 @@
         $zipcode = htmlspecialchars($_POST['zipcode'], ENT_QUOTES);
         $lookingFor = htmlspecialchars($_POST['looking_for'], ENT_QUOTES);
         $canAdvertise = htmlspecialchars($_POST['can_advertise'], ENT_QUOTES);
-        $isAdmin = htmlspecialchars($_POST['isAdmin'], ENT_QUOTES);
+        $isAdmin_u = htmlspecialchars($_POST['isAdmin'], ENT_QUOTES);
         $warnings = htmlspecialchars($_POST['warnings'], ENT_QUOTES);
         try {
             $sql_u = "UPDATE USERS
@@ -19,7 +19,7 @@
             $stmt_u->execute(array(
                 ':em' => $email,
                 ':uid' => $user_id,
-                ':ia' => $isAdmin,
+                ':ia' => $isAdmin_u,
                 ':z' => $zipcode,
                 ':l' => $lookingFor,
                 ':c' => $canAdvertise,
@@ -28,7 +28,7 @@
             if ($stmt_u->rowCount()) {
                 echo "<p class='lead bg-light text-success text-center'>User $email successfully updated!</p>";
             } else {
-                echo "<p class='bg-light text-center'>No users exist with that ID.</p>";
+                echo "<p class='lead bg-light text-danger text-center'>Error: No users exist with that ID.</p>";
             }
         } catch (PDOException $e) {
             echo "<p class='bg-light text-center'>Something went wrong ($e)</p>";
