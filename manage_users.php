@@ -1,6 +1,36 @@
 <?php include_once 'includes/header.php'; ?>
 <?php if ($isAdmin) : ?>
     <?php include_once "models/User.php" ?>
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $user_id = htmlspecialchars($_POST['user_id'], ENT_QUOTES);
+        $email = htmlspecialchars($_POST['email'], ENT_QUOTES);
+        $zipcode = htmlspecialchars($_POST['zipcode'], ENT_QUOTES);
+        $lookingFor = htmlspecialchars($_POST['looking_for'], ENT_QUOTES);
+        $canAdvertise = htmlspecialchars($_POST['can_advertise'], ENT_QUOTES);
+        $isAdmin = htmlspecialchars($_POST['isAdmin'], ENT_QUOTES);
+        $warnings = htmlspecialchars($_POST['warnings'], ENT_QUOTES);
+        try {
+            $sql = "UPDATE USERS
+            SET email = :em, zipcode = :z, looking_for = :l, can_advertise = :c,
+            isAdmin = :ia, warnings = :w
+            WHERE user_id = :uid";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(
+                ':em' => $email,
+                ':uid' => $user_id,
+                ':ia' => $isAdmin,
+                ':z' => $zipcode,
+                ':l' => $lookingFor,
+                ':c' => $canAdvertise,
+                ':w' => $warnings
+            ));
+            echo "<p class='lead bg-light text-success text-center'>User $email successfully updated!</p>";
+        } catch (PDOException $e) {
+            echo "<p class='bg-light text-center'>Something went wrong ($e)</p>";
+        }
+    }
+    ?>
     <table class="bg-light table table-hover">
         <thead>
             <tr>
@@ -46,7 +76,7 @@
                             if ($key == 'user_id') {
                                 echo <<< Q
                                     <div class="form-floating mb-3">
-                                    <input readonly value="$value" name="$key$user->user_id" id="$key$user->user_id" type="text" class="form-control">
+                                    <input readonly value="$value" name="$key" id="$key$user->user_id" type="text" class="form-control">
                                     <label for="floatingInput">$key</label>
                                     </div>
                                     Q;
@@ -54,7 +84,7 @@
                             }
                             echo <<< Q
                                     <div class="form-floating mb-3">
-                                    <input value="$value" name="$key$user->user_id" id="$key$user->user_id" type="text" class="form-control">
+                                    <input value="$value" name="$key" id="$key$user->user_id" type="text" class="form-control">
                                     <label for="floatingInput">$key</label>
                                     </div>
                                 Q;
