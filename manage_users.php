@@ -70,9 +70,7 @@
                             </form>
                             </div>
                             </div>
-                            D
                             </div>
-                            E
                             </div>
                             T;
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
