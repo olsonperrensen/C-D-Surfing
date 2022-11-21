@@ -1,44 +1,66 @@
 <?php include_once 'includes/header.php'; ?>
 <?php if ($isAdmin) : ?>
     <?php include_once "models/User.php" ?>
-    <table class="bg-light table table-hover">
-        <thead>
-            <tr>
-                <?php
-                $sql = "SELECT user_id,email,zipcode,looking_for,can_advertise,isAdmin,warnings FROM USERS;";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute();
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                if (!empty($row)) {
-                    foreach ($row as $key => $value) {
-                        echo <<<Q
+    <form action="<?= $_SERVER['PHP_SELF'] ?>" method="PUT">
+        <table class="bg-light table table-hover">
+            <thead>
+                <tr>
+                    <?php
+                    $sql = "SELECT user_id,email,zipcode,looking_for,can_advertise,isAdmin,warnings FROM USERS;";
+                    $stmt = $pdo->prepare($sql);
+                    $stmt->execute();
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                    if (!empty($row)) {
+                        foreach ($row as $key => $value) {
+                            echo <<<Q
                 <td>$key</td>
                 Q;
-                    }
-                    echo "</tr></thead><tbody>";
-                    while ($row) {
-                        $user = new User($row);
-                        echo '<tr class="text-black">';
-                        foreach ($row as $key => $value) {
-                            echo <<<T
+                        }
+                        echo "</tr></thead><tbody>";
+                        while ($row) {
+                            $user = new User($row);
+                            echo "<tr id='$user->user_id' class='text-black'>";
+                            foreach ($row as $key => $value) {
+                                echo <<<T
                                 <td>$value</td>
                             T;
-                        }
-                        echo <<<T
+                            }
+                            echo <<<T
                             <td>
-                            <button class="btn btn-warning">✏️</button>
-                            <button class="btn btn-info">❌</button>
+                            <button id='btne$user->user_id' 
+                            data-bs-toggle="modal" data-bs-target="#exampleModal$user->user_id" 
+                            type="button" class="btn btn-warning">✏️</button>
+                            <button id='btnd$user->user_id' class="btn btn-info">❌</button>
                             </td></tr>
+                            <div class="modal fade" id="exampleModal$user->user_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            ...
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+
                             T;
-                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                    }
-                } else {
-                    echo <<<P
+                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                        }
+                    } else {
+                        echo <<<P
                     <p class='bg-light text-center'>You don't have users in your database.</p>
                     P;
-                }
-                ?>
-    </table>
+                    }
+                    ?>
+        </table>
+    </form>
     <?php include_once 'includes/footer.php'; ?>
     </body>
 
