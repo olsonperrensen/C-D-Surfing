@@ -11,12 +11,12 @@
         $isAdmin = htmlspecialchars($_POST['isAdmin'], ENT_QUOTES);
         $warnings = htmlspecialchars($_POST['warnings'], ENT_QUOTES);
         try {
-            $sql = "UPDATE USERS
+            $sql_u = "UPDATE USERS
             SET email = :em, zipcode = :z, looking_for = :l, can_advertise = :c,
             isAdmin = :ia, warnings = :w
             WHERE user_id = :uid";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute(array(
+            $stmt_u = $pdo->prepare($sql_u);
+            $stmt_u->execute(array(
                 ':em' => $email,
                 ':uid' => $user_id,
                 ':ia' => $isAdmin,
@@ -25,7 +25,11 @@
                 ':c' => $canAdvertise,
                 ':w' => $warnings
             ));
-            echo "<p class='lead bg-light text-success text-center'>User $email successfully updated!</p>";
+            if ($stmt_u->rowCount()) {
+                echo "<p class='lead bg-light text-success text-center'>User $email successfully updated!</p>";
+            } else {
+                echo "<p class='bg-light text-center'>No users exist with that ID.</p>";
+            }
         } catch (PDOException $e) {
             echo "<p class='bg-light text-center'>Something went wrong ($e)</p>";
         }
