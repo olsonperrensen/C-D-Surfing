@@ -167,7 +167,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Please <a href="logout.php">log out</a> first and head to the <strong>sign up</strong> page.
+                    Please head to the <strong><a href="signup.php">sign up</a></strong> page.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

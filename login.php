@@ -123,5 +123,12 @@
   </html>
 <?php endif; ?>
 <?php if (!empty($email)) {
+  if ($isAdmin) {
+    echo ("<p class='bg-light text-center'>You are already logged in! <a href='index.php'>Go Back</a> </p>");
+    require_once 'includes/footer.php';
+    echo ("</body>
+    </html>");
+    die();
+  }
   header('Location: account.php');
 }
