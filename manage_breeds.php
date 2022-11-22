@@ -3,6 +3,8 @@
     <?php include_once "models/Breed.php" ?>
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        echo ("TO-DO");
+        die();
         // $user_id = htmlspecialchars($_POST['user_id'], ENT_QUOTES);
         // $email = htmlspecialchars($_POST['email'], ENT_QUOTES);
         // $zipcode = htmlspecialchars($_POST['zipcode'], ENT_QUOTES);
@@ -126,17 +128,28 @@
     <div class="modal fade" id="addBreed" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add breed</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit, officia illo! Fuga vel dolor quibusdam doloremque quisquam harum, ex corrupti aperiam odio hic optio sint sunt quia corporis, asperiores quas.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
+                <form action=<?= $_SERVER['PHP_SELF'] ?> method="POST">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add breed</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <?php
+                        foreach ($breed as $key => $value) {
+                            echo <<< Q
+                        <div class="form-floating mb-3">
+                        <input name="$key" id="$key$breed->breed_id" type="text" class="form-control">
+                        <label for="floatingInput">$key</label>
+                        </div>
+                    Q;
+                        }
+                        ?>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
