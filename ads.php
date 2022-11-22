@@ -23,6 +23,22 @@
             alert("Want to post an ad? Contact the admin for extra rights.");
             document.getElementById('addPost').style.display = 'none';
         }
+
+        $(document).ready(function() {
+            $("#btnFilterPet").click(function() {
+                filtered_res = null;
+                breed_name = $("#petinput").val();
+                fetch(
+                    'validate-pet-search.php?q=' + encodeURIComponent(breed_name)
+                ).then((res) => {
+                    return res.text();
+                }).then((text) => {
+                    console.log(text);
+                    $(".individual-ad").hide();
+                    $("#filteredPets").html(text);
+                })
+            });
+        });
     </script>
     <?php if ($user->can_advertise) : ?>
         <div class="p-3 mb-2 bg-dark text-white">
@@ -41,51 +57,49 @@
     <section class="">
         <div class="container">
             <div class="row">
-                <form id="petsearch" name="petsearch" action="validate-pet-search.php" method="POST">
-                    <div class="input-group" id="boot-search-box">
-                        <input name="petinput" id="petinput" type="text" class="form-control" placeholder="Type a breed type like: Havana Brown">
-                        <div class="input-group-btn">
-                            <div class="btn-group" role="group">
-                                <div class="dropdown dropdown-lg">
-                                    <button type="button" class="btn btn-default bg-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">⚙️</button>
-                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                        <form class="form-horizontal" role="form">
-                                            <div class="form-group">
-                                                <label for="filter">Narrow the search:</label>
-                                                <select class="form-control">
-                                                    <option value="catalogue" selected="">Whole catalogue</option>
-                                                    <option value="modal">Modal</option>
-                                                    <option value="price">Price</option>
-                                                    <option value="popular">Most Popular</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="contain">Brand:</label>
-                                                <input class="form-control" type="text">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="contain">Category:</label>
-                                                <input class="form-control" type="text">
-                                            </div>
+                <div class="input-group" id="boot-search-box">
+                    <input name="petinput" id="petinput" type="text" class="form-control" placeholder="Type a breed type like: Havana Brown, then press 🔍">
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                            <div class="dropdown dropdown-lg">
+                                <button type="button" class="btn btn-default bg-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">⚙️</button>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label for="filter">Narrow the search:</label>
+                                            <select class="form-control">
+                                                <option value="catalogue" selected="">Whole catalogue</option>
+                                                <option value="modal">Modal</option>
+                                                <option value="price">Price</option>
+                                                <option value="popular">Most Popular</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contain">Brand:</label>
+                                            <input class="form-control" type="text">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="contain">Category:</label>
+                                            <input class="form-control" type="text">
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label for="password1" class="col-sm-3 control-label">Price Range:</label>
-                                                <div class="col-sm-3">
-                                                    <input type="text" class="form-control" id="max-price" placeholder="Max"> <br><br>
-                                                    <input type="text" class="form-control" id="min-price" placeholder="Min">
-                                                </div>
-                                                <br><br><br><br>
-                                                <button type="submit" class="btn btn-primary btn-block">Search :: <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-
+                                        <div class="form-group">
+                                            <label for="password1" class="col-sm-3 control-label">Price Range:</label>
+                                            <div class="col-sm-3">
+                                                <input type="text" class="form-control" id="max-price" placeholder="Max"> <br><br>
+                                                <input type="text" class="form-control" id="min-price" placeholder="Min">
                                             </div>
-                                        </form>
-                                    </div>
-                                    <button type="button" class="btn btn-success ">🔍</button>
+                                            <br><br><br><br>
+                                            <button type="submit" class="btn btn-primary btn-block">Search :: <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+
+                                        </div>
+                                    </form>
                                 </div>
+                                <button type="button" id="btnFilterPet" class="btn btn-info">🔍</button>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
 
                 <?php
                 if (
@@ -119,10 +133,11 @@
 
                     G;
                 }
+                echo ("<div id='filteredPets'></div>");
                 while ($row) {
                     $pet = new Pet($row);
                     echo <<<AD
-                    <div class="col-md-6 col-lg-4">
+                    <div class="individual-ad col-md-6 col-lg-4">
                     <div class="card my-3">
                     <div class="card-thumbnail">
                     <div class="text-center"><samp>$pet->days days ago</samp></div>
