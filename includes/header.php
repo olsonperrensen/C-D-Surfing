@@ -162,3 +162,18 @@ if (isset($_SESSION['email'])) {
       </div>
     </nav>
   <?php endif; ?>
+  <?php if ($isAdmin && strpos($_SERVER['REQUEST_URI'], "manage_users.php")) : ?>
+    <nav class="navbar navbar-expand-lg" id="ADDUSER">
+      <div class="container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item px-lg-4">
+              <a data-bs-toggle="modal" data-bs-target="#addUser" class="nav-link text-uppercase text-white" href="#">
+                <strong>Add User</strong>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  <?php endif; ?>
