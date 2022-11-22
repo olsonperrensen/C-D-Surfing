@@ -33,9 +33,12 @@
                 ).then((res) => {
                     return res.text();
                 }).then((text) => {
-                    console.log(text);
                     $(".individual-ad").hide();
-                    $("#filteredPets").html(text);
+                    if (text.startsWith('<div class="individual-ad')) {
+                        $("#filteredPets").html(text);
+                    } else {
+                        $("#filteredPets").html("<p class='bg-light text-center'>No results were found.</p>");
+                    }
                 })
             });
         });
