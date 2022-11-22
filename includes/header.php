@@ -173,3 +173,18 @@ if (isset($_SESSION['email'])) {
       </div>
     </nav>
   <?php endif; ?>
+  <?php if ($isAdmin && strpos($_SERVER['REQUEST_URI'], "manage_breeds.php")) : ?>
+    <nav class="navbar navbar-expand-lg" id="ADDBREED">
+      <div class="container">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item px-lg-4">
+              <a data-bs-toggle="modal" data-bs-target="#addBreed" class="nav-link text-uppercase text-white" href="#">
+                <strong>Add Breed</strong>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  <?php endif; ?>
