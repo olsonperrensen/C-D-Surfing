@@ -35,6 +35,25 @@
         }
     }
     ?>
+    <script>
+        function resetPwd(user_id) {
+            fetch("reset_password.php", {
+                // Defining method type as POST
+                method: 'POST',
+                // Fetch knows, what type of data are we dealing with
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // Data needs to be parsed into JSON
+                body: JSON.stringify({
+                    user_id: user_id,
+                })
+            }).then(res => {
+                return res.json()
+            }).then(data => console.log(data));
+
+        }
+    </script>
     <table class="bg-light table table-hover">
         <thead>
             <tr>
@@ -71,7 +90,7 @@
                             <div class="modal-content">
                             <form name="edit$user->user_id" id="edit$user->user_id" action="$self" method="POST">
                             <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit user</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -96,6 +115,9 @@
                         echo <<<T
                             </div>
                             <div class="modal-footer">
+                            <button type="button" class="btn btn-muted" data-bs-toggle="modal" data-bs-target="#reset$user->user_id">
+                            Reset password
+                            </button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
@@ -105,6 +127,27 @@
                             </div>
                             </div>
                             T;
+                        echo <<< TT
+                            <!-- Modal -->
+                            <div class="modal fade" id="reset$user->user_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Reset password</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            This will reset $user->email's password to '<strong>Lab2021</strong>'<hr>
+                            Are you sure you want to proceed?
+                            </div>
+                            <div class="modal-footer">
+                            <button onclick="resetPwd($user->user_id)" type="button" class="btn btn-primary">Confirm</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                            </div>
+                            </div>
+                            </div>                        
+                            TT;
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     }
                 } else {

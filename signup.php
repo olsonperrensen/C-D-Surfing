@@ -107,7 +107,7 @@
                         </h2>
                         <form id="signup" name="signup" action=<?= $_SERVER['PHP_SELF'] ?> method="POST">
                             <div class="form-floating mb-3">
-                                <input value="<?= htmlspecialchars($_POST['fullName'] ?? '')  ?>" id="fullName" name="fullName" type="text" class="form-control">
+                                <input value="<?= htmlspecialchars($_POST['fullName'] ?? '', ENT_QUOTES)  ?>" id="fullName" name="fullName" type="text" class="form-control">
                                 <label for="floatingInput">Full name</label>
                                 <?php if ($errors['emptyName']) : ?>
                                     <h5 class="userwarn"><?= $errors['emptyName'] ?></h5>
@@ -120,7 +120,7 @@
                                 <?php endif; ?>
                             </div>
                             <div class="form-floating mb-3">
-                                <input value="<?= htmlspecialchars($_POST['email'] ?? '')  ?>" name="email" id="email" type="email" class="form-control">
+                                <input value="<?= htmlspecialchars($_POST['email'] ?? '', ENT_QUOTES)  ?>" name="email" id="email" type="email" class="form-control">
                                 <label for="floatingInput">Email address</label>
                                 <?php if ($errors['invalidEmail']) : ?>
                                     <h5 class="userwarn"><?= $errors['invalidEmail'] ?></h5>
@@ -133,7 +133,7 @@
                                 <?php endif; ?>
                             </div>
                             <div class="form-floating mb-3">
-                                <input value="<?= htmlspecialchars($_POST['zipcode'] ?? '')  ?>" name="zipcode" id="zipcode" type="text" class="form-control">
+                                <input value="<?= htmlspecialchars($_POST['zipcode'] ?? '', ENT_QUOTES)  ?>" name="zipcode" id="zipcode" type="text" class="form-control">
                                 <label for="floatingInput">Zipcode</label>
                                 <?php if ($errors['invalidZipcode']) : ?>
                                     <h5 class="userwarn"><?= $errors['invalidZipcode'] ?></h5>
@@ -145,16 +145,19 @@
                             <div class="form-floating mb-3">
                                 <select name="lookingFor" id="lookingFor" class="form-select" aria-label="Default select example">
                                     <option value="">I am looking for ...</option>
-                                    <option value="Cat">Cats</option>
-                                    <option value="Dog">Dogs</option>
-                                    <option value="None">None</option>
+                                    <option <?= htmlspecialchars($_POST['lookingFor'] ?? '', ENT_QUOTES) === 'Cat'
+                                                ? 'selected' : '' ?> value="Cat">Cats</option>
+                                    <option <?= htmlspecialchars($_POST['lookingFor'] ?? '', ENT_QUOTES) === 'Dog'
+                                                ? 'selected' : '' ?> value="Dog">Dogs</option>
+                                    <option <?= htmlspecialchars($_POST['lookingFor'] ?? '', ENT_QUOTES) === 'None'
+                                                ? 'selected' : '' ?> value="None">None</option>
                                 </select>
                                 <?php if ($errors['invalidLookingFor']) : ?>
                                     <h5 class="userwarn"><?= $errors['invalidLookingFor'] ?></h5>
                                 <?php endif; ?>
                             </div>
                             <div class="form-floating mb-3">
-                                <input value="<?= htmlspecialchars($_POST['password'] ?? '')  ?>" name="password" id="password" type="password" class="form-control">
+                                <input value="<?= htmlspecialchars($_POST['password'] ?? '', ENT_QUOTES)  ?>" name="password" id="password" type="password" class="form-control">
                                 <label for="floatingPassword">Password</label>
                                 <?php if ($errors['emptyPwd']) : ?>
                                     <h5 class="userwarn"><?= $errors['emptyPwd'] ?></h5>
@@ -174,7 +177,7 @@
 
                             </div>
                             <div class="form-floating">
-                                <input value="<?= htmlspecialchars($_POST['passwordConfirmation'] ?? '')  ?>" name="passwordConfirmation" id="passwordConfirmation" type="password" class="form-control">
+                                <input value="<?= htmlspecialchars($_POST['passwordConfirmation'] ?? '', ENT_QUOTES)  ?>" name="passwordConfirmation" id="passwordConfirmation" type="password" class="form-control">
                                 <label for="floatingPassword">Repeat Password</label>
                                 <?php if ($errors['emptyPwdConfirmation']) : ?>
                                     <h5 class="userwarn"><?= $errors['emptyPwdConfirmation'] ?></h5>
@@ -189,7 +192,8 @@
                             </div>
                             <div class="form-floating mb-3">
                                 <div class="form-check">
-                                    <input name="canAdvertise" id="canAdvertise" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault">
+                                    <input <?= htmlspecialchars($_POST['canAdvertise'] ?? '', ENT_QUOTES)
+                                                ? 'checked' : '' ?> name="canAdvertise" id="canAdvertise" class="form-check-input" type="checkbox" value="1" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
                                         I want to post my pet for adoption <strong>(advertisements)</strong>
                                     </label>
