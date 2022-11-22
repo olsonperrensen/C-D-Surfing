@@ -1,5 +1,5 @@
 <?php include_once 'includes/header.php'; ?>
-<?php if (empty($email)) : ?>
+<?php if (empty($email) || $isAdmin) : ?>
     <?php require_once 'pdo.php' ?>
     <?php
     $errors = array(
@@ -225,6 +225,6 @@
     </section>
     <?php include_once 'includes/footer.php'; ?>
 <?php endif; ?>
-<?php if (!empty($email)) {
+<?php if (!empty($email) && $isAdmin !== 1) {
     header('Location: account.php');
 }

@@ -144,10 +144,6 @@ if (isset($_SESSION['email'])) {
     </div>
   </nav>
   <?php if ($isAdmin && !strpos($_SERVER['REQUEST_URI'], "admin.php")) : ?>
-    <?php if (strpos($_SERVER['REQUEST_URI'], "signup.php")) {
-      header('Location: account.php');
-    }
-    ?>
     <nav class="navbar navbar-expand-lg" id="ADMIN">
       <div class="container">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
