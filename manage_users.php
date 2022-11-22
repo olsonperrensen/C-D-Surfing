@@ -46,7 +46,7 @@
                 },
                 // Data needs to be parsed into JSON
                 body: JSON.stringify({
-                    user_id: user_id,
+                    user_id: user_id
                 })
             }).then(res => {
                 return res.json()
