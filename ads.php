@@ -64,7 +64,6 @@
         $(document).ready(function() {
             $("#formAdvanced").hide();
             $("#btnFilterPet").click(function() {
-                filtered_res = null;
                 breed_name = $("#petinput").val();
                 fetch(
                     'validate-pet-search.php?q=' + encodeURIComponent(breed_name)
@@ -77,6 +76,8 @@
                     } else {
                         $("#filteredPets").html("<p class='bg-light text-center'>No results were found.</p>");
                     }
+                    $('#filteredPets').contents().unwrap();
+                    $('#adRow').append('<div id="filteredPets"></div>');
                 })
             });
             $("#btnAdvanced").click(() => {
@@ -109,7 +110,7 @@
     <?php endif; ?>
     <section class="">
         <div class="container">
-            <div class="row">
+            <div id='adRow' class="row">
                 <div class="input-group" id="boot-search-box">
                     <input name="petinput" id="petinput" type="text" class="form-control" placeholder="Type a breed type like: Havana Brown, then press 🔍">
                     <div class="input-group-btn">
