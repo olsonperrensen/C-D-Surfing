@@ -46,10 +46,21 @@
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                $table_attributes = array('breed_id', 'name');
+                $table_attributes = array('breed_id', 'name', 'isFeline', 'origin', 'length');
                 if (!empty($row)) {
                     foreach ($row as $key => $value) {
                         if (!in_array($key, $table_attributes)) {
+                            continue;
+                        }
+                        if ($key == 'isFeline') {
+                            echo <<<Q
+                            <td>Animal</td>
+                            Q;
+                            continue;
+                        } else if ($key == 'name') {
+                            echo <<<Q
+                            <td>Breed</td>
+                            Q;
                             continue;
                         }
                         echo <<<Q
@@ -62,6 +73,19 @@
                         echo "<tr id='$breed->breed_id' class='text-black'>";
                         foreach ($row as $key => $value) {
                             if (!in_array($key, $table_attributes)) {
+                                continue;
+                            }
+                            if ($key == 'isFeline') {
+                                if ($value == '1') {
+                                    echo <<<T
+                                <td>Cat</td>
+                            T;
+                                } else { {
+                                        echo <<<T
+                                    <td>Dog</td>
+                                T;
+                                    }
+                                }
                                 continue;
                             }
                             echo <<<T
