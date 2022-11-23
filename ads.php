@@ -20,6 +20,8 @@
     $user = new User($row);
     ?>
     <script>
+        counter = 0;
+
         function unauth() {
             alert("Want to post an ad? Contact the admin for extra rights.");
             document.getElementById('addPost').style.display = 'none';
@@ -44,7 +46,16 @@
                 })
             });
             $("#btnAdvanced").click(() => {
+                if (counter % 2 == 0) {
+                    $("#petinput").val("");
+                    $("#petinput").prop('disabled', true).prop('placeholder', "Use filters below");
+                    $("#btnFilterPet").prop('disabled', true);
+                } else {
+                    $("#petinput").prop('disabled', false).prop('placeholder', "Type a breed type like: Havana Brown, then press 🔍");
+                    $("#btnFilterPet").prop('disabled', false);
+                }
                 $("#formAdvanced").toggle();
+                counter++;
             })
         });
     </script>
@@ -77,6 +88,30 @@
                     </div>
                 </div>
                 <form id="formAdvanced" class="bg-white p-4">
+                    <div class="form-check form-check-inline">
+                        <label for="breed" class="form-label">Breed</label>
+                        <select name="breed" id="breed">
+                            <?php
+                            $breed_types = array();
+                            $sql = "select name from breeds;";
+                            $stmt = $pdo->prepare($sql);
+                            $stmt->execute();
+                            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                            while ($row) {
+                                $pet = new Pet($row);
+                                if (!in_array($pet->name, $breed_types)) {
+                                    array_push($breed_types, $pet->name);
+                                }
+                                $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                            }
+                            foreach ($breed_types as $key => $value) {
+                                echo <<<COLOR
+                                    <option value="$value">$value</option>
+                                    COLOR;
+                            }
+                            ?>
+                        </select>
+                    </div>
                     <div class="form-check form-check-inline">
                         <label for="gender" class="form-label">Gender</label>
                         <select name="gender" id="gender">
@@ -163,6 +198,7 @@
                     G;
                 }
                 echo ("<div id='filteredPets'></div>");
+
                 while ($row) {
                     $pet = new Pet($row);
                     echo <<<AD
@@ -266,6 +302,9 @@
                     </script>
     
                     ADD;
+                    if (!in_array($pet->bname, $breed_types)) {
+                        array_push($breed_types, $pet->bname);
+                    }
                     $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 }
                 ?>
