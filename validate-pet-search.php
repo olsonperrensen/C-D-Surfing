@@ -117,6 +117,20 @@ if (
                     ADD;
         $row_ps = $stmt_ps->fetch(PDO::FETCH_ASSOC);
     }
+} else if (
+    $_SESSION['email'] &&
+    !empty(htmlspecialchars($_GET['breed'], ENT_QUOTES)) &&
+    !empty(htmlspecialchars($_GET['gender'], ENT_QUOTES)) &&
+    !empty(htmlspecialchars($_GET['minAge'], ENT_QUOTES)) &&
+    is_numeric(htmlspecialchars($_GET['minAge'], ENT_QUOTES)) &&
+    !empty(htmlspecialchars($_GET['maxAge'], ENT_QUOTES)) &&
+    is_numeric(htmlspecialchars($_GET['maxAge'], ENT_QUOTES)) &&
+    !empty(htmlspecialchars($_GET['size'], ENT_QUOTES)) &&
+    !empty(htmlspecialchars($_GET['color'], ENT_QUOTES)) &&
+    !empty(htmlspecialchars($_GET['healthcare'], ENT_QUOTES)) &&
+    is_numeric(htmlspecialchars($_GET['healthcare'], ENT_QUOTES))
+) {
+    echo "HI";
 } else {
     header('Location: index.php');
 }

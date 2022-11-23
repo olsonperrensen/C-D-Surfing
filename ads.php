@@ -4,6 +4,40 @@
     <?php include_once "models/Pet.php" ?>
     <?php include_once "models/User.php" ?>
     <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // $user_id = htmlspecialchars($_POST['user_id'], ENT_QUOTES);
+        // $email = htmlspecialchars($_POST['email'], ENT_QUOTES);
+        // $zipcode = htmlspecialchars($_POST['zipcode'], ENT_QUOTES);
+        // $lookingFor = htmlspecialchars($_POST['looking_for'], ENT_QUOTES);
+        // $canAdvertise = htmlspecialchars($_POST['can_advertise'], ENT_QUOTES);
+        // $isAdmin_u = htmlspecialchars($_POST['isAdmin'], ENT_QUOTES);
+        // $warnings = htmlspecialchars($_POST['warnings'], ENT_QUOTES);
+        // try {
+        //     $sql_u = "UPDATE USERS
+        //     SET email = :em, zipcode = :z, looking_for = :l, can_advertise = :c,
+        //     isAdmin = :ia, warnings = :w
+        //     WHERE user_id = :uid";
+        //     $stmt_u = $pdo->prepare($sql_u);
+        //     $stmt_u->execute(array(
+        //         ':em' => $email,
+        //         ':uid' => $user_id,
+        //         ':ia' => $isAdmin_u,
+        //         ':z' => $zipcode,
+        //         ':l' => $lookingFor,
+        //         ':c' => $canAdvertise,
+        //         ':w' => $warnings
+        //     ));
+        //     if ($stmt_u->rowCount()) {
+        //         echo "<p class='lead bg-light text-success text-center'>User $email successfully updated!</p>";
+        //     } else {
+        //         echo "<p class='lead bg-light text-danger text-center'>Error: No users exist with that ID.</p>";
+        //     }
+        // } catch (PDOException $e) {
+        //     echo "<p class='bg-light text-center'>Something went wrong ($e)</p>";
+        // }
+    }
+    ?>
+    <?php
     $breed_colors = ['Blue', 'Chestnut', 'Light', 'Silver', 'Beige', 'Red', 'Gold', 'Black', 'Brown', 'Yellow', 'Tan', 'Wheaten', 'White', 'Dark', 'Gray', 'Cream', 'Rust', 'Lilac', 'Apricot', 'Orange', 'Fawn'];
     if (
         !empty($_GET['q'])
@@ -87,7 +121,7 @@
                         </div>
                     </div>
                 </div>
-                <form id="formAdvanced" class="bg-white p-4">
+                <form action=<?= $_SERVER['PHP_SELF'] ?> method="POST" id="formAdvanced" class="bg-white p-4">
                     <div class="form-check form-check-inline">
                         <label for="breed" class="form-label">Breed</label>
                         <select name="breed" id="breed">
@@ -120,10 +154,22 @@
                         </select>
                     </div>
                     <div class="form-check form-check-inline">
-                        <label for="gender" class="form-label">Age</label>
-                        <select name="age" id="age">
+                        <label for="minAge" class="form-label">Min Age</label>
+                        <select name="minAge" id="minAge">
                             <?php
-                            for ($i = 0; $i < 22; $i++) {
+                            for ($i = 1; $i <= 22; $i++) {
+                                echo <<<AGE
+                                <option value="$i">$i</option>
+                                AGE;
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label for="maxAge" class="form-label">Max Age</label>
+                        <select name="maxAge" id="maxAge">
+                            <?php
+                            for ($i = 1; $i <= 22; $i++) {
                                 echo <<<AGE
                                 <option value="$i">$i</option>
                                 AGE;
@@ -162,7 +208,7 @@
                     </div>
 
                     <div class="d-grid gap-2">
-                        <button class="btn btn-primary" type="button">Search</button>
+                        <button type="submit" value="true" name="btnAdvancedSubmit" id="btnAdvancedSubmit" class="btn btn-primary">Search</button>
                     </div>
                 </form>
                 <?php
