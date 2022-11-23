@@ -132,7 +132,6 @@ if (window.location.href.includes('ads.php')) {
           return res.text();
         })
         .then((text) => {
-          alert(text);
           $('.individual-ad').hide();
           if (text.startsWith('<div class="individual-ad')) {
             $('#filteredPets').html(text);

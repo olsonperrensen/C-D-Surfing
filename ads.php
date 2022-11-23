@@ -125,6 +125,7 @@
                     <div class="form-check form-check-inline">
                         <label for="breed" class="form-label">Breed</label>
                         <select name="breed" id="breed">
+                            <option value="Choose" selected>Choose</option>
                             <?php
                             $breed_types = array();
                             $sql = "select name from breeds;";
@@ -149,6 +150,7 @@
                     <div class="form-check form-check-inline">
                         <label for="gender" class="form-label">Gender</label>
                         <select name="gender" id="gender">
+                            <option value="Choose" selected>Choose</option>
                             <option value="Male">Male</option>
                             <option value="female">Female</option>
                         </select>
@@ -169,17 +171,19 @@
                         <label for="maxAge" class="form-label">Max Age</label>
                         <select name="maxAge" id="maxAge">
                             <?php
-                            for ($i = 1; $i <= 22; $i++) {
+                            for ($i = 1; $i <= 21; $i++) {
                                 echo <<<AGE
                                 <option value="$i">$i</option>
                                 AGE;
                             }
                             ?>
+                            <option selected value="22">22</option>
                         </select>
                     </div>
                     <div class="form-check form-check-inline">
                         <label for="size" class="form-label">Size</label>
                         <select name="size" id="size">
+                            <option value="Choose" selected>Choose</option>
                             <option value="Small">Small</option>
                             <option value="Medium">Medium</option>
                             <option value="Large">Large</option>
@@ -188,6 +192,7 @@
                     <div class="form-check form-check-inline">
                         <label for="color" class="form-label">Color</label>
                         <select name="color" id="color">
+                            <option value="Choose" selected>Choose</option>
                             <?php
                             foreach ($breed_colors as $key => $value) {
                                 echo <<<COLOR
@@ -200,6 +205,7 @@
                     <div class="form-check form-check-inline">
                         <label for="healthcare" class="form-label">Healthcare</label>
                         <select name="healthcare" id="healthcare">
+                            <option value="Choose" selected>Choose</option>
                             <option value="4">Free</option>
                             <option value="5">Basic Care</option>
                             <option value="6">Complete Care</option>
