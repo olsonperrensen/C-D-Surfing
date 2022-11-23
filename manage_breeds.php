@@ -3,7 +3,7 @@
     <?php include_once "models/Breed.php" ?>
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        echo ("TO-DO");
+        echo ("<h1 class='lead bg-white text-danger text-xl-center'>TO-DO</h1>");
         die();
         // $user_id = htmlspecialchars($_POST['user_id'], ENT_QUOTES);
         // $email = htmlspecialchars($_POST['email'], ENT_QUOTES);
