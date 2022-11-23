@@ -8,7 +8,7 @@
     $stmt->execute(array(':em' => $email));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     $user = new User($row);
-    if (empty($user->can_advertise)) {
+    if (empty($user->can_advertise) && !$isAdmin) {
         header('Location: account.php');
         die();
     }
