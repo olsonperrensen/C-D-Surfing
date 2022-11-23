@@ -149,7 +149,7 @@ if (
                     join users u on p.owner_id =u.user_id
                     join breeds b on p.breed_id= b.breed_id
                     where b.name LIKE :b
-                    and gender LIKE :g
+                    and gender = :g
                     and age BETWEEN :mi AND :ma
                     and size LIKE :s
                     and color LIKE :c
@@ -158,7 +158,7 @@ if (
     $stmt_ps = $pdo->prepare($sql_ps);
     $stmt_ps->execute(array(
         ':b' => "%$breed%",
-        ':g' => "%$gender%",
+        ':g' => "$gender",
         ':ma' => $maxAge ?? 99,
         ':mi' => $minAge ?? 0,
         ':s' => "%$size%",
