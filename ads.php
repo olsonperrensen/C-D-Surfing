@@ -154,7 +154,7 @@
                     <a class="list-group-item list-group-item-action" id="list-profile-list$pet->pet_id" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Story</a>
                     <a class="list-group-item list-group-item-action" id="list-messages-list$pet->pet_id" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Diet</a>
                     <a class="list-group-item list-group-item-action" id="list-settings-list$pet->pet_id" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Location</a>
-                    <a class="btn text-white bg-success list-group-item list-group-item-action" id="list-adopt-list$pet->pet_id" data-bs-toggle="list" href="ads.php?adopted_pet=$pet->pet_id" role="tab" aria-controls="list-settings">Adopt me</a>
+                    <a class="btn text-white bg-success list-group-item list-group-item-action" id="list-adopt-list$pet->pet_id" href="ads.php?adopted_pet=$pet->pet_id">Adopt me</a>
                     AD;
                 ?>
                     <?php if ($errors['taken'] == $pet->pet_id) : ?>
