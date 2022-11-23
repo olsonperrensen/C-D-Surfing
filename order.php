@@ -32,7 +32,11 @@
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col">
-                    <p><span class="h2">Shopping Cart </span><span class="h4">(<?= $basketCounter ?? 0 ?> in your cart)</span></p>
+                    <p>
+                        <span class="h2">Shopping Cart </span>
+                        <span class="h4">(<?= $basketCounter ?? 0 ?> in your cart)</span>
+                        <span class="h6 float-end"><a class="text-decoration-none text-white" href=<?= "remove.php?user_id=$user_id" ?>>Clear basket</a></span>
+                    </p>
                     <?php
                     $petid = 0;
                     while ($row) {
