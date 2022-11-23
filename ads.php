@@ -4,6 +4,7 @@
     <?php include_once "models/Pet.php" ?>
     <?php include_once "models/User.php" ?>
     <?php
+    $breed_colors = ['Blue', 'Chestnut', 'Light', 'Silver', 'Beige', 'Red', 'Gold', 'Black', 'Brown', 'Yellow', 'Tan', 'Wheaten', 'White', 'Dark', 'Gray', 'Cream', 'Rust', 'Lilac', 'Apricot', 'Orange', 'Fawn'];
     if (
         !empty($_GET['q'])
         && is_numeric($_GET['q'])
@@ -25,6 +26,7 @@
         }
 
         $(document).ready(function() {
+            $("#formAdvanced").hide();
             $("#btnFilterPet").click(function() {
                 filtered_res = null;
                 breed_name = $("#petinput").val();
@@ -41,6 +43,9 @@
                     }
                 })
             });
+            $("#btnAdvanced").click(() => {
+                $("#formAdvanced").toggle();
+            })
         });
     </script>
     <?php if ($user->can_advertise) : ?>
@@ -65,45 +70,66 @@
                     <div class="input-group-btn">
                         <div class="btn-group" role="group">
                             <div class="dropdown dropdown-lg">
-                                <button type="button" class="btn btn-default bg-warning dropdown-toggle" data-toggle="dropdown" aria-expanded="false">⚙️</button>
-                                <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                    <form class="form-horizontal" role="form">
-                                        <div class="form-group">
-                                            <label for="filter">Narrow the search:</label>
-                                            <select class="form-control">
-                                                <option value="catalogue" selected="">Whole catalogue</option>
-                                                <option value="modal">Modal</option>
-                                                <option value="price">Price</option>
-                                                <option value="popular">Most Popular</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="contain">Brand:</label>
-                                            <input class="form-control" type="text">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="contain">Category:</label>
-                                            <input class="form-control" type="text">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="password1" class="col-sm-3 control-label">Price Range:</label>
-                                            <div class="col-sm-3">
-                                                <input type="text" class="form-control" id="max-price" placeholder="Max"> <br><br>
-                                                <input type="text" class="form-control" id="min-price" placeholder="Min">
-                                            </div>
-                                            <br><br><br><br>
-                                            <button type="submit" class="btn btn-primary btn-block">Search :: <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-
-                                        </div>
-                                    </form>
-                                </div>
+                                <button id="btnAdvanced" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">⚙️</button>
                                 <button type="button" id="btnFilterPet" class="btn btn-info">🔍</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <form id="formAdvanced" class="bg-white p-4">
+                    <div class="form-check form-check-inline">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select name="gender" id="gender">
+                            <option value="Male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label for="gender" class="form-label">Age</label>
+                        <select name="age" id="age">
+                            <?php
+                            for ($i = 0; $i < 22; $i++) {
+                                echo <<<AGE
+                                <option value="$i">$i</option>
+                                AGE;
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label for="size" class="form-label">Size</label>
+                        <select name="size" id="size">
+                            <option value="Small">Small</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Large">Large</option>
+                        </select>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label for="color" class="form-label">Color</label>
+                        <select name="color" id="color">
+                            <?php
+                            foreach ($breed_colors as $key => $value) {
+                                echo <<<COLOR
+                            <option value="$value">$value</option>
+                            COLOR;
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label for="healthcare" class="form-label">Healthcare</label>
+                        <select name="healthcare" id="healthcare">
+                            <option value="4">Free</option>
+                            <option value="5">Basic Care</option>
+                            <option value="6">Complete Care</option>
+                            <option value="7">Complete Care Plus</option>
+                        </select>
+                    </div>
 
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-primary" type="button">Search</button>
+                    </div>
+                </form>
                 <?php
                 if (
                     !empty($breed_id)
