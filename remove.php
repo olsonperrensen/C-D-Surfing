@@ -9,6 +9,7 @@ if (!empty($_GET['pet_id']) && is_numeric($_GET['pet_id'])) {
     } catch (PDOException $e) {
     }
     header("Location: order.php");
+    die();
 }
 if (!empty($_GET['user_id']) && is_numeric($_GET['user_id'])) {
     session_start();
