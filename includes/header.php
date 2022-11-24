@@ -1,3 +1,4 @@
+<?php include_once 'log.php'; ?>
 <?php include_once 'pdo.php'; ?>
 <?php include_once './models/Basket.php'; ?>
 <?php
