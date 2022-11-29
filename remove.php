@@ -22,7 +22,7 @@ if (!empty($_GET['breed_id']) && is_numeric($_GET['breed_id'])) {
             $stmt->execute(array(':bid' => $bid));
         } catch (PDOException $e) {
         }
-        header("Location: manage_users.php");
+        header("Location: manage_breeds.php");
     }
     die();
 }
