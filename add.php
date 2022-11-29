@@ -131,7 +131,8 @@
                             <p class="mb-0">
                                 <small><em>We will make sure our staff personally takes care of the matter A.S.A.P.</em></small>
                                 <br />
-                            <p class="lead">In the meantime, you can check your new pets <a href="user_pets.php">here</a>!</p>
+                            <p class="lead">In the meantime, you can check your new pets <a href="user_pets.php">here</a>
+                                and the public advertisements <a href="ads.php">here</a> as well.</p>
                             </p>
                         </div>
                     </div>
