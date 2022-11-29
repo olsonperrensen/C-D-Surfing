@@ -26,6 +26,22 @@ if (!empty($_GET['breed_id']) && is_numeric($_GET['breed_id'])) {
     }
     die();
 }
+if (!empty($_GET['ad_id']) && is_numeric($_GET['ad_id'])) {
+    session_start();
+    $isAdmin = $_SESSION['isAdmin'];
+    if ($isAdmin) {
+        try {
+            $pid = htmlspecialchars($_GET['ad_id'], ENT_QUOTES);
+            $sql = "DELETE FROM ads WHERE pet_id = :pid";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(':pid' => $pid));
+        } catch (PDOException $e) {
+            var_dump($e);
+        }
+        header("Location: manage_ads.php");
+    }
+    die();
+}
 if (!empty($_GET['user_id']) && is_numeric($_GET['user_id'])) {
     try {
         $uid = htmlspecialchars($_GET['user_id'], ENT_QUOTES);

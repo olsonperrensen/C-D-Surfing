@@ -77,7 +77,7 @@
                             <button id='btne$ad->pet_id' 
                             data-bs-toggle="modal" data-bs-target="#exampleModal$ad->pet_id" 
                             type="button" class="btn btn-warning">✏️</button>
-                            <button id='btnd$ad->pet_id' class="btn btn-info"><a href="remove.php?breed_id=$ad->pet_id">❌</a></button>
+                            <button id='btnd$ad->pet_id' class="btn btn-info"><a href="remove.php?ad_id=$ad->pet_id">❌</a></button>
                             </td></tr>
                             <div class="modal fade" id="exampleModal$ad->pet_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
