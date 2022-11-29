@@ -70,11 +70,12 @@
                 ).then((res) => {
                     return res.text();
                 }).then((text) => {
-                    $(".individual-ad").hide();
+                    $(".individual-ad").remove();
+                    $("p.noresults").remove();
                     if (text.startsWith('<div class="individual-ad')) {
                         $("#filteredPets").html(text);
                     } else {
-                        $("#filteredPets").html("<p class='bg-light text-center'>No results were found.</p>");
+                        $("#filteredPets").html("<p class='bg-light noresults text-center'>No results were found.</p>");
                     }
                     $('#filteredPets').contents().unwrap();
                     $('#adRow').append('<div id="filteredPets"></div>');
