@@ -3,38 +3,118 @@
     <?php include_once "models/Breed.php" ?>
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        echo ("<h1 class='lead bg-white text-danger text-xl-center'>TO-DO</h1>");
-        die();
-        // $user_id = htmlspecialchars($_POST['user_id'], ENT_QUOTES);
-        // $email = htmlspecialchars($_POST['email'], ENT_QUOTES);
-        // $zipcode = htmlspecialchars($_POST['zipcode'], ENT_QUOTES);
-        // $lookingFor = htmlspecialchars($_POST['looking_for'], ENT_QUOTES);
-        // $canAdvertise = htmlspecialchars($_POST['can_advertise'], ENT_QUOTES);
-        // $isAdmin_u = htmlspecialchars($_POST['isAdmin'], ENT_QUOTES);
-        // $warnings = htmlspecialchars($_POST['warnings'], ENT_QUOTES);
-        // try {
-        //     $sql_u = "UPDATE USERS
-        //     SET email = :em, zipcode = :z, looking_for = :l, can_advertise = :c,
-        //     isAdmin = :ia, warnings = :w
-        //     WHERE user_id = :uid";
-        //     $stmt_u = $pdo->prepare($sql_u);
-        //     $stmt_u->execute(array(
-        //         ':em' => $email,
-        //         ':uid' => $user_id,
-        //         ':ia' => $isAdmin_u,
-        //         ':z' => $zipcode,
-        //         ':l' => $lookingFor,
-        //         ':c' => $canAdvertise,
-        //         ':w' => $warnings
-        //     ));
-        //     if ($stmt_u->rowCount()) {
-        //         echo "<p class='lead bg-light text-success text-center'>User $email successfully updated!</p>";
-        //     } else {
-        //         echo "<p class='lead bg-light text-danger text-center'>Error: No users exist with that ID.</p>";
-        //     }
-        // } catch (PDOException $e) {
-        //     echo "<p class='bg-light text-center'>Something went wrong ($e)</p>";
-        // }
+        $breed_id = htmlspecialchars($_POST['breed_id'], ENT_QUOTES);
+        $isFeline = htmlspecialchars($_POST['isFeline'], ENT_QUOTES);
+        $image_link = htmlspecialchars($_POST['image_link'], ENT_QUOTES);
+        $length = htmlspecialchars($_POST['length'], ENT_QUOTES);
+        $good_with_children = htmlspecialchars($_POST['good_with_children'], ENT_QUOTES);
+        $good_with_dogs = htmlspecialchars($_POST['good_with_dogs'], ENT_QUOTES);
+        $shedding = htmlspecialchars($_POST['shedding'], ENT_QUOTES);
+        $grooming = htmlspecialchars($_POST['grooming'], ENT_QUOTES);
+        $drooling = htmlspecialchars($_POST['drooling'], ENT_QUOTES);
+        $coat_length = htmlspecialchars($_POST['coat_length'], ENT_QUOTES);
+        $good_with_strangers = htmlspecialchars($_POST['good_with_strangers'], ENT_QUOTES);
+        $playfulness = htmlspecialchars($_POST['playfulness'], ENT_QUOTES);
+        $protectiveness = htmlspecialchars($_POST['protectiveness'], ENT_QUOTES);
+        $trainability = htmlspecialchars($_POST['trainability'], ENT_QUOTES);
+        $energy = htmlspecialchars($_POST['energy'], ENT_QUOTES);
+        $vocal_communication = htmlspecialchars($_POST['vocal_communication'], ENT_QUOTES);
+        $min_life_expectancy = htmlspecialchars($_POST['min_life_expectancy'], ENT_QUOTES);
+        $max_life_expectancy = htmlspecialchars($_POST['max_life_expectancy'], ENT_QUOTES);
+        $max_height_male = htmlspecialchars($_POST['max_height_male'], ENT_QUOTES);
+        $max_height_female = htmlspecialchars($_POST['max_height_female'], ENT_QUOTES);
+        $max_weight_male = htmlspecialchars($_POST['max_weight_male'], ENT_QUOTES);
+        $max_weight_female = htmlspecialchars($_POST['max_weight_female'], ENT_QUOTES);
+        $min_height_male = htmlspecialchars($_POST['min_height_male'], ENT_QUOTES);
+        $min_height_female = htmlspecialchars($_POST['min_height_female'], ENT_QUOTES);
+        $min_weight_male = htmlspecialchars($_POST['min_weight_male'], ENT_QUOTES);
+        $min_weight_female = htmlspecialchars($_POST['min_weight_female'], ENT_QUOTES);
+        $name = htmlspecialchars($_POST['name'], ENT_QUOTES);
+        $origin = htmlspecialchars($_POST['origin'], ENT_QUOTES);
+        $intelligence = htmlspecialchars($_POST['intelligence'], ENT_QUOTES);
+        $other_pets_friendly = htmlspecialchars($_POST['other_pets_friendly'], ENT_QUOTES);
+        $family_friendly = htmlspecialchars($_POST['family_friendly'], ENT_QUOTES);
+        $general_health = htmlspecialchars($_POST['general_health'], ENT_QUOTES);
+        if (!empty($_POST['btnEdit'])) {
+            $sql_u = "UPDATE BREEDS
+            SET isFeline = :isFeline, image_link = :image_link, 
+            length = :length, good_with_children = :good_with_children,
+            good_with_dogs = :good_with_dogs, shedding = :shedding,
+            grooming = :grooming, drooling = :drooling,coat_length = :coat_length,
+            good_with_strangers = :good_with_strangers,playfulness = :playfulness,
+            protectiveness = :protectiveness,trainability = :trainability,
+            energy = :energy,vocal_communication = :vocal_communication,
+            min_life_expectancy = :min_life_expectancy
+            ,max_life_expectancy = :max_life_expectancy,
+            max_height_male = :max_height_male,
+            max_height_female = :max_height_female,
+            max_weight_male = :max_weight_male,
+            max_weight_female = :max_weight_female,
+            min_height_male = :min_height_male,
+            min_height_female = :min_height_female,
+            min_weight_male = :min_weight_male,
+            min_weight_female = :min_weight_female,
+            name = :name,origin = :origin,intelligence = :intelligence,
+            other_pets_friendly = :other_pets_friendly,
+            family_friendly = :family_friendly
+            ,general_health = :general_health 
+            WHERE breed_id = :breed_id";
+            $action = "updated";
+        } else if (!empty($_POST['btnAdd'])) {
+            $sql_u = "insert into breeds(breed_id,isFeline, image_link, length, good_with_children, 
+            good_with_dogs, shedding, grooming, drooling, coat_length, good_with_strangers, 
+            playfulness, protectiveness, trainability, energy, vocal_communication, 
+            min_life_expectancy, max_life_expectancy, max_height_male, max_height_female, 
+            max_weight_male, max_weight_female, min_height_male, min_height_female, min_weight_male, 
+            min_weight_female, name, origin, intelligence, other_pets_friendly, family_friendly, 
+            general_health) 
+            VALUES(:breed_id,:isFeline,:image_link,:length,:good_with_children,:good_with_dogs,:shedding,:grooming,:drooling,:coat_length,:good_with_strangers,:playfulness,:protectiveness,:trainability,:energy,:vocal_communication,:min_life_expectancy,:max_life_expectancy,:max_height_male,:max_height_female,:max_weight_male,:max_weight_female,:min_height_male,:min_height_female,:min_weight_male,:min_weight_female,:name,:origin,:intelligence,:other_pets_friendly,:family_friendly,:general_health) ;";
+            $action = "created";
+        }
+        try {
+            $stmt_u = $pdo->prepare($sql_u);
+            $stmt_u->execute(array(
+                ':breed_id' => $breed_id,
+                ':isFeline' => $isFeline,
+                ':image_link' => $image_link,
+                ':length' => $length,
+                ':good_with_children' => $good_with_children,
+                ':good_with_dogs' => $good_with_dogs,
+                ':shedding' => $shedding,
+                ':grooming' => $grooming,
+                ':drooling' => $drooling,
+                ':coat_length' => $coat_length,
+                ':good_with_strangers' => $good_with_strangers,
+                ':playfulness' => $playfulness,
+                ':protectiveness' => $protectiveness,
+                ':trainability' => $trainability,
+                ':energy' => $energy,
+                ':vocal_communication' => $vocal_communication,
+                ':min_life_expectancy' => $min_life_expectancy,
+                ':max_life_expectancy' => $max_life_expectancy,
+                ':max_height_male' => $max_height_male,
+                ':max_height_female' => $max_height_female,
+                ':max_weight_male' => $max_weight_male,
+                ':max_weight_female' => $max_weight_female,
+                ':min_height_male' => $min_height_male,
+                ':min_height_female' => $min_height_female,
+                ':min_weight_male' => $min_weight_male,
+                ':min_weight_female' => $min_weight_female,
+                ':name' => $name,
+                ':origin' => $origin,
+                ':intelligence' => $intelligence,
+                ':other_pets_friendly' => $other_pets_friendly,
+                ':family_friendly' => $family_friendly,
+                ':general_health' => $general_health
+            ));
+            if ($stmt_u->rowCount()) {
+                echo "<p class='lead bg-light text-success text-center'>Breed $name successfully $action!</p>";
+            } else {
+                echo "<p class='lead bg-light text-danger text-center'>Error: No breeds exist with that ID.</p>";
+            }
+        } catch (PDOException $e) {
+            echo "<p class='bg-light text-center'>Something went wrong ($e)</p>";
+        }
     }
     ?>
     <table class="bg-light table table-hover">
@@ -130,7 +210,7 @@
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button name="btnEdit" id="btnEdit" value="btnEdit" type="submit" class="btn btn-primary">Save changes</button>
                             </div>
                             </form>
                             </div>
@@ -171,7 +251,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button name="btnAdd" id="btnAdd" value="btnAdd" type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
             </div>

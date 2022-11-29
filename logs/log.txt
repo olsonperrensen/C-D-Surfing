@@ -1,2 +1,6 @@
 [29-Nov-2022 14:27:23 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php:62) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php on line 133
 [29-Nov-2022 14:28:20 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php:62) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php on line 133
+[29-Nov-2022 15:00:30 Europe/Berlin] PHP Warning:  Undefined array key "btnAdd" in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_breeds.php on line 6
+[29-Nov-2022 15:00:30 Europe/Berlin] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_breeds.php on line 6
+[29-Nov-2022 15:01:23 Europe/Berlin] PHP Warning:  Undefined array key "btnAdd" in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_breeds.php on line 6
+[29-Nov-2022 15:01:23 Europe/Berlin] PHP Deprecated:  htmlspecialchars(): Passing null to parameter #1 ($string) of type string is deprecated in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_breeds.php on line 6
