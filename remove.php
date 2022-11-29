@@ -11,6 +11,21 @@ if (!empty($_GET['pet_id']) && is_numeric($_GET['pet_id'])) {
     header("Location: order.php");
     die();
 }
+if (!empty($_GET['breed_id']) && is_numeric($_GET['breed_id'])) {
+    session_start();
+    $isAdmin = $_SESSION['isAdmin'];
+    if ($isAdmin) {
+        try {
+            $bid = htmlspecialchars($_GET['breed_id'], ENT_QUOTES);
+            $sql = "DELETE FROM BREEDS WHERE breed_id = :bid";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(':bid' => $bid));
+        } catch (PDOException $e) {
+        }
+        header("Location: manage_users.php");
+    }
+    die();
+}
 if (!empty($_GET['user_id']) && is_numeric($_GET['user_id'])) {
     try {
         $uid = htmlspecialchars($_GET['user_id'], ENT_QUOTES);
