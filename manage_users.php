@@ -50,7 +50,14 @@
                 })
             }).then(res => {
                 return res.json()
-            }).then(data => console.log(data));
+            }).then(data => {
+                if (data.gewijzigd) {
+                    alert(`User's password has been successfully reset to 'Lab2021'`);
+                } else {
+                    alert(`Something went wrong... Password unchanged!`);
+                }
+                window.location.reload();
+            });
 
         }
     </script>

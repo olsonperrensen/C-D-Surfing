@@ -1,0 +1,2 @@
+[29-Nov-2022 14:27:23 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php:62) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php on line 133
+[29-Nov-2022 14:28:20 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php:62) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php on line 133
