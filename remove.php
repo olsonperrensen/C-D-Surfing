@@ -27,18 +27,30 @@ if (!empty($_GET['breed_id']) && is_numeric($_GET['breed_id'])) {
     die();
 }
 if (!empty($_GET['ad_id']) && is_numeric($_GET['ad_id'])) {
+    $errors = array();
     session_start();
     $isAdmin = $_SESSION['isAdmin'];
     if ($isAdmin) {
+        $pid = htmlspecialchars($_GET['ad_id'], ENT_QUOTES);
         try {
-            $pid = htmlspecialchars($_GET['ad_id'], ENT_QUOTES);
             $sql = "DELETE FROM ads WHERE pet_id = :pid";
             $stmt = $pdo->prepare($sql);
             $stmt->execute(array(':pid' => $pid));
         } catch (PDOException $e) {
-            var_dump($e);
+            $errors['errorDelAd'] = 'Sth went wrong...';
         }
-        header("Location: manage_ads.php");
+        try {
+            $sql = "DELETE FROM pet_details WHERE pet_id = :pid";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(':pid' => $pid));
+        } catch (PDOException $e) {
+            $errors['errorDelPet'] = 'Sth went wrong...';
+        }
+        if (empty($errors['errorDelPet']) && empty($errors['errorDelAd'])) {
+            header("Location: manage_ads.php");
+        } else {
+            header("Location: 404.php");
+        }
     }
     die();
 }
