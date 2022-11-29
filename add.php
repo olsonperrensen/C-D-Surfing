@@ -105,6 +105,19 @@
                     ':s' => $story,
                     ':d' => $diet
                 ));
+                $pet_id = $pdo->lastInsertId();
+            } catch (PDOException $e) {
+                if ((int)$e->getCode() === 23000) {
+                    $errors['duplicateAd'] = 'An ad already exists with these details';
+                } else {
+                    $errors['unexpectedError'] = "Something went wrong... ($e)";
+                }
+            }
+            try {
+                $sql = "insert into ads(pet_id) 
+                VALUES(:pid)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute(array(':pid' => $pet_id));
             } catch (PDOException $e) {
                 if ((int)$e->getCode() === 23000) {
                     $errors['duplicateAd'] = 'An ad already exists with these details';
