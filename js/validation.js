@@ -143,3 +143,75 @@ if (window.location.href.includes('ads.php')) {
         });
     });
 }
+if (window.location.href.includes('add.php')) {
+  const validation = new JustValidate('#add');
+  validation
+    .addField('#petName', [
+      {
+        rule: 'required',
+      },
+    ])
+    .addField('#breedName', [
+      {
+        rule: 'required',
+      },
+    ])
+    .addField('#animalType', [
+      {
+        rule: 'required',
+      },
+    ])
+    .addField('#gender', [
+      {
+        rule: 'required',
+      },
+    ])
+    .addField('#age', [
+      {
+        rule: 'required',
+      },
+      {
+        rule: 'number',
+      },
+      {
+        rule: 'minNumber',
+        value: 1,
+      },
+      {
+        rule: 'maxNumber',
+        value: 22,
+      },
+    ])
+    .addField('#story', [
+      {
+        validator: (value, fields) => {
+          return value.length >= 15;
+        },
+        errorMessage: 'Story should be at least 15 characters long.',
+      },
+    ])
+    .addField('#diet', [
+      {
+        rule: 'required',
+      },
+    ])
+    .addField('#zipcode', [
+      {
+        rule: 'required',
+      },
+      {
+        rule: 'number',
+      },
+      {
+        rule: 'minNumber',
+        value: 1000,
+      },
+      {
+        rule: 'maxNumber',
+        value: 10000,
+      },
+    ])
+    .onSuccess((event) => {
+      mForm = document.getElementById('add').submit();
+    });
+}

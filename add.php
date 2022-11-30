@@ -169,9 +169,9 @@
                                 <span class="section-heading-upper">Transform someone's life</span>
                                 <span class="section-heading-lower">Add a pet to our database</span>
                             </h2>
-                            <form action=<?= $_SERVER['PHP_SELF']; ?> method="POST">
+                            <form id="add" name="add" action=<?= $_SERVER['PHP_SELF']; ?> method="POST">
                                 <div class="form-floating mb-3">
-                                    <input value="<?= htmlspecialchars($_POST['petName'] ?? '')  ?>" name="petName" type="petName" class="form-control">
+                                    <input value="<?= htmlspecialchars($_POST['petName'] ?? '')  ?>" name="petName" id="petName" type="text" class="form-control">
                                     <label for="floatingInput">Pet name</label>
                                     <?php if ($errors['invalidPetName']) : ?>
                                         <h5 class="userwarn"><?= $errors['invalidPetName'] ?></h5>
@@ -299,7 +299,7 @@
                                     <input disabled value="<?= htmlspecialchars($_POST['petPhoto'] ?? '')  ?>" type="file" class="form-control">
                                     <label for="floatingpetPhoto">Photo (Coming soon!)</label>
                                     <br>
-                                    <button value="true" name="submit" class="btn btn-secondary btn-sm">Send</button>
+                                    <button value="true" name="msend" id="msend" class="btn btn-secondary btn-sm">Send</button>
                                 </div>
                             </form>
                             <p class="mb-0">
