@@ -1,4 +1,4 @@
-if (window.location.href.includes('signup.php')) {
+if (window.location.href.includes('/signup.php')) {
   const validation = new JustValidate('#signup');
   validation
     .addField('#fullName', [
@@ -69,7 +69,7 @@ if (window.location.href.includes('signup.php')) {
       mForm = document.getElementById('signup').submit();
     });
 }
-if (window.location.href.includes('login.php')) {
+if (window.location.href.includes('/login.php')) {
   const validation = new JustValidate('#login');
   validation
     .addField('#email', [
@@ -89,7 +89,7 @@ if (window.location.href.includes('login.php')) {
       mForm = document.getElementById('login').submit();
     });
 }
-if (window.location.href.includes('ads.php')) {
+if (window.location.href.includes('/ads.php')) {
   const validation = new JustValidate('#formAdvanced');
   validation
     .addField('#minAge', [
@@ -143,7 +143,7 @@ if (window.location.href.includes('ads.php')) {
         });
     });
 }
-if (window.location.href.includes('add.php')) {
+if (window.location.href.includes('/add.php')) {
   const validation = new JustValidate('#add');
   validation
     .addField('#petName', [
