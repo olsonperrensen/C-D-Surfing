@@ -33,6 +33,13 @@ if (!empty($_GET['ad_id']) && is_numeric($_GET['ad_id'])) {
     if ($isAdmin) {
         $pid = htmlspecialchars($_GET['ad_id'], ENT_QUOTES);
         try {
+            $sql = "DELETE FROM shopping_cart WHERE pet_id = :pid";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(array(':pid' => $pid));
+        } catch (PDOException $e) {
+            $errors['errorDelCart'] = 'Sth went wrong...';
+        }
+        try {
             $sql = "DELETE FROM ads WHERE pet_id = :pid";
             $stmt = $pdo->prepare($sql);
             $stmt->execute(array(':pid' => $pid));
@@ -46,7 +53,8 @@ if (!empty($_GET['ad_id']) && is_numeric($_GET['ad_id'])) {
         } catch (PDOException $e) {
             $errors['errorDelPet'] = 'Sth went wrong...';
         }
-        if (empty($errors['errorDelPet']) && empty($errors['errorDelAd'])) {
+        if (empty($errors['errorDelPet']) && empty($errors['errorDelAd']
+            && empty($errors['errorDelCart']))) {
             header("Location: manage_ads.php");
         } else {
             header("Location: 404.php");

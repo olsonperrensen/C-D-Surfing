@@ -4,6 +4,7 @@
     <?php include_once 'models/User.php' ?>
     <?php include_once 'models/Pet.php' ?>
     <?php
+    $pet_id = null;
     $sql = "SELECT can_advertise FROM USERS WHERE email = :em";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(':em' => $email));
