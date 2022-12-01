@@ -97,7 +97,7 @@
                             <div class="modal-body">
                             T;
                         foreach ($ad as $key => $value) {
-                            if ($key == 'breed_id') {
+                            if ($key == 'pet_id') {
                                 echo <<< Q
                                     <div class="form-floating mb-3">
                                     <input readonly value="$value" name="$key" id="$key$ad->pet_id" type="text" class="form-control">
