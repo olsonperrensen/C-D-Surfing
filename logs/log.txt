@@ -31,3 +31,21 @@
 [29-Nov-2022 22:08:28 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php:148) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\add.php on line 115
 [29-Nov-2022 22:10:12 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php:148) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\add.php on line 114
 [29-Nov-2022 22:14:18 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php:148) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\thank-you.php on line 44
+[01-Dec-2022 15:04:51 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php:62) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php on line 133
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Undefined variable $ad in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 11
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Attempt to read property "bname" on null in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 11
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 12
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Undefined variable $ad in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 28
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Attempt to read property "pet_id" on null in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 28
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Undefined variable $ad in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 29
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Attempt to read property "gender" on null in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 29
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Undefined variable $ad in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 30
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Attempt to read property "age" on null in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 30
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Undefined variable $ad in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 31
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Attempt to read property "name" on null in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 31
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Undefined variable $ad in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 33
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Attempt to read property "story" on null in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 33
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Undefined variable $ad in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 34
+[01-Dec-2022 15:23:55 Europe/Berlin] PHP Warning:  Attempt to read property "diet" on null in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 34
+[01-Dec-2022 15:24:18 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 12
+[01-Dec-2022 15:26:02 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 12

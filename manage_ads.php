@@ -3,38 +3,45 @@
     <?php include_once "models/Ad.php" ?>
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        echo ("TO-DO");
-        die();
-        // $user_id = htmlspecialchars($_POST['user_id'], ENT_QUOTES);
-        // $email = htmlspecialchars($_POST['email'], ENT_QUOTES);
-        // $zipcode = htmlspecialchars($_POST['zipcode'], ENT_QUOTES);
-        // $lookingFor = htmlspecialchars($_POST['looking_for'], ENT_QUOTES);
-        // $canAdvertise = htmlspecialchars($_POST['can_advertise'], ENT_QUOTES);
-        // $isAdmin_u = htmlspecialchars($_POST['isAdmin'], ENT_QUOTES);
-        // $warnings = htmlspecialchars($_POST['warnings'], ENT_QUOTES);
-        // try {
-        //     $sql_u = "UPDATE USERS
-        //     SET email = :em, zipcode = :z, looking_for = :l, can_advertise = :c,
-        //     isAdmin = :ia, warnings = :w
-        //     WHERE user_id = :uid";
-        //     $stmt_u = $pdo->prepare($sql_u);
-        //     $stmt_u->execute(array(
-        //         ':em' => $email,
-        //         ':uid' => $user_id,
-        //         ':ia' => $isAdmin_u,
-        //         ':z' => $zipcode,
-        //         ':l' => $lookingFor,
-        //         ':c' => $canAdvertise,
-        //         ':w' => $warnings
-        //     ));
-        //     if ($stmt_u->rowCount()) {
-        //         echo "<p class='lead bg-light text-success text-center'>User $email successfully updated!</p>";
-        //     } else {
-        //         echo "<p class='lead bg-light text-danger text-center'>Error: No users exist with that ID.</p>";
-        //     }
-        // } catch (PDOException $e) {
-        //     echo "<p class='bg-light text-center'>Something went wrong ($e)</p>";
-        // }
+        $ad = new Ad($_POST);
+        $breed_id = null;
+        try {
+            $sql_u = "SELECT breed_id FROM breeds where name = :n;";
+            $stmt_u = $pdo->prepare($sql_u);
+            $stmt_u->execute(array(':n' => $ad->bname));
+            $row_u = $stmt_u->fetch(PDO::FETCH_ASSOC);
+            $breed_id = $row_u['breed_id'];
+        } catch (PDOException $e) {
+            echo "<p class='bg-light text-center'>Something went wrong ($e)</p>";
+        }
+        try {
+            $sql_u = "UPDATE pet_details 
+            set pet_id = :p,
+            gender = :g,
+            age = :a,
+            name = :n,
+            breed_id = :b,
+            story = :s,
+            diet = :d
+            where pet_id = :p;";
+            $stmt_u = $pdo->prepare($sql_u);
+            $stmt_u->execute(array(
+                ':p' => $ad->pet_id,
+                ':g' => $ad->gender,
+                ':a' => $ad->age,
+                ':n' => $ad->name,
+                ':b' => $breed_id,
+                ':s' => $ad->story,
+                ':d' => $ad->diet,
+            ));
+            if ($stmt_u->rowCount()) {
+                echo "<p class='lead bg-light text-success text-center'>Pet $ad->name (id $ad->pet_id) successfully updated!</p>";
+            } else {
+                echo "<p class='lead bg-light text-danger text-center'>Error: No pets exist with that ID.</p>";
+            }
+        } catch (PDOException $e) {
+            echo "<p class='bg-light text-center'>Something went wrong ($e)</p>";
+        }
     }
     ?>
     <table class="bg-light table table-hover">
