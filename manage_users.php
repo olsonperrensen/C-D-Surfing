@@ -114,7 +114,7 @@
                             }
                             echo <<< Q
                                     <div class="form-floating mb-3">
-                                    <input value="$value" name="$key" id="$key$user->user_id" type="text" class="form-control">
+                                    <input required value="$value" name="$key" id="$key$user->user_id" type="text" class="form-control">
                                     <label for="floatingInput">$key</label>
                                     </div>
                                 Q;

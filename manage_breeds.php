@@ -201,7 +201,7 @@
                             }
                             echo <<< Q
                                     <div class="form-floating mb-3">
-                                    <input value="$value" name="$key" id="$key$breed->breed_id" type="text" class="form-control">
+                                    <input required value="$value" name="$key" id="$key$breed->breed_id" type="text" class="form-control">
                                     <label for="floatingInput">$key</label>
                                     </div>
                                 Q;
@@ -242,7 +242,7 @@
                         foreach ($breed as $key => $value) {
                             echo <<< Q
                         <div class="form-floating mb-3">
-                        <input name="$key" id="$key$breed->breed_id" type="text" class="form-control">
+                        <input required name="$key" id="$key$breed->breed_id" type="text" class="form-control">
                         <label for="floatingInput">$key</label>
                         </div>
                     Q;
