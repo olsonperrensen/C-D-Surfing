@@ -1,6 +1,6 @@
 <?php
 $rootFolder = dirname(__DIR__);
-require_once $rootFolder . '/private/lib/vendor/autoload.php';
+// require_once $rootFolder . '/private/lib/vendor/autoload.php';
 ?>
 <?php include_once 'includes/header.php'; ?>
 <?php
