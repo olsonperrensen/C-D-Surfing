@@ -29,6 +29,7 @@
             <tr>
                 <?php
                 $total_paid = 0.00;
+                // Purchased on MUST be alliged with the order table... otherwise it will duplicate.
                 $sql = "SELECT p.name, b.name as breed,
                 gender, age, size, color, diet, h.healthcare_id, h.healthcare_name, register_date,
                 h.price, o.date_created as purchased_on from pet_details p
