@@ -60,7 +60,7 @@ if (window.location.href.includes('/signup.php')) {
     .addField('#passwordConfirmation', [
       {
         validator: (value, fields) => {
-          return value === fields['#password'].elem.value;
+          return value === document.getElementById('password').value;
         },
         errorMessage: 'Both passwords should be matching.',
       },
