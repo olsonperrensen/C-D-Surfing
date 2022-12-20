@@ -1,6 +1,7 @@
 <?php include_once 'includes/header.php'; ?>
 <?php if ($isAdmin) : ?>
     <?php include_once "models/Ad.php" ?>
+    <?php include_once "models/Breed.php" ?>
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ad = new Ad($_POST);
@@ -10,7 +11,9 @@
             $stmt_u = $pdo->prepare($sql_u);
             $stmt_u->execute(array(':n' => $ad->bname));
             $row_u = $stmt_u->fetch(PDO::FETCH_ASSOC);
-            $breed_id = $row_u['breed_id'];
+            if (!empty($row_u['breed_id'])) {
+                $breed_id = $row_u['breed_id'];
+            }
         } catch (PDOException $e) {
             echo "<p class='bg-light text-center'>Something went wrong ($e)</p>";
         }
@@ -101,9 +104,34 @@
                             if ($key == 'pet_id') {
                                 echo <<< Q
                                     <div class="form-floating mb-3">
-                                    <input readonly value="$value" name="$key" id="$key$ad->pet_id" type="text" class="form-control">
+                                    <input readonly value="$value" name="$key" id="$key$ad->pet_id" type="number" class="form-control">
                                     <label for="floatingInput">$key</label>
                                     </div>
+                                    Q;
+                                continue;
+                            }
+                            if ($key == 'bname') {
+                                // $sql_a_b = "SELECT breed_id,name FROM BREEDS;";
+                                $sql_a_b = "SELECT name FROM BREEDS;";
+                                $stmt_a_b = $pdo->prepare($sql_a_b);
+                                $stmt_a_b->execute();
+                                $row_a_b = $stmt_a_b->fetch(PDO::FETCH_ASSOC);
+                                $breed = new Breed($row_a_b);
+                                echo <<< Q
+                                        <div class="form-floating mb-3">
+                                        <select name="$key" id="$key$ad->pet_id" class="form-select" aria-label="Default select example">
+                                        <option selected value="$value">$value</option>
+                                        Q;
+                                while ($row_a_b) {
+                                    $breed = new Breed($row_a_b);
+                                    echo <<<T
+                                        <option value="$breed->name">$breed->name</option>
+                                        T;
+                                    $row_a_b = $stmt_a_b->fetch(PDO::FETCH_ASSOC);
+                                }
+                                echo <<< Q
+                                        </select>
+                                        </div>
                                     Q;
                                 continue;
                             }
@@ -116,7 +144,7 @@
                         }
                         echo <<<T
                             </div>
-                            <pre class='bg-black text-white text-center'>Tip: Avoid errors by typing known breeds we work with.</pre>
+                            <pre class='bg-black text-white text-center'>Tip: Avoid errors by checking twice before saving.</pre>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>

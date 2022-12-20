@@ -1,1 +1,15 @@
-[20-Dec-2022 23:25:41 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php:149) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\checkout.php on line 37
+[20-Dec-2022 23:41:28 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 14
+[20-Dec-2022 23:43:29 Europe/Berlin] PHP Warning:  Undefined variable $breed in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 115
+[20-Dec-2022 23:43:29 Europe/Berlin] PHP Warning:  Attempt to read property "breed_id" on null in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 115
+[20-Dec-2022 23:43:50 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 14
+[20-Dec-2022 23:43:51 Europe/Berlin] PHP Warning:  Undefined variable $breed in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 115
+[20-Dec-2022 23:43:51 Europe/Berlin] PHP Warning:  Attempt to read property "breed_id" on null in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 115
+[20-Dec-2022 23:45:13 Europe/Berlin] PHP Warning:  Undefined variable $breed in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 117
+[20-Dec-2022 23:45:13 Europe/Berlin] PHP Warning:  Attempt to read property "breed_id" on null in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 117
+[20-Dec-2022 23:46:24 Europe/Berlin] PHP Warning:  Undefined variable $breed in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 117
+[20-Dec-2022 23:46:24 Europe/Berlin] PHP Warning:  Attempt to read property "breed_id" on null in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 117
+[20-Dec-2022 23:48:22 Europe/Berlin] PHP Warning:  Undefined variable $breed in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 115
+[20-Dec-2022 23:48:22 Europe/Berlin] PHP Warning:  Attempt to read property "breed_id" on null in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 115
+[20-Dec-2022 23:48:30 Europe/Berlin] PHP Warning:  Undefined variable $breed in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 115
+[20-Dec-2022 23:48:30 Europe/Berlin] PHP Warning:  Attempt to read property "breed_id" on null in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 115
+[20-Dec-2022 23:50:47 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\manage_ads.php on line 14
