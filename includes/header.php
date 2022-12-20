@@ -144,7 +144,8 @@ if (isset($_SESSION['email'])) {
       </div>
     </div>
   </nav>
-  <?php if ($isAdmin && !strpos($_SERVER['REQUEST_URI'], "admin.php")) : ?>
+  <?php if ($isAdmin && !strpos($_SERVER['REQUEST_URI'], "admin.php")
+  && !strpos($_SERVER['REQUEST_URI'], "process_order.php")) : ?>
     <nav class="navbar navbar-expand-lg" id="ADMIN">
       <div class="container">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">

@@ -1,0 +1,1 @@
+[20-Dec-2022 23:25:41 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php:149) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\checkout.php on line 37
