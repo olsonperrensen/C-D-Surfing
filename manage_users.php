@@ -90,7 +90,8 @@
                             <button id='btne$user->user_id' 
                             data-bs-toggle="modal" data-bs-target="#exampleModal$user->user_id" 
                             type="button" class="btn btn-warning">✏️</button>
-                            <button id='btnd$user->user_id' class="btn btn-info"><a href="remove.php?user_id=$user->user_id">❌</a></button>
+                            <button id='btnd$user->user_id' class="btn btn-info"><a  class="text-decoration-none" 
+                            href="remove.php?user_id=$user->user_id">❌</a></button>
                             </td></tr>
                             <div class="modal fade" id="exampleModal$user->user_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
