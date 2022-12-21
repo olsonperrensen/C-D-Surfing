@@ -1,5 +1,28 @@
     <?php include_once 'includes/header.php'; ?>
     <?php if ($isAdmin) : ?>
+        <script>
+            function sec() {
+                stdin = prompt('Enter the secret PIN code')
+                // Dummy prototype... DONT USE in production of course... 
+                if (stdin == 'Lab2021') {
+                    alert('Proceeding to delete ALL orders... Stand back while we do the work')
+                    deleted = fetch('remove.php')
+                        .then((res) => {
+                            return res.json();
+                        })
+                        .then((json) => {
+                            return json.deleted
+                        });
+                    if (deleted) {
+                        alert('All order records have been successfully deleted.')
+                    } else {
+                        alert('No records were deleted')
+                    }
+                } else {
+                    alert('Wrong PIN. Nothing has been changed.')
+                }
+            }
+        </script>
         <div class="container mAdminContainer" *ngIf="secret">
             <div class="row mAdminContainer">
                 <div class="col-xs-12 mAdminContainer">
@@ -54,7 +77,9 @@
                                             <p class="whiteish">All actions here will affect advertisements (published by users)</p>
                                         </mat-card-content>
                                         <mat-divider inset></mat-divider>
-
+                                        <p class="whiteish"><a data-bs-toggle="modal" data-bs-target="#exampleModalLabel11" class="text-decoration-none" href="#">
+                                                D E L E T E &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A L L
+                                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O R D E R S </a></p>
                                         <mat-card-footer>
                                             <mat-progress-bar mode="buffer"></mat-progress-bar>
                                         </mat-card-footer>
@@ -69,7 +94,27 @@
                 </div>
             </div>
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalLabel11" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">D E L E T E &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A L L
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O R D E R S </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <textarea readonly name="" id="" cols="40" rows="6">Warning! You are about to delete ALL records from the 'Order Details', 'Orders' and 'Shipping Info' tables. This should exclusively be done during development by an authorised engineer or qualified IT staff. Are you sure you want to do this?
+                            </textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button name="btnAdd" id="btnAdd" onclick="sec()" value="btnAdd" type="submit" class="btn btn-primary">Proceed</button>
+                    </div>
 
+                </div>
+            </div>
+        </div>
         <?php include_once 'includes/footer.php'; ?>
         </body>
 
