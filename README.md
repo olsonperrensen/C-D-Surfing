@@ -2,9 +2,6 @@
 
 ### 1. Run /data/127_0_0_1.sql on /phpmyadmin URI
 
-### 2. ERD
-![PHP.png](PHP.png)
-
 Raw unsalted testing environment credentials: 
 <pre>
 "url","username","password"
@@ -19,3 +16,6 @@ Raw unsalted testing environment credentials:
 "http://localhost","juanadarco@france.fr","pJYE9xyGLqX8xj7"
 "http://localhost","joana.darco@france.fr","Lab2021"
 </pre>
+
+### Entity Relationship Diagram
+![PHP.png](PHP.png)
