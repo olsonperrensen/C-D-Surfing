@@ -1,6 +1,9 @@
 ### 0. Install and run Apache(+php) & Mysql via XAMPP (tested on 8.1.12)
 
-### 1. Run /data/127_0_0_1.sql
+### 1. Run /data/127_0_0_1.sql on /phpmyadmin URI
+
+### 2. ERD
+![PHP.png](PHP.png)
 
 Raw unsalted testing environment credentials: 
 <pre>
