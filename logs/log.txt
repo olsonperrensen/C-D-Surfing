@@ -14,3 +14,292 @@
 [21-Dec-2022 01:17:46 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php:149) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\checkout.php on line 37
 [21-Dec-2022 01:18:30 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php:62) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php on line 133
 [21-Dec-2022 01:19:00 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php:62) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php on line 133
+[24-Dec-2022 23:47:52 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:54 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:55 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:55 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:55 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:55 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:55 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:55 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:55 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:56 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:56 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:56 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:56 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:57 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:57 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:58 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:58 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:58 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:59 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:59 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:59 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:48:59 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:00 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:00 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:00 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:00 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:01 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:01 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:01 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:01 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:01 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:02 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:03 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:03 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:03 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:03 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:03 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:03 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:04 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:49:04 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
+[24-Dec-2022 23:53:54 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php:62) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\login.php on line 133
+[24-Dec-2022 23:54:02 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\checkout.php:3) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\checkout.php on line 37
+[25-Dec-2022 00:00:22 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[HY000] [1045] Access denied for user 'Webuser'@'localhost' (using password: YES) in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php:19
+Stack trace:
+#0 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php(19): PDO->__construct('mysql:host=loca...', 'Webuser', 'Lab2021', Array)
+#1 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\includes\header.php(2): include_once('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\index.php(5): include_once('C:\\xampp\\htdocs...')
+#3 {main}
+  thrown in C:\xampp\htdocs\phphtdocs\public\dev.cdsurfing.com\public\pdo.php on line 19
