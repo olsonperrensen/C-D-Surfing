@@ -1,6 +1,6 @@
-<?php include_once 'log.php'; ?>
-<?php include_once 'pdo.php'; ?>
-<?php include_once './models/Basket.php'; ?>
+<?php include_once __DIR__ . '/../log.php'; ?>
+<?php include_once __DIR__ . '/../pdo.php'; ?>
+<?php include_once __DIR__ . '/../models/Basket.php'; ?>
 <?php
 $isAdmin = false;
 define('REGIONAL_FEE', 0.62);
