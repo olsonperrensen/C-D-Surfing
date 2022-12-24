@@ -1,3 +1,7 @@
+### 0. Install and run Apache(+php) & Mysql via XAMPP (tested on 8.1.12)
+
+### 1. Run /data/127_0_0_1.sql
+
 Raw unsalted testing environment credentials: 
 <pre>
 "url","username","password"
