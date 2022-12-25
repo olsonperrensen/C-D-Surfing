@@ -51,7 +51,8 @@ SQL dump is available in `data/127_0_0_1.sql`.
 
 ### Table creation
 
-```USE `pets`;
+```sql
+USE `pets`;
 
 CREATE TABLE `ads` (
   `id` mediumint(8) UNSIGNED NOT NULL,
