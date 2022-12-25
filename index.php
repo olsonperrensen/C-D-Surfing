@@ -44,7 +44,7 @@ $rootFolder = dirname(__DIR__);
           </h2>
           <p class="mb-0">
             Nothing is greater than to give a cat or dog a loving home and when you
-            rehome a cat in Mechlen you can get all of your new pet products
+            rehome a cat in Mechelen you can get all of your new pet products
             direct from C&D a cat and pet wellness company. Whether
             it's Cat Nip, Treats, Food, Toys, or a Dog Scratcher we want to
             help the transition for your new pet to be as seamless as

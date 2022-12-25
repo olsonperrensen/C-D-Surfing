@@ -71,11 +71,16 @@
                     return res.text();
                 }).then((text) => {
                     $(".individual-ad").remove();
-                    $("p.noresults").remove();
+                    $("div.noresults").remove();
                     if (text.startsWith('<div class="individual-ad')) {
                         $("#filteredPets").html(text);
                     } else {
-                        $("#filteredPets").html("<p class='bg-light noresults text-center'>No results were found.</p>");
+                        $("#filteredPets").html(`
+                        <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="noresults scrollspy-example bg-light p-3 rounded-2" tabindex="0">
+                    <h4 id="scrollspyHeading1">We're sorry</h4>
+                    <p>No one has placed an add for this breed type yet... Come back later.</p>
+                    </div>
+                        `);
                     }
                     $('#filteredPets').contents().unwrap();
                     $('#adRow').append('<div id="filteredPets"></div>');
@@ -244,7 +249,7 @@
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 if (empty($row)) {
                     echo <<<G
-                    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="scrollspy-example bg-light p-3 rounded-2" tabindex="0">
+                    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" class="noresults scrollspy-example bg-light p-3 rounded-2" tabindex="0">
                     <h4 id="scrollspyHeading1">We're sorry</h4>
                     <p>No one has placed an add for this breed type yet... Come back later.</p>
                     </div>

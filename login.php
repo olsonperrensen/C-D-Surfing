@@ -109,6 +109,7 @@
               <ul>
                 <li>Place an order</li>
                 <li>Keep track of your previous orders</li>
+                <li>See healthcare plans (in detail)</li>
                 <li>Post advertisements if you found a pet</li>
               </ul>
 
