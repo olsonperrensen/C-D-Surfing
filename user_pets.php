@@ -32,8 +32,7 @@
                 // Purchased on MUST be alliged with the order table... otherwise it will duplicate.
                 $sql = "SELECT p.name, b.name as breed,
                 gender, age, size, color, diet, h.healthcare_id, h.healthcare_name, register_date,
-                h.price, o.date_created as purchased_on from pet_details p
-                join orders o on o.user_id = p.owner_id
+                h.price from pet_details p
                 join breeds b on b.breed_id = p.breed_id
                 join users u on p.owner_id = u.user_id
                 join healthcare h on h.healthcare_id = p.healthcare_id
