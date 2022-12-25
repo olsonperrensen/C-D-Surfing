@@ -4,7 +4,7 @@
     <?php include_once 'models/User.php'; ?>
     <?php
     // Check if user has exploited the site too much 
-    if($_SESSION['warning']>=4)
+    if($_SESSION['warning']>=5)
     {
         header('Location: ban.php');
     }
