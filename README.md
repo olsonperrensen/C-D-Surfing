@@ -158,7 +158,8 @@ CREATE TABLE `users` (
   `can_advertise` tinyint(1) NOT NULL,
   `isAdmin` tinyint(1) NOT NULL,
   `warnings` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;```
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+```
 
 ### Insert basic data
 
