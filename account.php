@@ -3,6 +3,12 @@
     <?php include_once 'pdo.php'; ?>
     <?php include_once 'models/User.php'; ?>
     <?php
+    // Check if user has exploited the site too much 
+    if($_SESSION['warning']>=4)
+    {
+        header('Location: ban.php');
+    }
+    // Proceed if user hasn't been banned. 
     $sql = "SELECT naam, can_advertise FROM USERS WHERE email = :em";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(':em' => $email));
@@ -18,7 +24,7 @@
             <div class="row d-flex align-items-center justify-content-center">
                 <?php
                 if (!empty($_SESSION['warning'])) {
-                    echo '<h3 class="lead bg-white text-dark text-center">Be careful with what you <samp class="text-danger">do</samp> on our site...</h3>';
+                    echo '<h3 class="lead bg-white text-dark text-center">Be careful with what you <samp class="text-danger">do</samp> on our site... 5 warnings lead to ban.</h3>';
                 }
                 echo <<<Q
             <p class="lead text-white text-center">Logged in as <samp class="text-warning">$user->naam</samp>. You <strong class="text-info">$advertise_word</strong>

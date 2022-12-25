@@ -97,6 +97,7 @@
     ||
     $_SESSION['user_id'] != $_POST['user_id']
 ) {
+    // Check for deliberate malicious exploits
     if (
         !empty($_SESSION['user_id']) && !empty($_POST['user_id'])
         && is_numeric($_POST['user_id'])

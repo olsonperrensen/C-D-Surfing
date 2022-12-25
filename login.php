@@ -37,7 +37,7 @@
           $_SESSION['isAdmin'] = $row['isAdmin'];
           $_SESSION['user_id'] = $row['user_id'];
           $_SESSION['buyer_zipcode'] = $row['zipcode'];
-
+          $_SESSION['warning'] = $row['warnings'];
           header('Location: account.php');
         } else {
           $_SESSION['invalidLogin'] = $errors['invalidLogin'] = 'You have entered invalid credentials.';
