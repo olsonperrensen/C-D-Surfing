@@ -4,8 +4,7 @@
     <?php include_once 'models/User.php'; ?>
     <?php
     // Check if user has exploited the site too much 
-    if($_SESSION['warning']>=5)
-    {
+    if ($_SESSION['warning'] >= 5) {
         header('Location: ban.php');
     }
     // Proceed if user hasn't been banned. 
@@ -34,36 +33,36 @@
                 <div class="col-md-6 col-lg-4">
                     <div class="avatar bg-faded p-5 d-flex ms-auto rounded">
                         <a href="user_pets.php">
-                            <h2 class="section-heading mb-0">
+                            <p class="section-heading mb-0">
                                 <span class="section-heading-upper">My</span>
-                                <p>
+                                <h2 class="section-heading mb-0">
                                     <span class="white">home pets</span>
-                                </p>
-                            </h2>
+                                </h2>
+                            </p>
                         </a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
                     <div class="avatar bg-faded p-5 d-flex ms-auto rounded">
                         <a href="ads.php">
-                            <h2 class="section-heading mb-0">
+                            <p class="section-heading mb-0">
                                 <span class="section-heading-upper">My</span>
-                                <p>
+                                <h2 class="section-heading mb-0">
                                     <span class="white">public ads</span>
-                                </p>
-                            </h2>
+                                </h2>
+                            </p>
                         </a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
                     <div class="avatar bg-faded p-5 d-flex ms-auto rounded">
                         <a href="order.php">
-                            <h2 class="section-heading mb-0">
+                            <p class="section-heading mb-0">
                                 <span class="section-heading-upper">My</span>
-                                <p>
+                                <h2 class="section-heading mb-0">
                                     <span class="white">shopping basket</span>
-                                </p>
-                            </h2>
+                                </h2>
+                            </p>
                         </a>
                     </div>
                 </div>
