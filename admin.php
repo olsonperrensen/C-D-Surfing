@@ -23,10 +23,10 @@
                 }
             }
         </script>
-        <div class="container mAdminContainer" *ngIf="secret">
+        <div class="container mAdminContainer">
             <div class="row mAdminContainer">
                 <div class="col-xs-12 mAdminContainer">
-                    <form #f="ngForm" (ngSubmit)="1" class="example-form mform mAdminContainer">
+                    <form class="example-form mform mAdminContainer">
                         <h1 class="lead">Kies een actie</h1>
                         <div class="container">
                             <div id="adminoverview">
@@ -104,7 +104,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-center">
-                        <textarea readonly name="" id="" cols="40" rows="6">Warning! You are about to delete ALL records from the 'Order Details', 'Orders' and 'Shipping Info' tables. This should exclusively be done during development by an authorised engineer or qualified IT staff. Are you sure you want to do this?
+                        <textarea readonly name="warningdeleteo" id="warningdeleteo" cols="40" rows="6">Warning! You are about to delete ALL records from the 'Order Details', 'Orders' and 'Shipping Info' tables. This should exclusively be done during development by an authorised engineer or qualified IT staff. Are you sure you want to do this?
                             </textarea>
                     </div>
                     <div class="modal-footer">
