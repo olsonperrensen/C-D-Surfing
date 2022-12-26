@@ -296,7 +296,7 @@
                         echo "dog";
                     }
                     echo <<<AD
-                     of age $pet->age who is looking for a warm home.</p> <samp>Breed: $pet->bname</samp> <hr><em><p>Pet Collar identification number is $pet->pet_id</p></em>
+                     of age $pet->age who is looking for a warm home.</p> <samp>Breed: $pet->bname</samp> <hr><p><em>Pet Collar identification number is $pet->pet_id</em></p>
                     AD;
                     echo <<<ADD
                     </div>
