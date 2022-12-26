@@ -116,12 +116,12 @@ if (!empty($_GET['user_id']) && is_numeric($_GET['user_id'])) {
     header("Location: order.php");
     die();
 }
-if (!empty($_GET['user_id']) && is_numeric($_GET['user_id'])) {
+if (!empty($_GET['ruser_id']) && is_numeric($_GET['ruser_id'])) {
     session_start();
     $isAdmin = $_SESSION['isAdmin'];
     if ($isAdmin) {
         try {
-            $user_id_d = htmlspecialchars($_GET['user_id'], ENT_QUOTES);
+            $user_id_d = htmlspecialchars($_GET['ruser_id'], ENT_QUOTES);
             $sql = "DELETE FROM USERS WHERE user_id = :uid";
             $stmt = $pdo->prepare($sql);
             $stmt->execute(array(':uid' => $user_id_d));
@@ -129,5 +129,6 @@ if (!empty($_GET['user_id']) && is_numeric($_GET['user_id'])) {
         }
         header("Location: manage_users.php");
     }
+    die();
 }
 header("Location: account.php");
