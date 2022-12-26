@@ -15,7 +15,7 @@ $cleardb_url = parse_url(getenv("CLEARDB_DATABASE_URL")) ?? '';
 $cleardb_server = $cleardb_url["host"] ?? 'localhost';
 $cleardb_username = $cleardb_url["user"] ?? 'Webuser';
 $cleardb_password = $cleardb_url["pass"] ?? 'Lab2021';
-$cleardb_db = substr($cleardb_url["path"], 1) ?? 'pets';
+$cleardb_db = substr($cleardb_url["path"], 1) != '' && substr($cleardb_url["path"], 1) != NULL ? substr($cleardb_url["path"], 1) : 'pets';
 $active_group = 'default';
 $query_builder = TRUE;
 
