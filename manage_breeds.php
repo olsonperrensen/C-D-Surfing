@@ -195,16 +195,16 @@
                             if ($key == 'breed_id') {
                                 echo <<< Q
                                     <div class="form-floating mb-3">
-                                    <input readonly value="$escaped_value" name="$key" id="$key$breed->breed_id" type="text" class="form-control">
-                                    <label for="floatingInput">$key</label>
+                                    <input readonly value="$escaped_value" name="e$key" id="e$key$breed->breed_id" type="text" class="form-control">
+                                    <label for="e$key$breed->breed_id">$key</label>
                                     </div>
                                     Q;
                                 continue;
                             }
                             echo <<< Q
                                     <div class="form-floating mb-3">
-                                    <input required value="$escaped_value" name="$key" id="$key$breed->breed_id" type="text" class="form-control">
-                                    <label for="floatingInput">$key</label>
+                                    <input required value="$escaped_value" name="$key" id="e$key$breed->breed_id" type="text" class="form-control">
+                                    <label for="e$key$breed->breed_id">$key</label>
                                     </div>
                                 Q;
                         }
@@ -244,8 +244,8 @@
                         foreach ($breed as $key => $value) {
                             echo <<< Q
                         <div class="form-floating mb-3">
-                        <input required name="$key" id="$key$breed->breed_id" type="text" class="form-control">
-                        <label for="floatingInput">$key</label>
+                        <input required name="a$key" id="a$key$breed->breed_id" type="text" class="form-control">
+                        <label for="a$key$breed->breed_id">$key</label>
                         </div>
                     Q;
                         }
