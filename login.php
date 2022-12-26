@@ -60,7 +60,7 @@
             <form name="login" id="login" action=<?= $_SERVER['PHP_SELF'] ?> method="POST">
               <div class="form-floating mb-3">
                 <input value="<?= htmlspecialchars($_POST['email'] ?? '')  ?>" name="email" id="email" type="email" class="form-control">
-                <label for="floatingInput">Email address</label>
+                <label for="email">Email address</label>
                 <?php if ($errors['invalidEmail']) : ?>
                   <h5 class="userwarn"><?= $errors['invalidEmail'] ?></h5>
                 <?php endif; ?>
@@ -70,7 +70,7 @@
               </div>
               <div class="form-floating">
                 <input value="<?= htmlspecialchars($_POST['password'] ?? '')  ?>" name="password" type="password" id="password" class="form-control">
-                <label for="floatingPassword">Password</label>
+                <label for="password">Password</label>
                 <?php if ($errors['emptyPwd']) : ?>
                   <h5 class="userwarn"><?= $errors['emptyPwd'] ?></h5>
                 <?php endif; ?>
