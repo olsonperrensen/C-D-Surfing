@@ -128,6 +128,13 @@ if (!empty($_GET['ruser_id']) && is_numeric($_GET['ruser_id'])) {
         } catch (PDOException $e) {
         }
         header("Location: manage_users.php");
+        die();
+    } else {
+        $sql = "UPDATE users set warnings = warnings+1 WHERE user_id = :uid;";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(array(':uid' => $_SESSION['user_id']));
+        session_destroy();
+        header("Location: account.php");
     }
 }
 header("Location: account.php");
