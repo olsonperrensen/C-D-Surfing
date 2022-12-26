@@ -131,10 +131,10 @@ if (isset($_SESSION['email'])) {
           <?php endif; ?>
         </ul>
         <ul class="float-end navbar-nav">
-          <?php if (!empty($email)) : ?>
-            <a class="btn btn-close-white text-decoration-none" href="order.php">🛒<samp class="text-decoration-none" id="basketCounter"><?= $basketCounter ?? 0 ?></samp></a>
-          <?php endif; ?>
           <li class="float-end nav-item px-lg-4">
+            <?php if (!empty($email)) : ?>
+              <a class="btn btn-close-white text-decoration-none" href="order.php">🛒<samp class="text-decoration-none" id="basketCounter"><?= $basketCounter ?? 0 ?></samp></a>
+            <?php endif; ?>
             <?php if (empty($email)) : ?>
               <a class="btn btn-success text-decoration-none text-white" href="login.php">Login</a>
             <?php endif; ?>
