@@ -57,18 +57,17 @@
                                 <?php
                                 echo <<<QQ
                                     <div class="text-center">
-                                    <button type="button" class="btn btn-primary"><a class="text-decoration-none text-black"
+                                    <a class="btn btn-primary text-decoration-none text-black"      
                                     QQ;
 
                                 echo <<<Z
-                                    href="ads.php?h=$healthcare_id"
+                                         href="ads.php?h=$healthcare_id"
                                     Z;
 
                                 echo <<<R
-                                    >Check pets with this plan</a></button>
-                                    <button type="button" class="btn btn-primary">
-                                    <a class="text-decoration-none text-black" href="healthcare.php">
-                                    Go back</button>
+                                    >Check pets with this plan</a>
+                                    <a class="btn btn-primary text-decoration-none text-black" href="healthcare.php">
+                                    Go back</a>
                                     </div>
                                     R;
                                 ?>
