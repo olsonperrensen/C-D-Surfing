@@ -93,12 +93,12 @@
                             <a id='btnd$user->user_id' class="btn btn-info text-decoration-none" 
                             href="remove.php?ruser_id=$user->user_id">❌</a>
                             </td></tr>
-                            <div class="modal fade" id="exampleModal$user->user_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal$user->user_id" tabindex="-1" aria-labelledby="exampleModalLabel$user->user_id" aria-hidden="true">
                             <div class="modal-dialog">
                             <div class="modal-content">
                             <form name="edit$user->user_id" id="edit$user->user_id" action="$self" method="POST">
                             <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit user</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel$user->user_id">Edit user</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -108,7 +108,7 @@
                                 echo <<< Q
                                     <div class="form-floating mb-3">
                                     <input readonly value="$value" name="$key" id="$key$user->user_id" type="text" class="form-control">
-                                    <label for="floatingInput">$key</label>
+                                    <label for="$key$user->user_id">$key</label>
                                     </div>
                                     Q;
                                 continue;
@@ -116,7 +116,7 @@
                             echo <<< Q
                                     <div class="form-floating mb-3">
                                     <input required value="$value" name="$key" id="$key$user->user_id" type="text" class="form-control">
-                                    <label for="floatingInput">$key</label>
+                                    <label for="$key$user->user_id">$key</label>
                                     </div>
                                 Q;
                         }
@@ -137,11 +137,11 @@
                             T;
                         echo <<< TT
                             <!-- Modal -->
-                            <div class="modal fade" id="reset$user->user_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="reset$user->user_id" tabindex="-1" aria-labelledby="exampleModalLabelr$user->user_id" aria-hidden="true">
                             <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Reset password</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabelr$user->user_id">Reset password</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -167,11 +167,11 @@
     </table>
 
     <!-- Modal -->
-    <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="exampleModalLabelSTAT" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add user</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabelSTAT">Add user</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
