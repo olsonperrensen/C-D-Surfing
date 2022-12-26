@@ -32,37 +32,37 @@
                 ?>
                 <div class="col-md-6 col-lg-4">
                     <div class="avatar bg-faded p-5 d-flex ms-auto rounded">
-                        <a href="user_pets.php">
+                        <div href="user_pets.php">
                             <p class="section-heading mb-0">
                                 <span class="section-heading-upper">My</span>
-                                <h2 class="section-heading mb-0">
-                                    <span class="white">home pets</span>
-                                </h2>
-                            </p>
+                            <h2 class="section-heading mb-0">
+                                <span class="white">home pets</span>
+                            </h2>
+                        </div>
                         </a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
                     <div class="avatar bg-faded p-5 d-flex ms-auto rounded">
                         <a href="ads.php">
-                            <p class="section-heading mb-0">
+                            <div class="section-heading mb-0">
                                 <span class="section-heading-upper">My</span>
                                 <h2 class="section-heading mb-0">
                                     <span class="white">public ads</span>
                                 </h2>
-                            </p>
+                            </div>
                         </a>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
                     <div class="avatar bg-faded p-5 d-flex ms-auto rounded">
                         <a href="order.php">
-                            <p class="section-heading mb-0">
+                            <div class="section-heading mb-0">
                                 <span class="section-heading-upper">My</span>
                                 <h2 class="section-heading mb-0">
                                     <span class="white">shopping basket</span>
                                 </h2>
-                            </p>
+                            </div>
                         </a>
                     </div>
                 </div>
