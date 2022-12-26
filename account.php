@@ -32,8 +32,8 @@
                 ?>
                 <div class="col-md-6 col-lg-4">
                     <div class="avatar bg-faded p-5 d-flex ms-auto rounded">
-                        <div href="user_pets.php">
-                            <p class="section-heading mb-0">
+                        <a href="user_pets.php">
+                            <div class="section-heading mb-0">
                                 <span class="section-heading-upper">My</span>
                             <h2 class="section-heading mb-0">
                                 <span class="white">home pets</span>
