@@ -131,15 +131,15 @@ if (isset($_SESSION['email'])) {
           <?php endif; ?>
         </ul>
         <?php if (!empty($email)) : ?>
-          <button><a class="text-decoration-none" href="order.php">🛒<samp class="text-decoration-none" id="basketCounter"><?= $basketCounter ?? 0 ?></samp></a></button>
+          <a class="btn btn-close-white text-decoration-none" href="order.php">🛒<samp class="text-decoration-none" id="basketCounter"><?= $basketCounter ?? 0 ?></samp></a>
         <?php endif; ?>
         <li class="float-end nav-item px-lg-4">
           <?php if (empty($email)) : ?>
-            <button class="btn btn-success"><a class="text-decoration-none text-white" href="login.php">Login</a></button>
+            <a class="btn btn-success text-decoration-none text-white" href="login.php">Login</a>
           <?php endif; ?>
           <?php if (!empty($email)) : ?>
-            <button class="btn btn-outline-warning"><a class="text-decoration-none" href="account.php">Account</a></button>
-            <button class="btn btn-outline-light"><a class="text-decoration-none text-white" href="logout.php">Logout</a></button>
+            <a class="text-decoration-none btn btn-outline-warning" href="account.php">Account</a>
+            <a class="text-decoration-none text-white btn btn-outline-light" href="logout.php">Logout</a>
           <?php endif; ?>
         </li>
       </div>
