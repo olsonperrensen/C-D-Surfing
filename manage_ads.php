@@ -104,7 +104,7 @@
                                 echo <<< Q
                                     <div class="form-floating mb-3">
                                     <input readonly value="$value" name="$key" id="$key$ad->pet_id" type="number" class="form-control">
-                                    <label for="floatingInput$key$ad->pet_id">$key</label>
+                                    <label for="$key$ad->pet_id">$key</label>
                                     </div>
                                     Q;
                                 continue;
@@ -138,7 +138,7 @@
                             echo <<< Q
                                     <div class="form-floating mb-3">
                                     <input required value="$escaped_value" name="$key" id="$key$ad->pet_id" type="text" class="form-control">
-                                    <label for="floatingInput$key$ad->pet_id">$key</label>
+                                    <label for="$key$ad->pet_id">$key</label>
                                     </div>
                                 Q;
                         }
