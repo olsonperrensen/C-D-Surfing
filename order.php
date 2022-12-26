@@ -35,7 +35,7 @@
                     <p>
                         <span class="h2">Shopping Cart </span>
                         <span class="h4">(<?= $basketCounter ?? 0 ?> in your cart)</span>
-                        <span class="h6 float-end"><a class="text-decoration-none text-white" href=<?= "remove.php?user_id=$user_id" ?>>Clear basket</a></span>
+                        <span class="h6 float-end"><a class="text-decoration-none text-white" href='<?= "remove.php?user_id=$user_id" ?>'>Clear basket</a></span>
                     </p>
                     <?php
                     $petid = 0;
@@ -116,7 +116,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-light btn-lg me-2"> <a class="text-decoration-none" href="ads.php">Continue shopping</a> </button>
+                        <a class="btn btn-light btn-lg me-2 text-decoration-none" href="ads.php">Continue shopping</a>
                         <form action="process_order.php" method="POST">
                             <?php if (!empty($_SESSION['hasBasket'])) : ?>
                                 <button name="user_id" value="<?= $user_id ?>" type="submit" class="btn btn-primary btn-lg">Checkout</button>
