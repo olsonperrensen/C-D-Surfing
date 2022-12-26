@@ -5,32 +5,32 @@
             <div class="col-md-6 col-lg-4">
                 <div class="avatar bg-faded p-5 d-flex ms-auto rounded">
                     <a href="cat_breeds.php">
-                        <h2 class="section-heading mb-0">
+                        <div class="section-heading mb-0">
                             <span class="section-heading-upper">Browse</span>
-                            <p>
+                            <h2>
                                 <span class="word wisteria">cats</span>
                                 <span class="word belize">felines</span>
                                 <span class="word pomegranate">kitties</span>
                                 <span class="word green">pussycats</span>
                                 <span class="word green">companions</span>
-                            </p>
-                        </h2>
+                            </h2>
+                        </div>
                     </a>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4">
                 <div class="avatar bg-faded p-5 d-flex ms-auto rounded">
                     <a href="dog_breeds.php">
-                        <h2 class="section-heading mb-0">
+                        <div class="section-heading mb-0">
                             <span class="section-heading-upper">Browse</span>
-                            <p>
+                            <h2>
                                 <span class="wordd wisteria">dogs</span>
                                 <span class="wordd belize">canines</span>
                                 <span class="wordd pomegranate">hounds</span>
                                 <span class="wordd green">tykes</span>
                                 <span class="wordd green">companions</span>
-                            </p>
-                        </h2>
+                            </h2>
+                        </div>
                     </a>
                 </div>
             </div>
