@@ -89,13 +89,12 @@
                             type="button" class="btn btn-warning">✏️</button>
                             <a id='btnd$ad->pet_id' class="btn btn-info text-decoration-none" 
                             href="remove.php?ad_id=$ad->pet_id">❌</a>
-                            </td></tr>
-                            <div class="modal fade" id="exampleModal$ad->pet_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal$ad->pet_id" tabindex="-1" aria-labelledby="exampleModalLabel$ad->pet_id" aria-hidden="true">
                             <div class="modal-dialog">
                             <div class="modal-content">
                             <form name="edit$ad->pet_id" id="edit$ad->pet_id" action="$self" method="POST">
                             <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit advertisement</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel$ad->pet_id">Edit advertisement</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -105,7 +104,7 @@
                                 echo <<< Q
                                     <div class="form-floating mb-3">
                                     <input readonly value="$value" name="$key" id="$key$ad->pet_id" type="number" class="form-control">
-                                    <label for="floatingInput">$key</label>
+                                    <label for="floatingInput$key$ad->pet_id">$key</label>
                                     </div>
                                     Q;
                                 continue;
@@ -138,7 +137,7 @@
                             echo <<< Q
                                     <div class="form-floating mb-3">
                                     <input required value="$value" name="$key" id="$key$ad->pet_id" type="text" class="form-control">
-                                    <label for="floatingInput">$key</label>
+                                    <label for="floatingInput$key$ad->pet_id">$key</label>
                                     </div>
                                 Q;
                         }
@@ -154,6 +153,7 @@
                             </div>
                             </div>
                             </div>
+                            </td></tr>
                             T;
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
                     }
@@ -166,12 +166,12 @@
     </table>
 
     <!-- Modal -->
-    <div class="modal fade" id="addAd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addAd" tabindex="-1" aria-labelledby="exampleModalLabelSTATIC" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action=<?= $_SERVER['PHP_SELF'] ?> method="POST">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add advertisement</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabelSTATIC">Add advertisement</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
