@@ -93,20 +93,19 @@
                             <?php
                             echo <<<QQ
                                     <div class="text-center">
-                                    <button type="button" class="btn btn-primary"><a class="text-decoration-none text-black"
+                                    <a class="btn btn-primary text-decoration-none text-black"    
                                     QQ;
                             if (empty($email)) {
                                 echo 'href="login.php"';
                             } else {
                                 echo <<<Z
-                                    href="ads.php?q=$breed_id"
+                                        href="ads.php?q=$breed_id"
                                     Z;
                             }
                             echo <<<R
-                                    >Check availability</a></button>
-                                    <button type="button" class="btn btn-primary">
-                                    <a class="text-decoration-none text-black" href="breeds.php">
-                                    Go back</button></div>
+                                    >Check availability</a>
+                                    <a class="btn btn-primary text-decoration-none text-black" href="breeds.php">
+                                    Go back</a></div>
                                     R;
                             ?>
                         </div>
