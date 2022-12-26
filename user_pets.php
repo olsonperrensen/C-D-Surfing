@@ -13,6 +13,7 @@
     $stmt->execute(array(':u' => $email));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
     if (empty($row)) {
+        // TODO
         header('Location: 404.php');
     }
     ?>

@@ -103,7 +103,10 @@
                                     Z;
                             }
                             echo <<<R
-                                    >Check availability</a></button></div>
+                                    >Check availability</a></button>
+                                    <button type="button" class="btn btn-primary">
+                                    <a class="text-decoration-none text-black" href="breeds.php">
+                                    Go back</button></div>
                                     R;
                             ?>
                         </div>

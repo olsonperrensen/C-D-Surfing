@@ -65,7 +65,11 @@
                                     Z;
 
                                 echo <<<R
-                                    >Check pets with this plan</a></button></div>
+                                    >Check pets with this plan</a></button>
+                                    <button type="button" class="btn btn-primary">
+                                    <a class="text-decoration-none text-black" href="healthcare.php">
+                                    Go back</button>
+                                    </div>
                                     R;
                                 ?>
                             </div>
