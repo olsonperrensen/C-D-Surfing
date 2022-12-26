@@ -96,7 +96,7 @@ if (isset($_SESSION['email'])) {
 
 <body>
   <header>
-    <a class="text-decoration-none" href='index.php' ?>>
+    <a class="text-decoration-none" href='index.php'>
       <h1 class="site-heading text-center text-faded d-none d-lg-block">
         <span class="site-heading-upper text-primary mb-3">Find your new best friend</span>
         <span class="site-heading-lower">C&D Surfing</span>
