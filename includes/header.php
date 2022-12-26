@@ -130,18 +130,20 @@ if (isset($_SESSION['email'])) {
             </li>
           <?php endif; ?>
         </ul>
-        <?php if (!empty($email)) : ?>
-          <a class="btn btn-close-white text-decoration-none" href="order.php">🛒<samp class="text-decoration-none" id="basketCounter"><?= $basketCounter ?? 0 ?></samp></a>
-        <?php endif; ?>
-        <li class="float-end nav-item px-lg-4">
-          <?php if (empty($email)) : ?>
-            <a class="btn btn-success text-decoration-none text-white" href="login.php">Login</a>
-          <?php endif; ?>
+        <ul class="float-end navbar-nav">
           <?php if (!empty($email)) : ?>
-            <a class="text-decoration-none btn btn-outline-warning" href="account.php">Account</a>
-            <a class="text-decoration-none text-white btn btn-outline-light" href="logout.php">Logout</a>
+            <a class="btn btn-close-white text-decoration-none" href="order.php">🛒<samp class="text-decoration-none" id="basketCounter"><?= $basketCounter ?? 0 ?></samp></a>
           <?php endif; ?>
-        </li>
+          <li class="float-end nav-item px-lg-4">
+            <?php if (empty($email)) : ?>
+              <a class="btn btn-success text-decoration-none text-white" href="login.php">Login</a>
+            <?php endif; ?>
+            <?php if (!empty($email)) : ?>
+              <a class="text-decoration-none btn btn-outline-warning" href="account.php">Account</a>
+              <a class="text-decoration-none text-white btn btn-outline-light" href="logout.php">Logout</a>
+            <?php endif; ?>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
