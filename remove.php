@@ -63,7 +63,7 @@ if (!empty($_GET['ad_id']) && is_numeric($_GET['ad_id'])) {
     die();
 }
 // DELETE ORDER ORDER DETAILS and SHIPPING INFO FOR TESTING ONLY 
-if (str_contains($_SERVER['HTTP_REFERER'], '/admin.php')) {
+if (isset($_SERVER['HTTP_REFERER']) && str_contains($_SERVER['HTTP_REFERER'], '/admin.php')) {
     $errors = array();
     session_start();
     $isAdmin = $_SESSION['isAdmin'];
@@ -129,6 +129,5 @@ if (!empty($_GET['ruser_id']) && is_numeric($_GET['ruser_id'])) {
         }
         header("Location: manage_users.php");
     }
-    die();
 }
 header("Location: account.php");
