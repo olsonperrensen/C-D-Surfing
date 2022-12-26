@@ -153,7 +153,7 @@ if (isset($_SESSION['email'])) {
   ) : ?>
     <nav class="navbar navbar-expand-lg" id="ADMIN">
       <div class="container">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="admin2">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item px-lg-4">
               <a class="nav-link text-uppercase text-white" href="admin.php">
@@ -168,7 +168,7 @@ if (isset($_SESSION['email'])) {
   <?php if ($isAdmin && strpos($_SERVER['REQUEST_URI'], "manage_users.php")) : ?>
     <nav class="navbar navbar-expand-lg" id="ADDUSER">
       <div class="container">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="adduser3">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item px-lg-4">
               <a data-bs-toggle="modal" data-bs-target="#addUser" class="nav-link text-uppercase text-white" href="#">
@@ -183,7 +183,7 @@ if (isset($_SESSION['email'])) {
   <?php if ($isAdmin && strpos($_SERVER['REQUEST_URI'], "manage_breeds.php")) : ?>
     <nav class="navbar navbar-expand-lg" id="ADDBREED">
       <div class="container">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="addbreed4">
           <ul class="navbar-nav mx-auto">
             <li class="nav-item px-lg-4">
               <a data-bs-toggle="modal" data-bs-target="#addBreed" class="nav-link text-uppercase text-white" href="#">
