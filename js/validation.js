@@ -133,7 +133,7 @@ if (window.location.href.includes('/ads.php')) {
         })
         .then((text) => {
           $('.individual-ad').remove();
-          $('p.noresults').remove();
+          $('div.noresults').remove();
           if (text.startsWith('<div class="individual-ad')) {
             $('#filteredPets').html(text);
           } else {
