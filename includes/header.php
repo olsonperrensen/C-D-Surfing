@@ -11,6 +11,7 @@ session_start();
 if (isset($_SESSION['email'])) {
   $email = $_SESSION['email'];
   $isAdmin = $_SESSION['isAdmin'];
+  $warnings = $_SESSION['warning'];
   if (!empty($_GET['adopted_pet']) && is_numeric($_GET['adopted_pet'])) {
     try {
       $adopting_pet = $_GET['adopted_pet'];
@@ -144,8 +145,10 @@ if (isset($_SESSION['email'])) {
       </div>
     </div>
   </nav>
-  <?php if ($isAdmin && !strpos($_SERVER['REQUEST_URI'], "admin.php")
-  && !strpos($_SERVER['REQUEST_URI'], "process_order.php")) : ?>
+  <?php if (
+    $isAdmin && !strpos($_SERVER['REQUEST_URI'], "admin.php")
+    && !strpos($_SERVER['REQUEST_URI'], "process_order.php")
+  ) : ?>
     <nav class="navbar navbar-expand-lg" id="ADMIN">
       <div class="container">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">

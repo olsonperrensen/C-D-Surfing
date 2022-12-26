@@ -1,5 +1,5 @@
 <?php include_once 'includes/header.php'; ?>
-<?php if (!empty($email)) : ?>
+<?php if (!empty($email) && $warnings >= 5) : ?>
     <section class="page-section cta">
         <div class="container">
             <div class="row">
@@ -24,6 +24,6 @@
     </html>
     <?php session_destroy(); ?>
 <?php endif; ?>
-<?php if (empty($email))
+<?php if (empty($email) || $warnings < 5)
     header('Location: login.php');
 ?>
