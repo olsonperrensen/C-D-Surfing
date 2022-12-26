@@ -158,7 +158,7 @@
                             </div>
                             <div class="form-floating mb-3">
                                 <input value="<?= htmlspecialchars($_POST['password'] ?? '', ENT_QUOTES)  ?>" name="password" id="password" type="password" class="form-control">
-                                <label for="floatingPassword">Password</label>
+                                <label for="password">Password</label>
                                 <?php if ($errors['emptyPwd']) : ?>
                                     <h5 class="userwarn"><?= $errors['emptyPwd'] ?></h5>
                                 <?php endif; ?>
@@ -178,7 +178,7 @@
                             </div>
                             <div class="form-floating">
                                 <input value="<?= htmlspecialchars($_POST['passwordConfirmation'] ?? '', ENT_QUOTES)  ?>" name="passwordConfirmation" id="passwordConfirmation" type="password" class="form-control">
-                                <label for="floatingPassword">Repeat Password</label>
+                                <label for="passwordConfirmation">Repeat Password</label>
                                 <?php if ($errors['emptyPwdConfirmation']) : ?>
                                     <h5 class="userwarn"><?= $errors['emptyPwdConfirmation'] ?></h5>
                                 <?php endif; ?>
