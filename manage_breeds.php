@@ -35,7 +35,7 @@
         $other_pets_friendly = htmlspecialchars($_POST['other_pets_friendly'], ENT_QUOTES);
         $family_friendly = htmlspecialchars($_POST['family_friendly'], ENT_QUOTES);
         $general_health = htmlspecialchars($_POST['general_health'], ENT_QUOTES);
-        if (!empty($_POST['btnEdit'])) {
+        if (!empty($_POST)) {
             $sql_u = "UPDATE BREEDS
             SET isFeline = :isFeline, image_link = :image_link, 
             length = :length, good_with_children = :good_with_children,
@@ -180,21 +180,22 @@
                             <a id='btnd$breed->breed_id' class="btn btn-info text-decoration-none" 
                             href="remove.php?breed_id=$breed->breed_id">❌</a>
                             </td></tr>
-                            <div class="modal fade" id="exampleModal$breed->breed_id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal$breed->breed_id" tabindex="-1" aria-labelledby="exampleModalLabel$breed->breed_id" aria-hidden="true">
                             <div class="modal-dialog">
                             <div class="modal-content">
                             <form name="edit$breed->breed_id" id="edit$breed->breed_id" action="$self" method="POST">
                             <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit breed</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel$breed->breed_id">Edit breed</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                             T;
                         foreach ($breed as $key => $value) {
+                            $escaped_value = htmlspecialchars($value, ENT_QUOTES);
                             if ($key == 'breed_id') {
                                 echo <<< Q
                                     <div class="form-floating mb-3">
-                                    <input readonly value="$value" name="$key" id="$key$breed->breed_id" type="text" class="form-control">
+                                    <input readonly value="$escaped_value" name="$key" id="$key$breed->breed_id" type="text" class="form-control">
                                     <label for="floatingInput">$key</label>
                                     </div>
                                     Q;
@@ -202,7 +203,7 @@
                             }
                             echo <<< Q
                                     <div class="form-floating mb-3">
-                                    <input required value="$value" name="$key" id="$key$breed->breed_id" type="text" class="form-control">
+                                    <input required value="$escaped_value" name="$key" id="$key$breed->breed_id" type="text" class="form-control">
                                     <label for="floatingInput">$key</label>
                                     </div>
                                 Q;
@@ -211,7 +212,7 @@
                             </div>
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button name="btnEdit" id="btnEdit" value="btnEdit" type="submit" class="btn btn-primary">Save changes</button>
+                            <button name="btnEdit$key$breed->breed_id" id="btnEdit$key$breed->breed_id" value="btnEdit$key$breed->breed_id" type="submit" class="btn btn-primary">Save changes</button>
                             </div>
                             </form>
                             </div>
@@ -230,12 +231,12 @@
     </table>
 
     <!-- Modal -->
-    <div class="modal fade" id="addBreed" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addBreed" tabindex="-1" aria-labelledby="exampleModalLabelBREED" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action=<?= $_SERVER['PHP_SELF'] ?> method="POST">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add breed</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabelBREED">Add breed</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">

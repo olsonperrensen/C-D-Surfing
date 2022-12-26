@@ -100,10 +100,12 @@
                             <div class="modal-body">
                             T;
                         foreach ($ad as $key => $value) {
+
                             if ($key == 'pet_id') {
+                                $escaped_value = htmlspecialchars($value, ENT_QUOTES);
                                 echo <<< Q
                                     <div class="form-floating mb-3">
-                                    <input readonly value="$value" name="$key" id="$key$ad->pet_id" type="number" class="form-control">
+                                    <input readonly value="$escaped_value" name="$key" id="$key$ad->pet_id" type="number" class="form-control">
                                     <label for="$key$ad->pet_id">$key</label>
                                     </div>
                                     Q;
@@ -116,10 +118,11 @@
                                 $stmt_a_b->execute();
                                 $row_a_b = $stmt_a_b->fetch(PDO::FETCH_ASSOC);
                                 $breed = new Breed($row_a_b);
+                                $escaped_value = htmlspecialchars($value, ENT_QUOTES);
                                 echo <<< Q
                                         <div class="form-floating mb-3">
                                         <select name="$key" id="$key$ad->pet_id" class="form-select" aria-label="Default select example">
-                                        <option selected value="$value">$value</option>
+                                        <option selected value="$escaped_value">$value</option>
                                         Q;
                                 while ($row_a_b) {
                                     $breed = new Breed($row_a_b);
