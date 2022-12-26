@@ -271,10 +271,10 @@
                     <div class="row">
                     <div class="col-4">
                     <div class="list-group" id="list-tab$pet->pet_id" role="tablist">
-                    <a class="list-group-item list-group-item-action active" id="list-home-list$pet->pet_id" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">Profile</a>
-                    <a class="list-group-item list-group-item-action" id="list-profile-list$pet->pet_id" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">Story</a>
-                    <a class="list-group-item list-group-item-action" id="list-messages-list$pet->pet_id" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Diet</a>
-                    <a class="list-group-item list-group-item-action" id="list-settings-list$pet->pet_id" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Location</a>
+                    <a class="list-group-item list-group-item-action active" id="list-home-list$pet->pet_id" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home$pet->pet_id">Profile</a>
+                    <a class="list-group-item list-group-item-action" id="list-profile-list$pet->pet_id" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile$pet->pet_id">Story</a>
+                    <a class="list-group-item list-group-item-action" id="list-messages-list$pet->pet_id" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages$pet->pet_id">Diet</a>
+                    <a class="list-group-item list-group-item-action" id="list-settings-list$pet->pet_id" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings$pet->pet_id">Location</a>
                     <a class="btn text-white bg-success list-group-item list-group-item-action" id="list-adopt-list$pet->pet_id" href="ads.php?adopted_pet=$pet->pet_id">Adopt me</a>
                     AD;
                 ?>
@@ -287,7 +287,7 @@
                     </div>
                     <div class="col-8">
                     <div class="bg-light tab-content" id="nav-tabContent$pet->pet_id">
-                    <div class="tab-pane active" id="list-home$pet->pet_id" role="tabpanel" aria-labelledby="list-home-list">
+                    <div class="tab-pane active" id="list-home$pet->pet_id" role="tabpanel" aria-labelledby="list-home-list$pet->pet_id">
                     <p class='lead'>$pet->name is a $pet->gender 
                     AD;
                     if ($pet->isFeline) {
@@ -300,9 +300,9 @@
                     AD;
                     echo <<<ADD
                     </div>
-                    <div class="tab-pane" id="list-profile$pet->pet_id" role="tabpanel" aria-labelledby="list-profile-list">$pet->story</div>
-                    <div class="tab-pane" id="list-messages$pet->pet_id" role="tabpanel" aria-labelledby="list-messages-list">$pet->diet</div>
-                    <div class="tab-pane" id="list-settings$pet->pet_id" role="tabpanel" aria-labelledby="list-settings-list">This pet resides at a shelter with zipcode $pet->zipcode.</br></br>Adopt it soon so it becomes part of your home.</div>
+                    <div class="tab-pane" id="list-profile$pet->pet_id" role="tabpanel" aria-labelledby="list-profile-list$pet->pet_id">$pet->story</div>
+                    <div class="tab-pane" id="list-messages$pet->pet_id" role="tabpanel" aria-labelledby="list-messages-list$pet->pet_id">$pet->diet</div>
+                    <div class="tab-pane" id="list-settings$pet->pet_id" role="tabpanel" aria-labelledby="list-settings-list$pet->pet_id">This pet resides at a shelter with zipcode $pet->zipcode.</br></br>Adopt it soon so it becomes part of your home.</div>
                     </div>
                     </div>
                     </div>
