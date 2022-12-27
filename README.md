@@ -40,7 +40,7 @@ The admin panel can be found at `admin.php` or by clicking on the yellow navbar 
   - Everything in this root folder
 - [X] SQL file to load database
 - [X] ER diagram
-  - PHP.png
+  - PHP.jpg
     - ![PHP.jpg](PHP.jpg)
   - PHP_diagram.png
     - ![PHP_diagram.png](PHP_diagram.png)
