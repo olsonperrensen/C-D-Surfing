@@ -42,8 +42,8 @@ The admin panel can be found at `admin.php` or by clicking on the yellow navbar 
 - [X] ER diagram
   - PHP.png
     - ![PHP.png](PHP.png)
-  - webshop/phpmyadmin_diagram.png
-    - ![TODO](TODO)
+  - PHP_diagram.png
+    - ![PHP_diagram.png](PHP_diagram.png)
 
 ## SQL
 
