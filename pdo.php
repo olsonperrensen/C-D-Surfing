@@ -3,15 +3,16 @@
  * Railway-optimized database connection
  */
 
-// Use the exact environment variables you have
+// Use Railway's standard MySQL environment variables
 $db_host = getenv("MYSQL_HOST") ?: 'localhost';
 $db_user = getenv("MYSQLUSER") ?: 'root';
-$db_password = getenv("MYSQL_ROOT_PASSWORD") ?: '';
+// Try common Railway password variable names
+$db_password = getenv("MYSQL_ROOT_PASSWORD") ?: getenv("MYSQLPASSWORD") ?: '';
 $db_name = getenv("MYSQL_DATABASE") ?: 'railway';
 $db_port = getenv("MYSQLPORT") ?: 3306;
 
-// Debug connection (remove in production)
-error_log("Connecting to: $db_host:$db_port, database: $db_name, user: $db_user");
+// Debug: Log the connection attempt (check these in your Railway logs)
+error_log("DB Connection Attempt - Host: $db_host, User: $db_user, DB: $db_name, Port: $db_port");
 
 try {
     $dsn = "mysql:host=$db_host;port=$db_port;dbname=$db_name;charset=utf8mb4";
@@ -29,19 +30,16 @@ try {
     
     // Test connection
     $pdo->query('SELECT 1');
-    
     error_log("Database connected successfully to $db_name");
     
 } catch (PDOException $e) {
-    error_log("Database connection failed: " . $e->getMessage());
-    
-    // Detailed error for debugging
-    $error_details = "Host: $db_host:$db_port | User: $db_user | DB: $db_name | Error: " . $e->getMessage();
-    error_log($error_details);
-    
+    // Detailed error for debugging in logs
+    error_log("Database connection FAILED: " . $e->getMessage());
+    error_log("Connection details used - Host: $db_host, User: $db_user, DB: $db_name, Port: $db_port");
+
+    // User-friendly message
     if (getenv('RAILWAY_ENVIRONMENT') !== 'production') {
-        die('Database connection failed: ' . $e->getMessage() . 
-            "<br>Details: $error_details");
+        die('Database connection failed: ' . $e->getMessage());
     } else {
         die('Database connection failed. Please try again later.');
     }
