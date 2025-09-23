@@ -1,38 +1,20 @@
 <?php
 /**
- * Production-ready pdo.php for Railway deployment
- * Supports Railway MySQL environment variables with local fallback
+ * Railway-optimized database connection
  */
 
-// Get Railway DATABASE_URL first (if provided)
-$database_url = getenv("DATABASE_URL") ?: getenv("MYSQL_URL");
+// Use the exact environment variables you have
+$db_host = getenv("MYSQL_HOST") ?: 'localhost';
+$db_user = getenv("MYSQLUSER") ?: 'root';
+$db_password = getenv("MYSQL_ROOT_PASSWORD") ?: '';
+$db_name = getenv("MYSQL_DATABASE") ?: 'railway';
+$db_port = getenv("MYSQLPORT") ?: 3306;
 
-if ($database_url) {
-    // Parse Railway/Heroku style DATABASE_URL
-    $url_parts = parse_url($database_url);
-    $db_host = $url_parts["host"];
-    $db_user = $url_parts["user"];
-    $db_password = $url_parts["pass"];
-    $db_name = substr($url_parts["path"], 1);
-    $db_port = $url_parts["port"] ?? 3306;
-} else {
-    // Use Railway MySQL environment variables
-    $db_host = getenv("MYSQL_HOST") ?: 'localhost';
-    $db_user = getenv("MYSQLUSER") ?: 'root';
-    $db_password = getenv("MYSQL_ROOT_PASSWORD") ?: 'Lab2021';
-    $db_name = getenv("MYSQL_DATABASE") ?: 'railway';
-    $db_port = getenv("MYSQLPORT") ?: 3306;
-}
+// Debug connection (remove in production)
+error_log("Connecting to: $db_host:$db_port, database: $db_name, user: $db_user");
 
-// Create PDO connection
 try {
-    // Force TCP connection (avoid socket issues)
     $dsn = "mysql:host=$db_host;port=$db_port;dbname=$db_name;charset=utf8mb4";
-    
-    // Use 127.0.0.1 instead of localhost to force TCP
-    if ($db_host === 'localhost') {
-        $dsn = "mysql:host=127.0.0.1;port=$db_port;dbname=$db_name;charset=utf8mb4";
-    }
     
     $pdo = new PDO(
         $dsn,
@@ -42,25 +24,26 @@ try {
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_TIMEOUT => 30,
-            PDO::MYSQL_ATTR_FOUND_ROWS => true,
-            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"
         ]
     );
     
     // Test connection
     $pdo->query('SELECT 1');
     
-    // Set timezone
-    $pdo->exec("SET time_zone = '+00:00'");
+    error_log("Database connected successfully to $db_name");
     
 } catch (PDOException $e) {
-    // Production error handling
     error_log("Database connection failed: " . $e->getMessage());
     
-    if (getenv('RAILWAY_ENVIRONMENT') === 'production') {
-        die('Database connection failed. Please try again later.');
+    // Detailed error for debugging
+    $error_details = "Host: $db_host:$db_port | User: $db_user | DB: $db_name | Error: " . $e->getMessage();
+    error_log($error_details);
+    
+    if (getenv('RAILWAY_ENVIRONMENT') !== 'production') {
+        die('Database connection failed: ' . $e->getMessage() . 
+            "<br>Details: $error_details");
     } else {
-        die('Database connection failed: ' . $e->getMessage());
+        die('Database connection failed. Please try again later.');
     }
 }
 ?>
