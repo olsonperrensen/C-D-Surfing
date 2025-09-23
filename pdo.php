@@ -23,7 +23,7 @@ if ($database_url) {
     $cleardb_server = getenv("DB_HOST") ?: getenv("MYSQL_HOST") ?: 'localhost';  // Changed from 'mysql' to 'localhost'
     $cleardb_username = getenv("DB_USER") ?: getenv("MYSQL_USER") ?: 'Webuser';
     $cleardb_password = getenv("DB_PASSWORD") ?: getenv("MYSQL_PASSWORD") ?: 'Lab2021';
-    $cleardb_db = getenv("DB_NAME") ?: getenv("MYSQL_DATABASE") ?: 'pets';
+    $cleardb_db = getenv("DB_NAME") ?: getenv("MYSQL_DATABASE") ?: 'railway';
     $cleardb_port = getenv("DB_PORT") ?: getenv("MYSQL_PORT") ?: 3306;
 }
 
