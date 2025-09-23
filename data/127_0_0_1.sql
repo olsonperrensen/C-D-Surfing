@@ -1,4 +1,4 @@
-USE `pets`;
+USE `railway`;
 
 CREATE TABLE `pet_details` (
   `pet_id` int(11) NOT NULL,
@@ -62,3 +62,4 @@ INSERT INTO `users` (`user_id`, `email`, `password`, `naam`, `zipcode`, `looking
 (3, 'JEROEN.VANBERKEL@CDSurfing.be', 'xe854', 'JEROEN VANBERKEL', '2800', 'Dog', 0, 0, 0),
 (4, 'CINDY.EEKELS@CDSurfing.be', '$2y$10$zqRgQ.YDzJuH5tecBH9m3.OrN41klCrp8aNA4Ojxem7PQGWKrdMG6', 'CINDY EEKELS', '2800', 'Cat', 1, 0, 4);
 -- A normal visitor is not included, not necessary because no account
+
