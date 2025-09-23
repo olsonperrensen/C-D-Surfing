@@ -1,0 +1,10 @@
+{
+  "build": {
+    "builder": "DOCKERFILE",
+    "dockerfilePath": "Dockerfile"
+  },
+  "deploy": {
+    "startCommand": "apache2-foreground",
+    "restartPolicyType": "ON_FAILURE"
+  }
+}
