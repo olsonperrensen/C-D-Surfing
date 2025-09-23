@@ -1,136 +1,136 @@
-<?PHP INCLUDE_ONCE 'INCLUDES/HEADER.PHP'; ?>
-<?PHP IF (EMPTY($EMAIL)) : ?>
-  <?PHP REQUIRE_ONCE 'PDO.PHP' ?>
-  <?PHP
-  $ERRORS = ARRAY(
-    'EMPTYEMAIL' => '',
-    'INVALIDEMAIL' => '',
-    'EMPTYPWD' => '',
-    'INVALIDLOGIN' => '',
+<?php include_once 'includes/header.php'; ?>
+<?php if (empty($email)) : ?>
+  <?php require_once 'pdo.php' ?>
+  <?php
+  $errors = array(
+    'emptyemail' => '',
+    'invalidemail' => '',
+    'emptypwd' => '',
+    'invalidlogin' => '',
   );
-  $BTNPRESSED = FALSE;
-  // HANDLES POST REQUESTS
-  IF ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    IF (EMPTY($_POST['EMAIL'])) {
-      $ERRORS['EMPTYEMAIL'] = 'EMAIL CANNOT BE LEFT EMPTY.';
-    } ELSE IF (!FILTER_VAR($_POST['EMAIL'], FILTER_VALIDATE_EMAIL)) {
-      $ERRORS['INVALIDEMAIL'] = 'EMAIL MUST BE OF VALID FORMAT (EXAMPLE@DOMAIN.COM)';
+  $btnpressed = false;
+  // handles post requests
+  if ($_server['request_method'] === 'post') {
+    if (empty($_post['email'])) {
+      $errors['emptyemail'] = 'email cannot be left empty.';
+    } else if (!filter_var($_post['email'], filter_validate_email)) {
+      $errors['invalidemail'] = 'email must be of valid format (example@domain.com)';
     }
-    IF (EMPTY($_POST['PASSWORD'])) {
-      $ERRORS['EMPTYPWD'] = 'PASSWORD CANNOT BE LEFT EMPTY.';
+    if (empty($_post['password'])) {
+      $errors['emptypwd'] = 'password cannot be left empty.';
     }
 
-    IF (!ARRAY_FILTER($ERRORS)) {
-      IF (!ISSET($_COOKIE["PHPSESSID"])) {
-        SESSION_START();
+    if (!array_filter($errors)) {
+      if (!isset($_cookie["phpsessid"])) {
+        session_start();
       }
-      $EMAIL = $_POST['EMAIL'];
-      $PWD = $_POST['PASSWORD'];
-      $SQL = "SELECT * FROM USERS WHERE EMAIL = :EM";
-      $STMT = $PDO->PREPARE($SQL);
-      $STMT->EXECUTE(ARRAY(':EM' => $EMAIL));
-      $ROW = $STMT->FETCH(PDO::FETCH_ASSOC);
-      IF (!EMPTY($ROW)) {
-        IF (PASSWORD_VERIFY($PWD, $ROW['PASSWORD'])) {
-          UNSET($_SESSION["INVALIDLOGIN"]);
-          $_SESSION['EMAIL'] = $EMAIL;
-          $_SESSION['ISADMIN'] = $ROW['ISADMIN'];
-          $_SESSION['USER_ID'] = $ROW['USER_ID'];
-          $_SESSION['BUYER_ZIPCODE'] = $ROW['ZIPCODE'];
-          $_SESSION['WARNING'] = $ROW['WARNINGS'];
-          HEADER('LOCATION: ACCOUNT.PHP');
-        } ELSE {
-          $_SESSION['INVALIDLOGIN'] = $ERRORS['INVALIDLOGIN'] = 'YOU HAVE ENTERED INVALID CREDENTIALS.';
+      $email = $_post['email'];
+      $pwd = $_post['password'];
+      $sql = "select * from users where email = :em";
+      $stmt = $pdo->prepare($sql);
+      $stmt->execute(array(':em' => $email));
+      $row = $stmt->fetch(pdo::fetch_assoc);
+      if (!empty($row)) {
+        if (password_verify($pwd, $row['password'])) {
+          unset($_session["invalidlogin"]);
+          $_session['email'] = $email;
+          $_session['isadmin'] = $row['isadmin'];
+          $_session['user_id'] = $row['user_id'];
+          $_session['buyer_zipcode'] = $row['zipcode'];
+          $_session['warning'] = $row['warnings'];
+          header('location: account.php');
+        } else {
+          $_session['invalidlogin'] = $errors['invalidlogin'] = 'you have entered invalid credentials.';
         }
-      } ELSE {
-        $_SESSION['INVALIDLOGIN'] = $ERRORS['INVALIDLOGIN'] = 'YOU MUST REGISTER FIRST.';
+      } else {
+        $_session['invalidlogin'] = $errors['invalidlogin'] = 'you must register first.';
       }
     }
   }
   ?>
-  <SECTION CLASS="PAGE-SECTION CTA">
-    <DIV CLASS="CONTAINER">
-      <DIV CLASS="ROW">
-        <DIV CLASS="COL-XL-9 MX-AUTO">
-          <DIV CLASS="CTA-INNER BG-FADED TEXT-CENTER ROUNDED">
-            <H2 CLASS="SECTION-HEADING MB-5">
-              <SPAN CLASS="SECTION-HEADING-UPPER">COME ON IN</SPAN>
-              <SPAN CLASS="SECTION-HEADING-LOWER">LOG IN</SPAN>
-            </H2>
-            <FORM NAME="LOGIN" ID="LOGIN" ACTION=<?= $_SERVER['PHP_SELF'] ?> METHOD="POST">
-              <DIV CLASS="FORM-FLOATING MB-3">
-                <INPUT VALUE="<?= HTMLSPECIALCHARS($_POST['EMAIL'] ?? '')  ?>" NAME="EMAIL" ID="EMAIL" TYPE="EMAIL" CLASS="FORM-CONTROL">
-                <LABEL FOR="EMAIL">EMAIL ADDRESS</LABEL>
-                <?PHP IF ($ERRORS['INVALIDEMAIL']) : ?>
-                  <H5 CLASS="USERWARN"><?= $ERRORS['INVALIDEMAIL'] ?></H5>
-                <?PHP ENDIF; ?>
-                <?PHP IF ($ERRORS['EMPTYEMAIL']) : ?>
-                  <H5 CLASS="USERWARN"><?= $ERRORS['EMPTYEMAIL'] ?></H5>
-                <?PHP ENDIF; ?>
-              </DIV>
-              <DIV CLASS="FORM-FLOATING">
-                <INPUT VALUE="<?= HTMLSPECIALCHARS($_POST['PASSWORD'] ?? '')  ?>" NAME="PASSWORD" TYPE="PASSWORD" ID="PASSWORD" CLASS="FORM-CONTROL">
-                <LABEL FOR="PASSWORD">PASSWORD</LABEL>
-                <?PHP IF ($ERRORS['EMPTYPWD']) : ?>
-                  <H5 CLASS="USERWARN"><?= $ERRORS['EMPTYPWD'] ?></H5>
-                <?PHP ENDIF; ?>
-                <?PHP IF (ISSET($_SESSION['INVALIDLOGIN'])) : ?>
-                  <H5 CLASS="USERWARN"><?= $ERRORS['INVALIDLOGIN'] ?></H5>
-                <?PHP ENDIF; ?>
-                <BR>
-                <BUTTON VALUE="TRUE" NAME="MSUBMIT" ID="MSUBMIT" CLASS="BTN BTN-SECONDARY BTN-SM">LOG IN</BUTTON>
-              </DIV>
-            </FORM>
-            <BR>
-            <P CLASS="LEAD">
-              <A HREF="SIGNUP.PHP" CLASS="TEXT-SECONDARY"><EM>SIGN UP INSTEAD</EM></A>
-            </P>
-            <P CLASS="MB-0">
-              <SMALL><EM>ISSUES?</EM></SMALL>
-              <BR />
-              <A HREF="MAILTO:WEBMASTER@C&D.BE">WEBMASTER@C&D.BE</A>
-            </P>
-          </DIV>
-        </DIV>
-      </DIV>
-    </DIV>
-  </SECTION>
-  <SECTION CLASS="PAGE-SECTION ABOUT-HEADING">
-    <DIV CLASS="CONTAINER">
-      <IMG CLASS="IMG-FLUID ROUNDED ABOUT-HEADING-IMG MB-3 MB-LG-0" SRC="ASSETS/IMG/ABOUT.JPG" ALT="..." />
-      <DIV CLASS="ABOUT-HEADING-CONTENT">
-        <DIV CLASS="ROW">
-          <DIV CLASS="COL-XL-9 COL-LG-10 MX-AUTO">
-            <DIV CLASS="BG-FADED ROUNDED P-5">
-              <H2 CLASS="SECTION-HEADING MB-4">
-                <SPAN CLASS="SECTION-HEADING-UPPER">STAY WITH US, STAY LOGGED</SPAN>
-                <SPAN CLASS="SECTION-HEADING-LOWER">ACCOUNT BENEFITS</SPAN>
-              </H2>
-              <UL>
-                <LI>PLACE AN ORDER</LI>
-                <LI>KEEP TRACK OF YOUR PREVIOUS ORDERS</LI>
-                <LI>SEE HEALTHCARE PLANS (IN DETAIL)</LI>
-                <LI>POST ADVERTISEMENTS IF YOU FOUND A PET</LI>
-              </UL>
+  <section class="page-section cta">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-9 mx-auto">
+          <div class="cta-inner bg-faded text-center rounded">
+            <h2 class="section-heading mb-5">
+              <span class="section-heading-upper">come on in</span>
+              <span class="section-heading-lower">log in</span>
+            </h2>
+            <form name="login" id="login" action=<?= $_server['php_self'] ?> method="post">
+              <div class="form-floating mb-3">
+                <input value="<?= htmlspecialchars($_post['email'] ?? '')  ?>" name="email" id="email" type="email" class="form-control">
+                <label for="email">email address</label>
+                <?php if ($errors['invalidemail']) : ?>
+                  <h5 class="userwarn"><?= $errors['invalidemail'] ?></h5>
+                <?php endif; ?>
+                <?php if ($errors['emptyemail']) : ?>
+                  <h5 class="userwarn"><?= $errors['emptyemail'] ?></h5>
+                <?php endif; ?>
+              </div>
+              <div class="form-floating">
+                <input value="<?= htmlspecialchars($_post['password'] ?? '')  ?>" name="password" type="password" id="password" class="form-control">
+                <label for="password">password</label>
+                <?php if ($errors['emptypwd']) : ?>
+                  <h5 class="userwarn"><?= $errors['emptypwd'] ?></h5>
+                <?php endif; ?>
+                <?php if (isset($_session['invalidlogin'])) : ?>
+                  <h5 class="userwarn"><?= $errors['invalidlogin'] ?></h5>
+                <?php endif; ?>
+                <br>
+                <button value="true" name="msubmit" id="msubmit" class="btn btn-secondary btn-sm">log in</button>
+              </div>
+            </form>
+            <br>
+            <p class="lead">
+              <a href="signup.php" class="text-secondary"><em>sign up instead</em></a>
+            </p>
+            <p class="mb-0">
+              <small><em>issues?</em></small>
+              <br />
+              <a href="mailto:webmaster@c&d.be">webmaster@c&d.be</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="page-section about-heading">
+    <div class="container">
+      <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="assets/img/about.jpg" alt="..." />
+      <div class="about-heading-content">
+        <div class="row">
+          <div class="col-xl-9 col-lg-10 mx-auto">
+            <div class="bg-faded rounded p-5">
+              <h2 class="section-heading mb-4">
+                <span class="section-heading-upper">stay with us, stay logged</span>
+                <span class="section-heading-lower">account benefits</span>
+              </h2>
+              <ul>
+                <li>place an order</li>
+                <li>keep track of your previous orders</li>
+                <li>see healthcare plans (in detail)</li>
+                <li>post advertisements if you found a pet</li>
+              </ul>
 
-            </DIV>
-          </DIV>
-        </DIV>
-      </DIV>
-    </DIV>
-  </SECTION>
-  <?PHP REQUIRE_ONCE 'INCLUDES/FOOTER.PHP' ?>
-  </BODY>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <?php require_once 'includes/footer.php' ?>
+  </body>
 
-  </HTML>
-<?PHP ENDIF; ?>
-<?PHP IF (!EMPTY($EMAIL)) {
-  IF ($ISADMIN) {
-    ECHO ("<P CLASS='BG-LIGHT TEXT-CENTER'>YOU ARE ALREADY LOGGED IN! <A HREF='INDEX.PHP'>GO BACK</A> </P>");
-    REQUIRE_ONCE 'INCLUDES/FOOTER.PHP';
-    ECHO ("</BODY>
-    </HTML>");
-    DIE();
+  </html>
+<?php endif; ?>
+<?php if (!empty($email)) {
+  if ($isadmin) {
+    echo ("<p class='bg-light text-center'>you are already logged in! <a href='index.php'>go back</a> </p>");
+    require_once 'includes/footer.php';
+    echo ("</body>
+    </html>");
+    die();
   }
-  HEADER('LOCATION: ACCOUNT.PHP');
+  header('location: account.php');
 }
