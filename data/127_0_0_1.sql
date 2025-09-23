@@ -1,349 +1,349 @@
-USE `railway`;
+USE `RAILWAY`;
 
--- Create tables in proper order to respect foreign key dependencies
-CREATE TABLE `users` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL UNIQUE,
-  `password` varchar(255) NOT NULL,
-  `naam` varchar(255) NOT NULL,
-  `zipcode` varchar(25) NOT NULL,
-  `looking_for` varchar(20) DEFAULT NULL,
-  `can_advertise` tinyint(1) NOT NULL DEFAULT 0,
-  `isAdmin` tinyint(1) NOT NULL DEFAULT 0,
-  `warnings` int(11) DEFAULT 0,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `last_login` datetime DEFAULT NULL,
-  `profile_image` varchar(500) DEFAULT 'assets/img/profile_generic.png',
-  `bio` text DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `address` varchar(500) DEFAULT NULL,
-  `city` varchar(100) DEFAULT 'Mechelen',
-  `country` varchar(100) DEFAULT 'Belgium',
-  `verified` tinyint(1) DEFAULT 0,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- CREATE TABLES IN PROPER ORDER TO RESPECT FOREIGN KEY DEPENDENCIES
+CREATE TABLE `USERS` (
+  `USER_ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `EMAIL` VARCHAR(255) NOT NULL UNIQUE,
+  `PASSWORD` VARCHAR(255) NOT NULL,
+  `NAAM` VARCHAR(255) NOT NULL,
+  `ZIPCODE` VARCHAR(25) NOT NULL,
+  `LOOKING_FOR` VARCHAR(20) DEFAULT NULL,
+  `CAN_ADVERTISE` TINYINT(1) NOT NULL DEFAULT 0,
+  `ISADMIN` TINYINT(1) NOT NULL DEFAULT 0,
+  `WARNINGS` INT(11) DEFAULT 0,
+  `CREATED_AT` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `LAST_LOGIN` DATETIME DEFAULT NULL,
+  `PROFILE_IMAGE` VARCHAR(500) DEFAULT 'ASSETS/IMG/PROFILE_GENERIC.PNG',
+  `BIO` TEXT DEFAULT NULL,
+  `PHONE` VARCHAR(20) DEFAULT NULL,
+  `ADDRESS` VARCHAR(500) DEFAULT NULL,
+  `CITY` VARCHAR(100) DEFAULT 'MECHELEN',
+  `COUNTRY` VARCHAR(100) DEFAULT 'BELGIUM',
+  `VERIFIED` TINYINT(1) DEFAULT 0,
+  PRIMARY KEY (`USER_ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
-CREATE TABLE `breeds` (
-  `breed_id` int(11) NOT NULL AUTO_INCREMENT,
-  `isFeline` tinyint(1) NOT NULL COMMENT '1 for cat, 0 for dog',
-  `image_link` varchar(500) DEFAULT 'assets/img/generic_0.png',
-  `length` varchar(255) DEFAULT 'Medium',
-  `good_with_children` int(1) DEFAULT 3,
-  `good_with_dogs` int(1) DEFAULT 3,
-  `shedding` int(1) DEFAULT 3,
-  `grooming` int(1) DEFAULT 3,
-  `drooling` int(1) DEFAULT 3,
-  `coat_length` varchar(50) DEFAULT 'Medium',
-  `good_with_strangers` int(1) DEFAULT 3,
-  `playfulness` int(1) DEFAULT 3,
-  `protectiveness` int(1) DEFAULT 3,
-  `trainability` int(1) DEFAULT 3,
-  `energy` int(1) DEFAULT 3,
-  `vocal_communication` int(1) DEFAULT 3,
-  `min_life_expectancy` int(2) DEFAULT 10,
-  `max_life_expectancy` int(2) DEFAULT 15,
-  `max_height_male` decimal(4,1) DEFAULT NULL,
-  `max_height_female` decimal(4,1) DEFAULT NULL,
-  `max_weight_male` decimal(5,1) DEFAULT NULL,
-  `max_weight_female` decimal(5,1) DEFAULT NULL,
-  `min_height_male` decimal(4,1) DEFAULT NULL,
-  `min_height_female` decimal(4,1) DEFAULT NULL,
-  `min_weight_male` decimal(5,1) DEFAULT NULL,
-  `min_weight_female` decimal(5,1) DEFAULT NULL,
-  `name` varchar(100) NOT NULL,
-  `origin` varchar(100) DEFAULT 'Unknown',
-  `intelligence` int(1) DEFAULT 3,
-  `other_pets_friendly` int(1) DEFAULT 3,
-  `family_friendly` int(1) DEFAULT 3,
-  `general_health` int(1) DEFAULT 3,
-  `popularity_rank` int(3) DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`breed_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `BREEDS` (
+  `BREED_ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `ISFELINE` TINYINT(1) NOT NULL COMMENT '1 FOR CAT, 0 FOR DOG',
+  `IMAGE_LINK` VARCHAR(500) DEFAULT 'ASSETS/IMG/GENERIC_0.PNG',
+  `LENGTH` VARCHAR(255) DEFAULT 'MEDIUM',
+  `GOOD_WITH_CHILDREN` INT(1) DEFAULT 3,
+  `GOOD_WITH_DOGS` INT(1) DEFAULT 3,
+  `SHEDDING` INT(1) DEFAULT 3,
+  `GROOMING` INT(1) DEFAULT 3,
+  `DROOLING` INT(1) DEFAULT 3,
+  `COAT_LENGTH` VARCHAR(50) DEFAULT 'MEDIUM',
+  `GOOD_WITH_STRANGERS` INT(1) DEFAULT 3,
+  `PLAYFULNESS` INT(1) DEFAULT 3,
+  `PROTECTIVENESS` INT(1) DEFAULT 3,
+  `TRAINABILITY` INT(1) DEFAULT 3,
+  `ENERGY` INT(1) DEFAULT 3,
+  `VOCAL_COMMUNICATION` INT(1) DEFAULT 3,
+  `MIN_LIFE_EXPECTANCY` INT(2) DEFAULT 10,
+  `MAX_LIFE_EXPECTANCY` INT(2) DEFAULT 15,
+  `MAX_HEIGHT_MALE` DECIMAL(4,1) DEFAULT NULL,
+  `MAX_HEIGHT_FEMALE` DECIMAL(4,1) DEFAULT NULL,
+  `MAX_WEIGHT_MALE` DECIMAL(5,1) DEFAULT NULL,
+  `MAX_WEIGHT_FEMALE` DECIMAL(5,1) DEFAULT NULL,
+  `MIN_HEIGHT_MALE` DECIMAL(4,1) DEFAULT NULL,
+  `MIN_HEIGHT_FEMALE` DECIMAL(4,1) DEFAULT NULL,
+  `MIN_WEIGHT_MALE` DECIMAL(5,1) DEFAULT NULL,
+  `MIN_WEIGHT_FEMALE` DECIMAL(5,1) DEFAULT NULL,
+  `NAME` VARCHAR(100) NOT NULL,
+  `ORIGIN` VARCHAR(100) DEFAULT 'UNKNOWN',
+  `INTELLIGENCE` INT(1) DEFAULT 3,
+  `OTHER_PETS_FRIENDLY` INT(1) DEFAULT 3,
+  `FAMILY_FRIENDLY` INT(1) DEFAULT 3,
+  `GENERAL_HEALTH` INT(1) DEFAULT 3,
+  `POPULARITY_RANK` INT(3) DEFAULT NULL,
+  `DESCRIPTION` TEXT DEFAULT NULL,
+  `CREATED_AT` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`BREED_ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
-CREATE TABLE `healthcare_plans` (
-  `healthcare_id` int(11) NOT NULL AUTO_INCREMENT,
-  `plan_name` varchar(100) NOT NULL,
-  `description` text DEFAULT NULL,
-  `monthly_cost` decimal(6,2) DEFAULT 0.00,
-  `coverage_percentage` int(3) DEFAULT 80,
-  `annual_limit` decimal(8,2) DEFAULT 5000.00,
-  `deductible` decimal(6,2) DEFAULT 100.00,
-  `is_active` tinyint(1) DEFAULT 1,
-  PRIMARY KEY (`healthcare_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `HEALTHCARE_PLANS` (
+  `HEALTHCARE_ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `PLAN_NAME` VARCHAR(100) NOT NULL,
+  `DESCRIPTION` TEXT DEFAULT NULL,
+  `MONTHLY_COST` DECIMAL(6,2) DEFAULT 0.00,
+  `COVERAGE_PERCENTAGE` INT(3) DEFAULT 80,
+  `ANNUAL_LIMIT` DECIMAL(8,2) DEFAULT 5000.00,
+  `DEDUCTIBLE` DECIMAL(6,2) DEFAULT 100.00,
+  `IS_ACTIVE` TINYINT(1) DEFAULT 1,
+  PRIMARY KEY (`HEALTHCARE_ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
-CREATE TABLE `pet_details` (
-  `pet_id` int(11) NOT NULL AUTO_INCREMENT,
-  `owner_id` int(11) NOT NULL,
-  `breed_id` int(11) NOT NULL,
-  `healthcare_id` int(11) DEFAULT 1,
-  `name` varchar(255) NOT NULL,
-  `gender` enum('Male','Female') NOT NULL,
-  `age` int(11) NOT NULL,
-  `size` enum('Small','Medium','Large','Extra Large') NOT NULL DEFAULT 'Medium',
-  `color` varchar(255) NOT NULL DEFAULT 'Mixed',
-  `story` text NOT NULL,
-  `diet` text NOT NULL,
-  `temperament` varchar(255) DEFAULT 'Friendly',
-  `special_needs` text DEFAULT NULL,
-  `vaccination_status` enum('Current','Needs Update','Unknown') DEFAULT 'Current',
-  `microchipped` tinyint(1) DEFAULT 0,
-  `spayed_neutered` tinyint(1) DEFAULT 0,
-  `adoption_fee` decimal(6,2) DEFAULT 0.00,
-  `status` enum('Available','Pending','Adopted','Not Available') DEFAULT 'Available',
-  `featured` tinyint(1) DEFAULT 0,
-  `view_count` int(11) DEFAULT 0,
-  `register_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `last_updated` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `online_purchased` tinyint(1) DEFAULT 0,
-  PRIMARY KEY (`pet_id`),
-  KEY `owner_id` (`owner_id`),
-  KEY `breed_id` (`breed_id`),
-  KEY `healthcare_id` (`healthcare_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `PET_DETAILS` (
+  `PET_ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `OWNER_ID` INT(11) NOT NULL,
+  `BREED_ID` INT(11) NOT NULL,
+  `HEALTHCARE_ID` INT(11) DEFAULT 1,
+  `NAME` VARCHAR(255) NOT NULL,
+  `GENDER` ENUM('MALE','FEMALE') NOT NULL,
+  `AGE` INT(11) NOT NULL,
+  `SIZE` ENUM('SMALL','MEDIUM','LARGE','EXTRA LARGE') NOT NULL DEFAULT 'MEDIUM',
+  `COLOR` VARCHAR(255) NOT NULL DEFAULT 'MIXED',
+  `STORY` TEXT NOT NULL,
+  `DIET` TEXT NOT NULL,
+  `TEMPERAMENT` VARCHAR(255) DEFAULT 'FRIENDLY',
+  `SPECIAL_NEEDS` TEXT DEFAULT NULL,
+  `VACCINATION_STATUS` ENUM('CURRENT','NEEDS UPDATE','UNKNOWN') DEFAULT 'CURRENT',
+  `MICROCHIPPED` TINYINT(1) DEFAULT 0,
+  `SPAYED_NEUTERED` TINYINT(1) DEFAULT 0,
+  `ADOPTION_FEE` DECIMAL(6,2) DEFAULT 0.00,
+  `STATUS` ENUM('AVAILABLE','PENDING','ADOPTED','NOT AVAILABLE') DEFAULT 'AVAILABLE',
+  `FEATURED` TINYINT(1) DEFAULT 0,
+  `VIEW_COUNT` INT(11) DEFAULT 0,
+  `REGISTER_DATE` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `LAST_UPDATED` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ONLINE_PURCHASED` TINYINT(1) DEFAULT 0,
+  PRIMARY KEY (`PET_ID`),
+  KEY `OWNER_ID` (`OWNER_ID`),
+  KEY `BREED_ID` (`BREED_ID`),
+  KEY `HEALTHCARE_ID` (`HEALTHCARE_ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
-CREATE TABLE `pet_images` (
-  `image_id` int(11) NOT NULL AUTO_INCREMENT,
-  `pet_id` int(11) NOT NULL,
-  `image_url` varchar(500) NOT NULL,
-  `is_primary` tinyint(1) DEFAULT 0,
-  `uploaded_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`image_id`),
-  KEY `pet_id` (`pet_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `PET_IMAGES` (
+  `IMAGE_ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `PET_ID` INT(11) NOT NULL,
+  `IMAGE_URL` VARCHAR(500) NOT NULL,
+  `IS_PRIMARY` TINYINT(1) DEFAULT 0,
+  `UPLOADED_AT` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`IMAGE_ID`),
+  KEY `PET_ID` (`PET_ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
-CREATE TABLE `shipping_regions` (
-  `region_id` int(11) NOT NULL AUTO_INCREMENT,
-  `region_name` varchar(100) NOT NULL,
-  `country_code` varchar(3) DEFAULT 'BE',
-  `base_cost` decimal(6,2) DEFAULT 0.00,
-  `delivery_time_days` int(3) DEFAULT 3,
-  `is_active` tinyint(1) DEFAULT 1,
-  PRIMARY KEY (`region_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `SHIPPING_REGIONS` (
+  `REGION_ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `REGION_NAME` VARCHAR(100) NOT NULL,
+  `COUNTRY_CODE` VARCHAR(3) DEFAULT 'BE',
+  `BASE_COST` DECIMAL(6,2) DEFAULT 0.00,
+  `DELIVERY_TIME_DAYS` INT(3) DEFAULT 3,
+  `IS_ACTIVE` TINYINT(1) DEFAULT 1,
+  PRIMARY KEY (`REGION_ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
-CREATE TABLE `shipping_info` (
-  `shipping_id` int(11) NOT NULL AUTO_INCREMENT,
-  `shipping_type` varchar(255) NOT NULL DEFAULT 'Standard',
-  `shipping_cost` decimal(6,2) DEFAULT 15.00,
-  `shipping_region_id` int(11) DEFAULT 1,
-  `estimated_days` int(3) DEFAULT 3,
-  `description` text DEFAULT NULL,
-  PRIMARY KEY (`shipping_id`),
-  KEY `shipping_region_id` (`shipping_region_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `SHIPPING_INFO` (
+  `SHIPPING_ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `SHIPPING_TYPE` VARCHAR(255) NOT NULL DEFAULT 'STANDARD',
+  `SHIPPING_COST` DECIMAL(6,2) DEFAULT 15.00,
+  `SHIPPING_REGION_ID` INT(11) DEFAULT 1,
+  `ESTIMATED_DAYS` INT(3) DEFAULT 3,
+  `DESCRIPTION` TEXT DEFAULT NULL,
+  PRIMARY KEY (`SHIPPING_ID`),
+  KEY `SHIPPING_REGION_ID` (`SHIPPING_REGION_ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
-CREATE TABLE `shopping_cart` (
-  `cart_id` int(11) NOT NULL AUTO_INCREMENT,
-  `pet_id` int(11) DEFAULT NULL,
-  `userid` int(11) DEFAULT NULL,
-  `quantity` int(11) DEFAULT 1,
-  `added_price` decimal(8,2) DEFAULT 0.00,
-  `dateAdded` datetime DEFAULT CURRENT_TIMESTAMP,
-  `is_regional` tinyint(1) DEFAULT 0,
-  `session_id` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`cart_id`),
-  KEY `pet_id` (`pet_id`),
-  KEY `userid` (`userid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `SHOPPING_CART` (
+  `CART_ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `PET_ID` INT(11) DEFAULT NULL,
+  `USERID` INT(11) DEFAULT NULL,
+  `QUANTITY` INT(11) DEFAULT 1,
+  `ADDED_PRICE` DECIMAL(8,2) DEFAULT 0.00,
+  `DATEADDED` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `IS_REGIONAL` TINYINT(1) DEFAULT 0,
+  `SESSION_ID` VARCHAR(100) DEFAULT NULL,
+  PRIMARY KEY (`CART_ID`),
+  KEY `PET_ID` (`PET_ID`),
+  KEY `USERID` (`USERID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
-CREATE TABLE `adoption_applications` (
-  `application_id` int(11) NOT NULL AUTO_INCREMENT,
-  `pet_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `application_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `status` enum('Pending','Approved','Rejected','Under Review') DEFAULT 'Pending',
-  `family_members` int(2) DEFAULT NULL,
-  `children_ages` varchar(100) DEFAULT NULL,
-  `other_pets` text DEFAULT NULL,
-  `home_type` enum('Apartment','House','Farm','Other') DEFAULT 'House',
-  `yard_size` varchar(50) DEFAULT NULL,
-  `work_schedule` text DEFAULT NULL,
-  `previous_experience` text DEFAULT NULL,
-  `reason_for_adoption` text DEFAULT NULL,
-  `vet_reference` text DEFAULT NULL,
-  `notes` text DEFAULT NULL,
-  `contacted_date` datetime DEFAULT NULL,
-  `decision_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`application_id`),
-  KEY `pet_id` (`pet_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `ADOPTION_APPLICATIONS` (
+  `APPLICATION_ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `PET_ID` INT(11) NOT NULL,
+  `USER_ID` INT(11) NOT NULL,
+  `APPLICATION_DATE` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `STATUS` ENUM('PENDING','APPROVED','REJECTED','UNDER REVIEW') DEFAULT 'PENDING',
+  `FAMILY_MEMBERS` INT(2) DEFAULT NULL,
+  `CHILDREN_AGES` VARCHAR(100) DEFAULT NULL,
+  `OTHER_PETS` TEXT DEFAULT NULL,
+  `HOME_TYPE` ENUM('APARTMENT','HOUSE','FARM','OTHER') DEFAULT 'HOUSE',
+  `YARD_SIZE` VARCHAR(50) DEFAULT NULL,
+  `WORK_SCHEDULE` TEXT DEFAULT NULL,
+  `PREVIOUS_EXPERIENCE` TEXT DEFAULT NULL,
+  `REASON_FOR_ADOPTION` TEXT DEFAULT NULL,
+  `VET_REFERENCE` TEXT DEFAULT NULL,
+  `NOTES` TEXT DEFAULT NULL,
+  `CONTACTED_DATE` DATETIME DEFAULT NULL,
+  `DECISION_DATE` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`APPLICATION_ID`),
+  KEY `PET_ID` (`PET_ID`),
+  KEY `USER_ID` (`USER_ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
-CREATE TABLE `transactions` (
-  `transaction_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `pet_id` int(11) DEFAULT NULL,
-  `amount` decimal(8,2) NOT NULL,
-  `transaction_type` enum('Adoption Fee','Donation','Membership','Product') DEFAULT 'Adoption Fee',
-  `payment_method` varchar(50) DEFAULT 'Credit Card',
-  `status` enum('Pending','Completed','Failed','Refunded') DEFAULT 'Pending',
-  `stripe_payment_intent_id` varchar(100) DEFAULT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `completed_at` datetime DEFAULT NULL,
-  `shipping_address` text DEFAULT NULL,
-  `billing_address` text DEFAULT NULL,
-  PRIMARY KEY (`transaction_id`),
-  KEY `user_id` (`user_id`),
-  KEY `pet_id` (`pet_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `TRANSACTIONS` (
+  `TRANSACTION_ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `USER_ID` INT(11) NOT NULL,
+  `PET_ID` INT(11) DEFAULT NULL,
+  `AMOUNT` DECIMAL(8,2) NOT NULL,
+  `TRANSACTION_TYPE` ENUM('ADOPTION FEE','DONATION','MEMBERSHIP','PRODUCT') DEFAULT 'ADOPTION FEE',
+  `PAYMENT_METHOD` VARCHAR(50) DEFAULT 'CREDIT CARD',
+  `STATUS` ENUM('PENDING','COMPLETED','FAILED','REFUNDED') DEFAULT 'PENDING',
+  `STRIPE_PAYMENT_INTENT_ID` VARCHAR(100) DEFAULT NULL,
+  `CREATED_AT` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `COMPLETED_AT` DATETIME DEFAULT NULL,
+  `SHIPPING_ADDRESS` TEXT DEFAULT NULL,
+  `BILLING_ADDRESS` TEXT DEFAULT NULL,
+  PRIMARY KEY (`TRANSACTION_ID`),
+  KEY `USER_ID` (`USER_ID`),
+  KEY `PET_ID` (`PET_ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
-CREATE TABLE `reviews` (
-  `review_id` int(11) NOT NULL AUTO_INCREMENT,
-  `pet_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `rating` int(1) NOT NULL CHECK (rating >= 1 AND rating <= 5),
-  `title` varchar(255) DEFAULT NULL,
-  `comment` text NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `is_verified` tinyint(1) DEFAULT 0,
-  `response` text DEFAULT NULL,
-  `response_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`review_id`),
-  KEY `pet_id` (`pet_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `REVIEWS` (
+  `REVIEW_ID` INT(11) NOT NULL AUTO_INCREMENT,
+  `PET_ID` INT(11) NOT NULL,
+  `USER_ID` INT(11) NOT NULL,
+  `RATING` INT(1) NOT NULL CHECK (RATING >= 1 AND RATING <= 5),
+  `TITLE` VARCHAR(255) DEFAULT NULL,
+  `COMMENT` TEXT NOT NULL,
+  `CREATED_AT` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `IS_VERIFIED` TINYINT(1) DEFAULT 0,
+  `RESPONSE` TEXT DEFAULT NULL,
+  `RESPONSE_DATE` DATETIME DEFAULT NULL,
+  PRIMARY KEY (`REVIEW_ID`),
+  KEY `PET_ID` (`PET_ID`),
+  KEY `USER_ID` (`USER_ID`)
+) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
 
--- Add foreign key constraints after all tables are created
-ALTER TABLE `pet_details` 
-  ADD CONSTRAINT `fk_pet_owner` FOREIGN KEY (`owner_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_pet_breed` FOREIGN KEY (`breed_id`) REFERENCES `breeds` (`breed_id`) ON DELETE RESTRICT,
-  ADD CONSTRAINT `fk_pet_healthcare` FOREIGN KEY (`healthcare_id`) REFERENCES `healthcare_plans` (`healthcare_id`) ON DELETE SET NULL;
+-- ADD FOREIGN KEY CONSTRAINTS AFTER ALL TABLES ARE CREATED
+ALTER TABLE `PET_DETAILS` 
+  ADD CONSTRAINT `FK_PET_OWNER` FOREIGN KEY (`OWNER_ID`) REFERENCES `USERS` (`USER_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_PET_BREED` FOREIGN KEY (`BREED_ID`) REFERENCES `BREEDS` (`BREED_ID`) ON DELETE RESTRICT,
+  ADD CONSTRAINT `FK_PET_HEALTHCARE` FOREIGN KEY (`HEALTHCARE_ID`) REFERENCES `HEALTHCARE_PLANS` (`HEALTHCARE_ID`) ON DELETE SET NULL;
 
-ALTER TABLE `pet_images` 
-  ADD CONSTRAINT `fk_image_pet` FOREIGN KEY (`pet_id`) REFERENCES `pet_details` (`pet_id`) ON DELETE CASCADE;
+ALTER TABLE `PET_IMAGES` 
+  ADD CONSTRAINT `FK_IMAGE_PET` FOREIGN KEY (`PET_ID`) REFERENCES `PET_DETAILS` (`PET_ID`) ON DELETE CASCADE;
 
-ALTER TABLE `shipping_info` 
-  ADD CONSTRAINT `fk_shipping_region` FOREIGN KEY (`shipping_region_id`) REFERENCES `shipping_regions` (`region_id`) ON DELETE SET NULL;
+ALTER TABLE `SHIPPING_INFO` 
+  ADD CONSTRAINT `FK_SHIPPING_REGION` FOREIGN KEY (`SHIPPING_REGION_ID`) REFERENCES `SHIPPING_REGIONS` (`REGION_ID`) ON DELETE SET NULL;
 
-ALTER TABLE `shopping_cart` 
-  ADD CONSTRAINT `fk_cart_pet` FOREIGN KEY (`pet_id`) REFERENCES `pet_details` (`pet_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_cart_user` FOREIGN KEY (`userid`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
+ALTER TABLE `SHOPPING_CART` 
+  ADD CONSTRAINT `FK_CART_PET` FOREIGN KEY (`PET_ID`) REFERENCES `PET_DETAILS` (`PET_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_CART_USER` FOREIGN KEY (`USERID`) REFERENCES `USERS` (`USER_ID`) ON DELETE CASCADE;
 
-ALTER TABLE `adoption_applications` 
-  ADD CONSTRAINT `fk_application_pet` FOREIGN KEY (`pet_id`) REFERENCES `pet_details` (`pet_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_application_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
+ALTER TABLE `ADOPTION_APPLICATIONS` 
+  ADD CONSTRAINT `FK_APPLICATION_PET` FOREIGN KEY (`PET_ID`) REFERENCES `PET_DETAILS` (`PET_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_APPLICATION_USER` FOREIGN KEY (`USER_ID`) REFERENCES `USERS` (`USER_ID`) ON DELETE CASCADE;
 
-ALTER TABLE `transactions` 
-  ADD CONSTRAINT `fk_transaction_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_transaction_pet` FOREIGN KEY (`pet_id`) REFERENCES `pet_details` (`pet_id`) ON DELETE SET NULL;
+ALTER TABLE `TRANSACTIONS` 
+  ADD CONSTRAINT `FK_TRANSACTION_USER` FOREIGN KEY (`USER_ID`) REFERENCES `USERS` (`USER_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_TRANSACTION_PET` FOREIGN KEY (`PET_ID`) REFERENCES `PET_DETAILS` (`PET_ID`) ON DELETE SET NULL;
 
-ALTER TABLE `reviews` 
-  ADD CONSTRAINT `fk_review_pet` FOREIGN KEY (`pet_id`) REFERENCES `pet_details` (`pet_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_review_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE;
+ALTER TABLE `REVIEWS` 
+  ADD CONSTRAINT `FK_REVIEW_PET` FOREIGN KEY (`PET_ID`) REFERENCES `PET_DETAILS` (`PET_ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_REVIEW_USER` FOREIGN KEY (`USER_ID`) REFERENCES `USERS` (`USER_ID`) ON DELETE CASCADE;
 
--- Insert healthcare plans
-INSERT INTO `healthcare_plans` (`healthcare_id`, `plan_name`, `description`, `monthly_cost`, `coverage_percentage`, `annual_limit`, `deductible`) VALUES
-(1, 'Basic Care', 'Essential veterinary coverage for routine care', 25.00, 80, 2000.00, 100.00),
-(2, 'Premium Care', 'Comprehensive coverage including emergencies', 45.00, 90, 5000.00, 50.00),
-(3, 'Platinum Care', 'Full coverage with lowest deductible', 65.00, 95, 10000.00, 25.00),
-(4, 'Senior Care', 'Specialized care for older pets', 35.00, 85, 3000.00, 75.00),
-(5, 'No Plan', 'Self-insured option', 0.00, 0, 0.00, 0.00);
+-- INSERT HEALTHCARE PLANS
+INSERT INTO `HEALTHCARE_PLANS` (`HEALTHCARE_ID`, `PLAN_NAME`, `DESCRIPTION`, `MONTHLY_COST`, `COVERAGE_PERCENTAGE`, `ANNUAL_LIMIT`, `DEDUCTIBLE`) VALUES
+(1, 'BASIC CARE', 'ESSENTIAL VETERINARY COVERAGE FOR ROUTINE CARE', 25.00, 80, 2000.00, 100.00),
+(2, 'PREMIUM CARE', 'COMPREHENSIVE COVERAGE INCLUDING EMERGENCIES', 45.00, 90, 5000.00, 50.00),
+(3, 'PLATINUM CARE', 'FULL COVERAGE WITH LOWEST DEDUCTIBLE', 65.00, 95, 10000.00, 25.00),
+(4, 'SENIOR CARE', 'SPECIALIZED CARE FOR OLDER PETS', 35.00, 85, 3000.00, 75.00),
+(5, 'NO PLAN', 'SELF-INSURED OPTION', 0.00, 0, 0.00, 0.00);
 
--- Insert shipping regions
-INSERT INTO `shipping_regions` (`region_id`, `region_name`, `country_code`, `base_cost`, `delivery_time_days`) VALUES
-(1, 'Flanders', 'BE', 15.00, 2),
-(2, 'Wallonia', 'BE', 20.00, 3),
-(3, 'Brussels', 'BE', 10.00, 1),
-(4, 'Netherlands', 'NL', 25.00, 3),
-(5, 'Germany', 'DE', 30.00, 4),
-(6, 'France', 'FR', 35.00, 5),
+-- INSERT SHIPPING REGIONS
+INSERT INTO `SHIPPING_REGIONS` (`REGION_ID`, `REGION_NAME`, `COUNTRY_CODE`, `BASE_COST`, `DELIVERY_TIME_DAYS`) VALUES
+(1, 'FLANDERS', 'BE', 15.00, 2),
+(2, 'WALLONIA', 'BE', 20.00, 3),
+(3, 'BRUSSELS', 'BE', 10.00, 1),
+(4, 'NETHERLANDS', 'NL', 25.00, 3),
+(5, 'GERMANY', 'DE', 30.00, 4),
+(6, 'FRANCE', 'FR', 35.00, 5),
 (7, 'UK', 'GB', 45.00, 7);
 
--- Insert shipping info
-INSERT INTO `shipping_info` (`shipping_id`, `shipping_type`, `shipping_cost`, `shipping_region_id`, `estimated_days`, `description`) VALUES
-(1, 'Standard', 15.00, 1, 3, 'Regular delivery within Flanders'),
-(2, 'Express', 25.00, 1, 1, 'Next day delivery'),
-(3, 'International', 45.00, 4, 5, 'Delivery to neighboring countries'),
-(4, 'Premium', 35.00, 1, 2, 'Priority handling and delivery');
+-- INSERT SHIPPING INFO
+INSERT INTO `SHIPPING_INFO` (`SHIPPING_ID`, `SHIPPING_TYPE`, `SHIPPING_COST`, `SHIPPING_REGION_ID`, `ESTIMATED_DAYS`, `DESCRIPTION`) VALUES
+(1, 'STANDARD', 15.00, 1, 3, 'REGULAR DELIVERY WITHIN FLANDERS'),
+(2, 'EXPRESS', 25.00, 1, 1, 'NEXT DAY DELIVERY'),
+(3, 'INTERNATIONAL', 45.00, 4, 5, 'DELIVERY TO NEIGHBORING COUNTRIES'),
+(4, 'PREMIUM', 35.00, 1, 2, 'PRIORITY HANDLING AND DELIVERY');
 
--- Insert breeds with generic images (dogs: generic_1.png, cats: generic_0.png)
-INSERT INTO `breeds` (`breed_id`, `isFeline`, `image_link`, `name`, `origin`, `min_life_expectancy`, `max_life_expectancy`, `min_weight_male`, `max_weight_male`, `min_weight_female`, `max_weight_female`, `good_with_children`, `good_with_dogs`, `shedding`, `grooming`, `energy`, `trainability`, `popularity_rank`, `description`) VALUES
--- Dogs (isFeline = 0, image_link = assets/img/generic_1.png)
-(1, 0, 'assets/img/generic_1.png', 'Golden Retriever', 'Scotland', 10, 12, 27.0, 34.0, 25.0, 32.0, 5, 5, 4, 3, 4, 5, 3, 'Friendly, intelligent and devoted. Perfect family dogs with gentle nature.'),
-(2, 0, 'assets/img/generic_1.png', 'German Shepherd', 'Germany', 9, 13, 30.0, 40.0, 22.0, 32.0, 4, 3, 4, 3, 5, 5, 2, 'Confident, courageous and smart. Excellent working dogs and loyal companions.'),
-(3, 0, 'assets/img/generic_1.png', 'Labrador Retriever', 'Canada', 10, 12, 29.0, 36.0, 25.0, 32.0, 5, 5, 4, 2, 5, 5, 1, 'Kind, pleasant and outgoing. The most popular breed for good reason.'),
-(4, 0, 'assets/img/generic_1.png', 'French Bulldog', 'France', 10, 12, 11.0, 13.0, 9.0, 11.0, 5, 4, 2, 2, 3, 3, 4, 'Adaptable, playful and smart. Perfect for apartment living.'),
-(5, 0, 'assets/img/generic_1.png', 'Siberian Husky', 'Russia', 12, 15, 20.0, 27.0, 16.0, 23.0, 4, 5, 5, 3, 5, 3, 12, 'Loyal, outgoing and mischievous. Beautiful dogs with striking eyes.'),
+-- INSERT BREEDS WITH GENERIC IMAGES (DOGS: GENERIC_1.PNG, CATS: GENERIC_0.PNG)
+INSERT INTO `BREEDS` (`BREED_ID`, `ISFELINE`, `IMAGE_LINK`, `NAME`, `ORIGIN`, `MIN_LIFE_EXPECTANCY`, `MAX_LIFE_EXPECTANCY`, `MIN_WEIGHT_MALE`, `MAX_WEIGHT_MALE`, `MIN_WEIGHT_FEMALE`, `MAX_WEIGHT_FEMALE`, `GOOD_WITH_CHILDREN`, `GOOD_WITH_DOGS`, `SHEDDING`, `GROOMING`, `ENERGY`, `TRAINABILITY`, `POPULARITY_RANK`, `DESCRIPTION`) VALUES
+-- DOGS (ISFELINE = 0, IMAGE_LINK = ASSETS/IMG/GENERIC_1.PNG)
+(1, 0, 'ASSETS/IMG/GENERIC_1.PNG', 'GOLDEN RETRIEVER', 'SCOTLAND', 10, 12, 27.0, 34.0, 25.0, 32.0, 5, 5, 4, 3, 4, 5, 3, 'FRIENDLY, INTELLIGENT AND DEVOTED. PERFECT FAMILY DOGS WITH GENTLE NATURE.'),
+(2, 0, 'ASSETS/IMG/GENERIC_1.PNG', 'GERMAN SHEPHERD', 'GERMANY', 9, 13, 30.0, 40.0, 22.0, 32.0, 4, 3, 4, 3, 5, 5, 2, 'CONFIDENT, COURAGEOUS AND SMART. EXCELLENT WORKING DOGS AND LOYAL COMPANIONS.'),
+(3, 0, 'ASSETS/IMG/GENERIC_1.PNG', 'LABRADOR RETRIEVER', 'CANADA', 10, 12, 29.0, 36.0, 25.0, 32.0, 5, 5, 4, 2, 5, 5, 1, 'KIND, PLEASANT AND OUTGOING. THE MOST POPULAR BREED FOR GOOD REASON.'),
+(4, 0, 'ASSETS/IMG/GENERIC_1.PNG', 'FRENCH BULLDOG', 'FRANCE', 10, 12, 11.0, 13.0, 9.0, 11.0, 5, 4, 2, 2, 3, 3, 4, 'ADAPTABLE, PLAYFUL AND SMART. PERFECT FOR APARTMENT LIVING.'),
+(5, 0, 'ASSETS/IMG/GENERIC_1.PNG', 'SIBERIAN HUSKY', 'RUSSIA', 12, 15, 20.0, 27.0, 16.0, 23.0, 4, 5, 5, 3, 5, 3, 12, 'LOYAL, OUTGOING AND MISCHIEVOUS. BEAUTIFUL DOGS WITH STRIKING EYES.'),
 
--- Cats (isFeline = 1, image_link = assets/img/generic_0.png)
-(21, 1, 'assets/img/generic_0.png', 'Persian', 'Iran', 12, 17, 3.5, 7.0, 3.0, 5.5, 3, 2, 5, 5, 2, 3, 5, 'Sweet, gentle and quiet. Luxurious long coat requires regular grooming.'),
-(22, 1, 'assets/img/generic_0.png', 'Maine Coon', 'United States', 12, 15, 6.0, 8.0, 4.0, 6.0, 5, 4, 4, 3, 3, 4, 8, 'Gentle giants with dog-like personality. Very sociable and friendly.'),
-(23, 1, 'assets/img/generic_0.png', 'Siamese', 'Thailand', 12, 15, 4.0, 6.0, 3.0, 4.5, 4, 3, 2, 2, 5, 5, 3, 'Talkative, social and demanding. Very vocal and intelligent cats.'),
-(24, 1, 'assets/img/generic_0.png', 'Bengal', 'United States', 12, 16, 4.5, 6.5, 3.5, 5.5, 4, 3, 2, 2, 5, 5, 7, 'Energetic, athletic and wild-looking. Very active and playful.'),
-(25, 1, 'assets/img/generic_0.png', 'British Shorthair', 'England', 12, 20, 4.5, 8.0, 3.5, 6.5, 4, 3, 3, 2, 2, 3, 6, 'Calm, easygoing and dignified. The classic British companion.');
+-- CATS (ISFELINE = 1, IMAGE_LINK = ASSETS/IMG/GENERIC_0.PNG)
+(21, 1, 'ASSETS/IMG/GENERIC_0.PNG', 'PERSIAN', 'IRAN', 12, 17, 3.5, 7.0, 3.0, 5.5, 3, 2, 5, 5, 2, 3, 5, 'SWEET, GENTLE AND QUIET. LUXURIOUS LONG COAT REQUIRES REGULAR GROOMING.'),
+(22, 1, 'ASSETS/IMG/GENERIC_0.PNG', 'MAINE COON', 'UNITED STATES', 12, 15, 6.0, 8.0, 4.0, 6.0, 5, 4, 4, 3, 3, 4, 8, 'GENTLE GIANTS WITH DOG-LIKE PERSONALITY. VERY SOCIABLE AND FRIENDLY.'),
+(23, 1, 'ASSETS/IMG/GENERIC_0.PNG', 'SIAMESE', 'THAILAND', 12, 15, 4.0, 6.0, 3.0, 4.5, 4, 3, 2, 2, 5, 5, 3, 'TALKATIVE, SOCIAL AND DEMANDING. VERY VOCAL AND INTELLIGENT CATS.'),
+(24, 1, 'ASSETS/IMG/GENERIC_0.PNG', 'BENGAL', 'UNITED STATES', 12, 16, 4.5, 6.5, 3.5, 5.5, 4, 3, 2, 2, 5, 5, 7, 'ENERGETIC, ATHLETIC AND WILD-LOOKING. VERY ACTIVE AND PLAYFUL.'),
+(25, 1, 'ASSETS/IMG/GENERIC_0.PNG', 'BRITISH SHORTHAIR', 'ENGLAND', 12, 20, 4.5, 8.0, 3.5, 6.5, 4, 3, 3, 2, 2, 3, 6, 'CALM, EASYGOING AND DIGNIFIED. THE CLASSIC BRITISH COMPANION.');
 
--- Insert realistic users from around the world
-INSERT INTO `users` (`user_id`, `email`, `password`, `naam`, `zipcode`, `looking_for`, `can_advertise`, `isAdmin`, `warnings`, `city`, `country`, `verified`, `bio`, `phone`) VALUES
-(1, 'admin@cdsurfing.be', '$2y$10$8o.mgGy3.wZFCF1WJAKvn.BDbyn6V4JRhkqMXtEZGPxaAcoJVuh1a', 'Admin User', '2800', 'Both', 1, 1, 0, 'Mechelen', 'Belgium', 1, 'Platform administrator ensuring all pets find loving homes.', '+32 123 456 789'),
-(2, 'sophie.dupont@email.com', '$2y$10$zqRgQ.YDzJuH5tecBH9m3.OrN41klCrp8aNA4Ojxem7PQGWKrdMG6', 'Sophie Dupont', '1000', 'Cat', 1, 0, 0, 'Brussels', 'Belgium', 1, 'Animal lover with 10 years of experience fostering cats. Volunteer at local shelter.', '+32 234 567 890'),
-(3, 'mark.vanbroek@email.com', 'mu923', 'Mark Van Broek', '3000', 'Dog', 1, 0, 0, 'Leuven', 'Belgium', 1, 'Professional dog trainer specializing in rescue dogs. Happy to help new owners!', '+32 345 678 901'),
-(4, 'lisa.muller@email.com', 'xe854', 'Lisa Müller', '50667', 'Both', 1, 0, 0, 'Cologne', 'Germany', 1, 'Veterinary student passionate about animal welfare. Foster home for senior pets.', '+49 221 123 456'),
-(5, 'pierre.lefevre@email.com', '$2y$10$8o.mgGy3.wZFCF1WJAKvn.BDbyn6V4JRhkqMXtEZGPxaAcoJVuh1a', 'Pierre Lefèvre', '75008', 'Dog', 0, 0, 1, 'Paris', 'France', 1, 'Looking for a running companion. Active lifestyle with plenty of park access.', '+33 1 2345 6789'),
-(6, 'maria.rodriguez@email.com', '$2y$10$zqRgQ.YDzJuH5tecBH9m3.OrN41klCrp8aNA4Ojxem7PQGWKrdMG6', 'Maria Rodríguez', '28013', 'Cat', 1, 0, 0, 'Madrid', 'Spain', 1, 'Cat behavior specialist. Small apartment but perfect for indoor cats.', '+34 91 234 5678'),
-(7, 'john.smith@email.com', 'mu923', 'John Smith', 'SW1A 1AA', 'Both', 1, 0, 0, 'London', 'United Kingdom', 1, 'Family of four looking to adopt our first pet. Children ages 8 and 10.', '+44 20 7946 0958'),
-(8, 'anna.kowalski@email.com', 'xe854', 'Anna Kowalski', '00-001', 'Dog', 1, 0, 0, 'Warsaw', 'Poland', 1, 'Experienced with large breeds. Have a fenced yard perfect for active dogs.', '+48 22 123 4567');
+-- INSERT REALISTIC USERS FROM AROUND THE WORLD
+INSERT INTO `USERS` (`USER_ID`, `EMAIL`, `PASSWORD`, `NAAM`, `ZIPCODE`, `LOOKING_FOR`, `CAN_ADVERTISE`, `ISADMIN`, `WARNINGS`, `CITY`, `COUNTRY`, `VERIFIED`, `BIO`, `PHONE`) VALUES
+(1, 'ADMIN@CDSURFING.BE', '$2Y$10$8O.MGGY3.WZFCF1WJAKVN.BDBYN6V4JRHKQMXTEZGPXAACOJVUH1A', 'ADMIN USER', '2800', 'BOTH', 1, 1, 0, 'MECHELEN', 'BELGIUM', 1, 'PLATFORM ADMINISTRATOR ENSURING ALL PETS FIND LOVING HOMES.', '+32 123 456 789'),
+(2, 'SOPHIE.DUPONT@EMAIL.COM', '$2Y$10$ZQRGQ.YDZJUH5TECBH9M3.ORN41KLCRP8ANA4OJXEM7PQGWKRDMG6', 'SOPHIE DUPONT', '1000', 'CAT', 1, 0, 0, 'BRUSSELS', 'BELGIUM', 1, 'ANIMAL LOVER WITH 10 YEARS OF EXPERIENCE FOSTERING CATS. VOLUNTEER AT LOCAL SHELTER.', '+32 234 567 890'),
+(3, 'MARK.VANBROEK@EMAIL.COM', 'MU923', 'MARK VAN BROEK', '3000', 'DOG', 1, 0, 0, 'LEUVEN', 'BELGIUM', 1, 'PROFESSIONAL DOG TRAINER SPECIALIZING IN RESCUE DOGS. HAPPY TO HELP NEW OWNERS!', '+32 345 678 901'),
+(4, 'LISA.MULLER@EMAIL.COM', 'XE854', 'LISA MÜLLER', '50667', 'BOTH', 1, 0, 0, 'COLOGNE', 'GERMANY', 1, 'VETERINARY STUDENT PASSIONATE ABOUT ANIMAL WELFARE. FOSTER HOME FOR SENIOR PETS.', '+49 221 123 456'),
+(5, 'PIERRE.LEFEVRE@EMAIL.COM', '$2Y$10$8O.MGGY3.WZFCF1WJAKVN.BDBYN6V4JRHKQMXTEZGPXAACOJVUH1A', 'PIERRE LEFÈVRE', '75008', 'DOG', 0, 0, 1, 'PARIS', 'FRANCE', 1, 'LOOKING FOR A RUNNING COMPANION. ACTIVE LIFESTYLE WITH PLENTY OF PARK ACCESS.', '+33 1 2345 6789'),
+(6, 'MARIA.RODRIGUEZ@EMAIL.COM', '$2Y$10$ZQRGQ.YDZJUH5TECBH9M3.ORN41KLCRP8ANA4OJXEM7PQGWKRDMG6', 'MARIA RODRÍGUEZ', '28013', 'CAT', 1, 0, 0, 'MADRID', 'SPAIN', 1, 'CAT BEHAVIOR SPECIALIST. SMALL APARTMENT BUT PERFECT FOR INDOOR CATS.', '+34 91 234 5678'),
+(7, 'JOHN.SMITH@EMAIL.COM', 'MU923', 'JOHN SMITH', 'SW1A 1AA', 'BOTH', 1, 0, 0, 'LONDON', 'UNITED KINGDOM', 1, 'FAMILY OF FOUR LOOKING TO ADOPT OUR FIRST PET. CHILDREN AGES 8 AND 10.', '+44 20 7946 0958'),
+(8, 'ANNA.KOWALSKI@EMAIL.COM', 'XE854', 'ANNA KOWALSKI', '00-001', 'DOG', 1, 0, 0, 'WARSAW', 'POLAND', 1, 'EXPERIENCED WITH LARGE BREEDS. HAVE A FENCED YARD PERFECT FOR ACTIVE DOGS.', '+48 22 123 4567');
 
--- Insert pet details with realistic stories and diverse backgrounds
-INSERT INTO `pet_details` (`pet_id`, `owner_id`, `breed_id`, `healthcare_id`, `name`, `gender`, `age`, `size`, `color`, `story`, `diet`, `temperament`, `special_needs`, `vaccination_status`, `microchipped`, `spayed_neutered`, `adoption_fee`, `status`, `featured`, `view_count`) VALUES
-(1, 2, 21, 2, 'Luna', 'Female', 3, 'Medium', 'White', 'Rescued from a hoarding situation, Luna has blossomed into a confident and loving companion. She was one of 25 cats living in unsuitable conditions but has made remarkable progress in foster care.', 'Royal Canin Persian dry food, wet food twice daily', 'Gentle', 'Requires daily grooming due to long coat', 'Current', 1, 1, 150.00, 'Available', 1, 124),
-(2, 3, 1, 3, 'Max', 'Male', 2, 'Large', 'Golden', 'Max was surrendered when his family moved overseas. He is fully trained, knows basic commands, and gets along wonderfully with children and other dogs.', 'High-quality kibble twice daily, loves carrots as treats', 'Friendly', 'None', 'Current', 1, 1, 250.00, 'Pending', 1, 89),
-(3, 4, 22, 2, 'Simba', 'Male', 4, 'Large', 'Brown Tabby', 'Simba was found as a stray and taken in by a Good Samaritan. He is a gentle giant who enjoys watching birds from the window and cuddling on the couch.', 'Grain-free dry food, occasional fish treats', 'Calm', 'None', 'Current', 1, 1, 200.00, 'Available', 0, 67),
-(4, 2, 23, 1, 'Milo', 'Male', 1, 'Medium', 'Seal Point', 'Milo is a playful Siamese kitten who was born in foster care. He is very social and will follow you around the house chatting about his day.', 'Kitten formula wet food three times daily', 'Playful', 'None', 'Current', 1, 1, 180.00, 'Available', 1, 156),
-(5, 3, 2, 3, 'Bella', 'Female', 5, 'Large', 'Black and Tan', 'Bella is a retired service dog looking for a quiet retirement home. She is exceptionally well-trained and has experience with various commands and tasks.', 'Senior dog formula, joint supplements', 'Obedient', 'Arthritis medication twice daily', 'Current', 1, 1, 300.00, 'Available', 1, 203),
-(6, 6, 24, 2, 'Zara', 'Female', 2, 'Medium', 'Spotted Rosette', 'Zara has incredible energy and intelligence. She enjoys puzzle toys and needs an active family who can keep up with her curiosity and playfulness.', 'High-protein diet, raw food preferred', 'Energetic', 'Requires mental stimulation', 'Current', 1, 1, 350.00, 'Available', 0, 45),
-(7, 4, 25, 4, 'Winston', 'Male', 7, 'Medium', 'Blue', 'Winston is a senior gentleman looking for a quiet home to enjoy his golden years. He prefers a calm environment and enjoys napping in sunny spots.', 'Renal support diet, wet food preferred', 'Quiet', 'Annual blood work recommended', 'Current', 1, 1, 100.00, 'Available', 0, 23),
-(8, 2, 3, 2, 'Charlie', 'Male', 4, 'Large', 'Yellow', 'Charlie is a therapy dog candidate with excellent temperament. He has experience visiting nursing homes and brings joy to everyone he meets.', 'Standard adult dog food, no allergies', 'Therapeutic', 'None', 'Current', 1, 1, 275.00, 'Available', 1, 178);
+-- INSERT PET DETAILS WITH REALISTIC STORIES AND DIVERSE BACKGROUNDS
+INSERT INTO `PET_DETAILS` (`PET_ID`, `OWNER_ID`, `BREED_ID`, `HEALTHCARE_ID`, `NAME`, `GENDER`, `AGE`, `SIZE`, `COLOR`, `STORY`, `DIET`, `TEMPERAMENT`, `SPECIAL_NEEDS`, `VACCINATION_STATUS`, `MICROCHIPPED`, `SPAYED_NEUTERED`, `ADOPTION_FEE`, `STATUS`, `FEATURED`, `VIEW_COUNT`) VALUES
+(1, 2, 21, 2, 'LUNA', 'FEMALE', 3, 'MEDIUM', 'WHITE', 'RESCUED FROM A HOARDING SITUATION, LUNA HAS BLOSSOMED INTO A CONFIDENT AND LOVING COMPANION. SHE WAS ONE OF 25 CATS LIVING IN UNSUITABLE CONDITIONS BUT HAS MADE REMARKABLE PROGRESS IN FOSTER CARE.', 'ROYAL CANIN PERSIAN DRY FOOD, WET FOOD TWICE DAILY', 'GENTLE', 'REQUIRES DAILY GROOMING DUE TO LONG COAT', 'CURRENT', 1, 1, 150.00, 'AVAILABLE', 1, 124),
+(2, 3, 1, 3, 'MAX', 'MALE', 2, 'LARGE', 'GOLDEN', 'MAX WAS SURRENDERED WHEN HIS FAMILY MOVED OVERSEAS. HE IS FULLY TRAINED, KNOWS BASIC COMMANDS, AND GETS ALONG WONDERFULLY WITH CHILDREN AND OTHER DOGS.', 'HIGH-QUALITY KIBBLE TWICE DAILY, LOVES CARROTS AS TREATS', 'FRIENDLY', 'NONE', 'CURRENT', 1, 1, 250.00, 'PENDING', 1, 89),
+(3, 4, 22, 2, 'SIMBA', 'MALE', 4, 'LARGE', 'BROWN TABBY', 'SIMBA WAS FOUND AS A STRAY AND TAKEN IN BY A GOOD SAMARITAN. HE IS A GENTLE GIANT WHO ENJOYS WATCHING BIRDS FROM THE WINDOW AND CUDDLING ON THE COUCH.', 'GRAIN-FREE DRY FOOD, OCCASIONAL FISH TREATS', 'CALM', 'NONE', 'CURRENT', 1, 1, 200.00, 'AVAILABLE', 0, 67),
+(4, 2, 23, 1, 'MILO', 'MALE', 1, 'MEDIUM', 'SEAL POINT', 'MILO IS A PLAYFUL SIAMESE KITTEN WHO WAS BORN IN FOSTER CARE. HE IS VERY SOCIAL AND WILL FOLLOW YOU AROUND THE HOUSE CHATTING ABOUT HIS DAY.', 'KITTEN FORMULA WET FOOD THREE TIMES DAILY', 'PLAYFUL', 'NONE', 'CURRENT', 1, 1, 180.00, 'AVAILABLE', 1, 156),
+(5, 3, 2, 3, 'BELLA', 'FEMALE', 5, 'LARGE', 'BLACK AND TAN', 'BELLA IS A RETIRED SERVICE DOG LOOKING FOR A QUIET RETIREMENT HOME. SHE IS EXCEPTIONALLY WELL-TRAINED AND HAS EXPERIENCE WITH VARIOUS COMMANDS AND TASKS.', 'SENIOR DOG FORMULA, JOINT SUPPLEMENTS', 'OBEDIENT', 'ARTHRITIS MEDICATION TWICE DAILY', 'CURRENT', 1, 1, 300.00, 'AVAILABLE', 1, 203),
+(6, 6, 24, 2, 'ZARA', 'FEMALE', 2, 'MEDIUM', 'SPOTTED ROSETTE', 'ZARA HAS INCREDIBLE ENERGY AND INTELLIGENCE. SHE ENJOYS PUZZLE TOYS AND NEEDS AN ACTIVE FAMILY WHO CAN KEEP UP WITH HER CURIOSITY AND PLAYFULNESS.', 'HIGH-PROTEIN DIET, RAW FOOD PREFERRED', 'ENERGETIC', 'REQUIRES MENTAL STIMULATION', 'CURRENT', 1, 1, 350.00, 'AVAILABLE', 0, 45),
+(7, 4, 25, 4, 'WINSTON', 'MALE', 7, 'MEDIUM', 'BLUE', 'WINSTON IS A SENIOR GENTLEMAN LOOKING FOR A QUIET HOME TO ENJOY HIS GOLDEN YEARS. HE PREFERS A CALM ENVIRONMENT AND ENJOYS NAPPING IN SUNNY SPOTS.', 'RENAL SUPPORT DIET, WET FOOD PREFERRED', 'QUIET', 'ANNUAL BLOOD WORK RECOMMENDED', 'CURRENT', 1, 1, 100.00, 'AVAILABLE', 0, 23),
+(8, 2, 3, 2, 'CHARLIE', 'MALE', 4, 'LARGE', 'YELLOW', 'CHARLIE IS A THERAPY DOG CANDIDATE WITH EXCELLENT TEMPERAMENT. HE HAS EXPERIENCE VISITING NURSING HOMES AND BRINGS JOY TO EVERYONE HE MEETS.', 'STANDARD ADULT DOG FOOD, NO ALLERGIES', 'THERAPEUTIC', 'NONE', 'CURRENT', 1, 1, 275.00, 'AVAILABLE', 1, 178);
 
--- Insert pet images
-INSERT INTO `pet_images` (`pet_id`, `image_url`, `is_primary`) VALUES
-(1, 'assets/img/persian_luna_1.jpg', 1),
-(1, 'assets/img/persian_luna_2.jpg', 0),
-(2, 'assets/img/golden_max_1.jpg', 1),
-(3, 'assets/img/mainecoon_simba_1.jpg', 1),
-(4, 'assets/img/siamese_milo_1.jpg', 1),
-(5, 'assets/img/germanshepherd_bella_1.jpg', 1),
-(6, 'assets/img/bengal_zara_1.jpg', 1),
-(7, 'assets/img/british_winston_1.jpg', 1),
-(8, 'assets/img/labrador_charlie_1.jpg', 1);
+-- INSERT PET IMAGES
+INSERT INTO `PET_IMAGES` (`PET_ID`, `IMAGE_URL`, `IS_PRIMARY`) VALUES
+(1, 'ASSETS/IMG/PERSIAN_LUNA_1.JPG', 1),
+(1, 'ASSETS/IMG/PERSIAN_LUNA_2.JPG', 0),
+(2, 'ASSETS/IMG/GOLDEN_MAX_1.JPG', 1),
+(3, 'ASSETS/IMG/MAINECOON_SIMBA_1.JPG', 1),
+(4, 'ASSETS/IMG/SIAMESE_MILO_1.JPG', 1),
+(5, 'ASSETS/IMG/GERMANSHEPHERD_BELLA_1.JPG', 1),
+(6, 'ASSETS/IMG/BENGAL_ZARA_1.JPG', 1),
+(7, 'ASSETS/IMG/BRITISH_WINSTON_1.JPG', 1),
+(8, 'ASSETS/IMG/LABRADOR_CHARLIE_1.JPG', 1);
 
--- Insert adoption applications showing real interest
-INSERT INTO `adoption_applications` (`pet_id`, `user_id`, `family_members`, `children_ages`, `other_pets`, `home_type`, `yard_size`, `work_schedule`, `previous_experience`, `reason_for_adoption`) VALUES
-(2, 7, 4, '8,10', 'None', 'House', 'Medium (500m²)', 'Both parents work from home 3 days/week', 'First-time dog owners but have done extensive research', 'Looking for a family pet to teach children responsibility'),
-(1, 5, 2, 'None', 'None', 'Apartment', 'Balcony only', 'Work from home full-time', 'Grew up with cats, had Persians as a child', 'Companionship for working from home'),
-(5, 8, 1, 'None', 'None', 'House', 'Large (1000m²)', 'Flexible schedule, often work from home', 'Previous experience with German Shepherds', 'Looking for a running partner and home companion');
+-- INSERT ADOPTION APPLICATIONS SHOWING REAL INTEREST
+INSERT INTO `ADOPTION_APPLICATIONS` (`PET_ID`, `USER_ID`, `FAMILY_MEMBERS`, `CHILDREN_AGES`, `OTHER_PETS`, `HOME_TYPE`, `YARD_SIZE`, `WORK_SCHEDULE`, `PREVIOUS_EXPERIENCE`, `REASON_FOR_ADOPTION`) VALUES
+(2, 7, 4, '8,10', 'NONE', 'HOUSE', 'MEDIUM (500M²)', 'BOTH PARENTS WORK FROM HOME 3 DAYS/WEEK', 'FIRST-TIME DOG OWNERS BUT HAVE DONE EXTENSIVE RESEARCH', 'LOOKING FOR A FAMILY PET TO TEACH CHILDREN RESPONSIBILITY'),
+(1, 5, 2, 'NONE', 'NONE', 'APARTMENT', 'BALCONY ONLY', 'WORK FROM HOME FULL-TIME', 'GREW UP WITH CATS, HAD PERSIANS AS A CHILD', 'COMPANIONSHIP FOR WORKING FROM HOME'),
+(5, 8, 1, 'NONE', 'NONE', 'HOUSE', 'LARGE (1000M²)', 'FLEXIBLE SCHEDULE, OFTEN WORK FROM HOME', 'PREVIOUS EXPERIENCE WITH GERMAN SHEPHERDS', 'LOOKING FOR A RUNNING PARTNER AND HOME COMPANION');
 
--- Insert shopping cart items showing active user engagement
-INSERT INTO `shopping_cart` (`pet_id`, `userid`, `added_price`, `is_regional`) VALUES
+-- INSERT SHOPPING CART ITEMS SHOWING ACTIVE USER ENGAGEMENT
+INSERT INTO `SHOPPING_CART` (`PET_ID`, `USERID`, `ADDED_PRICE`, `IS_REGIONAL`) VALUES
 (1, 5, 150.00, 0),
 (3, 7, 200.00, 0),
 (6, 8, 350.00, 1),
 (8, 5, 275.00, 0);
 
--- Insert successful transactions
-INSERT INTO `transactions` (`user_id`, `pet_id`, `amount`, `transaction_type`, `payment_method`, `status`, `completed_at`) VALUES
-(7, 2, 250.00, 'Adoption Fee', 'Credit Card', 'Completed', '2024-01-15 14:30:00'),
-(5, NULL, 50.00, 'Donation', 'PayPal', 'Completed', '2024-01-10 09:15:00'),
-(8, NULL, 25.00, 'Membership', 'Credit Card', 'Completed', '2024-01-08 16:45:00');
+-- INSERT SUCCESSFUL TRANSACTIONS
+INSERT INTO `TRANSACTIONS` (`USER_ID`, `PET_ID`, `AMOUNT`, `TRANSACTION_TYPE`, `PAYMENT_METHOD`, `STATUS`, `COMPLETED_AT`) VALUES
+(7, 2, 250.00, 'ADOPTION FEE', 'CREDIT CARD', 'COMPLETED', '2024-01-15 14:30:00'),
+(5, NULL, 50.00, 'DONATION', 'PAYPAL', 'COMPLETED', '2024-01-10 09:15:00'),
+(8, NULL, 25.00, 'MEMBERSHIP', 'CREDIT CARD', 'COMPLETED', '2024-01-08 16:45:00');
 
--- Insert genuine reviews from adopters
-INSERT INTO `reviews` (`pet_id`, `user_id`, `rating`, `title`, `comment`, `is_verified`, `response`) VALUES
-(2, 7, 5, 'Perfect family addition!', 'Max has settled in wonderfully with our family. The adoption process was smooth and the support from the shelter has been exceptional. Highly recommend!', 1, 'Thank you for giving Max a loving home! We are thrilled to hear he is doing well.'),
-(1, 5, 4, 'Beautiful Persian princess', 'Luna is adjusting well to apartment life. She requires more grooming than I anticipated, but she is worth every minute. Wonderful temperament!', 1, 'So happy to hear Luna is doing well in her new home!');
+-- INSERT GENUINE REVIEWS FROM ADOPTERS
+INSERT INTO `REVIEWS` (`PET_ID`, `USER_ID`, `RATING`, `TITLE`, `COMMENT`, `IS_VERIFIED`, `RESPONSE`) VALUES
+(2, 7, 5, 'PERFECT FAMILY ADDITION!', 'MAX HAS SETTLED IN WONDERFULLY WITH OUR FAMILY. THE ADOPTION PROCESS WAS SMOOTH AND THE SUPPORT FROM THE SHELTER HAS BEEN EXCEPTIONAL. HIGHLY RECOMMEND!', 1, 'THANK YOU FOR GIVING MAX A LOVING HOME! WE ARE THRILLED TO HEAR HE IS DOING WELL.'),
+(1, 5, 4, 'BEAUTIFUL PERSIAN PRINCESS', 'LUNA IS ADJUSTING WELL TO APARTMENT LIFE. SHE REQUIRES MORE GROOMING THAN I ANTICIPATED, BUT SHE IS WORTH EVERY MINUTE. WONDERFUL TEMPERAMENT!', 1, 'SO HAPPY TO HEAR LUNA IS DOING WELL IN HER NEW HOME!');
 
--- Update the auto-increment values to continue from appropriate numbers
-ALTER TABLE `users` AUTO_INCREMENT = 100;
-ALTER TABLE `breeds` AUTO_INCREMENT = 100;
-ALTER TABLE `pet_details` AUTO_INCREMENT = 100;
-ALTER TABLE `healthcare_plans` AUTO_INCREMENT = 10;
-ALTER TABLE `shipping_regions` AUTO_INCREMENT = 10;
-ALTER TABLE `transactions` AUTO_INCREMENT = 1000;
+-- UPDATE THE AUTO-INCREMENT VALUES TO CONTINUE FROM APPROPRIATE NUMBERS
+ALTER TABLE `USERS` AUTO_INCREMENT = 100;
+ALTER TABLE `BREEDS` AUTO_INCREMENT = 100;
+ALTER TABLE `PET_DETAILS` AUTO_INCREMENT = 100;
+ALTER TABLE `HEALTHCARE_PLANS` AUTO_INCREMENT = 10;
+ALTER TABLE `SHIPPING_REGIONS` AUTO_INCREMENT = 10;
+ALTER TABLE `TRANSACTIONS` AUTO_INCREMENT = 1000;
 
--- Create indexes for better performance
-CREATE INDEX idx_pet_status ON `pet_details` (`status`, `featured`);
-CREATE INDEX idx_pet_breed_size ON `pet_details` (`breed_id`, `size`, `age`);
-CREATE INDEX idx_user_activity ON `users` (`last_login`, `created_at`);
-CREATE INDEX idx_transaction_dates ON `transactions` (`created_at`, `status`);
-CREATE INDEX idx_application_status ON `adoption_applications` (`status`, `application_date`);
+-- CREATE INDEXES FOR BETTER PERFORMANCE
+CREATE INDEX IDX_PET_STATUS ON `PET_DETAILS` (`STATUS`, `FEATURED`);
+CREATE INDEX IDX_PET_BREED_SIZE ON `PET_DETAILS` (`BREED_ID`, `SIZE`, `AGE`);
+CREATE INDEX IDX_USER_ACTIVITY ON `USERS` (`LAST_LOGIN`, `CREATED_AT`);
+CREATE INDEX IDX_TRANSACTION_DATES ON `TRANSACTIONS` (`CREATED_AT`, `STATUS`);
+CREATE INDEX IDX_APPLICATION_STATUS ON `ADOPTION_APPLICATIONS` (`STATUS`, `APPLICATION_DATE`);
