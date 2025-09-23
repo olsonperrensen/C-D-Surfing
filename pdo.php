@@ -1,4 +1,5 @@
 <?php
+// disclaimer : syntax might not be compatible with all deployment service providers.
 // ~~~~~~~~ IMPORTANT ! ~~~~~~~~
 // If you are running it locally and directly via (X)AMP: 
 //      *USE* host=localhost 
