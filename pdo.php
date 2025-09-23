@@ -33,12 +33,24 @@ $query_builder = TRUE;
 error_log("Connecting to: Host=$cleardb_server, Port=$cleardb_port, DB=$cleardb_db, User=$cleardb_username");
 
 try {
+    // Force TCP connection to avoid socket issues
+    $dsn = "mysql:host=$cleardb_server;port=$cleardb_port;dbname=$cleardb_db";
+    
+    // If localhost, force TCP instead of socket
+    if ($cleardb_server === 'localhost') {
+        $dsn = "mysql:host=127.0.0.1;port=$cleardb_port;dbname=$cleardb_db";
+    }
+    
     // Configured for Railway deployment with fallback to local
     $pdo = new PDO(
-        "mysql:host=$cleardb_server;port=$cleardb_port;dbname=$cleardb_db",
+        $dsn,
         "$cleardb_username",
         "$cleardb_password",
-        array(PDO::MYSQL_ATTR_FOUND_ROWS => true)
+        array(
+            PDO::MYSQL_ATTR_FOUND_ROWS => true,
+            PDO::ATTR_TIMEOUT => 30,
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        )
     );
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
