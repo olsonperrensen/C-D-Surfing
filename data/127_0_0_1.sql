@@ -1,350 +1,539 @@
-USE `railway`;
+DROP TABLE IF EXISTS shopping_cart CASCADE;
+DROP TABLE IF EXISTS order_details CASCADE;
+DROP TABLE IF EXISTS orders CASCADE;
+DROP TABLE IF EXISTS ads CASCADE;
+DROP TABLE IF EXISTS pet_details CASCADE;
+DROP TABLE IF EXISTS shipping_info CASCADE;
+DROP TABLE IF EXISTS healthcare CASCADE;
+DROP TABLE IF EXISTS breeds CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
--- CREATE TABLES IN PROPER ORDER TO RESPECT FOREIGN KEY DEPENDENCIES
-CREATE TABLE `USERS` (
-  `USER_ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `EMAIL` VARCHAR(255) NOT NULL UNIQUE,
-  `PASSWORD` VARCHAR(255) NOT NULL,
-  `NAAM` VARCHAR(255) NOT NULL,
-  `ZIPCODE` VARCHAR(25) NOT NULL,
-  `LOOKING_FOR` VARCHAR(20) DEFAULT NULL,
-  `CAN_ADVERTISE` TINYINT(1) NOT NULL DEFAULT 0,
-  `ISADMIN` TINYINT(1) NOT NULL DEFAULT 0,
-  `WARNINGS` INT(11) DEFAULT 0,
-  `CREATED_AT` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `LAST_LOGIN` DATETIME DEFAULT NULL,
-  `PROFILE_IMAGE` VARCHAR(500) DEFAULT 'ASSETS/IMG/PROFILE_GENERIC.PNG',
-  `BIO` TEXT DEFAULT NULL,
-  `PHONE` VARCHAR(20) DEFAULT NULL,
-  `ADDRESS` VARCHAR(500) DEFAULT NULL,
-  `CITY` VARCHAR(100) DEFAULT 'MECHELEN',
-  `COUNTRY` VARCHAR(100) DEFAULT 'BELGIUM',
-  `VERIFIED` TINYINT(1) DEFAULT 0,
-  PRIMARY KEY (`USER_ID`)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+CREATE DATABASE pets;
+-- Create tables in dependency order
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    naam VARCHAR(255) NOT NULL,
+    zipcode VARCHAR(25) NOT NULL,
+    looking_for VARCHAR(20),
+    can_advertise BOOLEAN NOT NULL DEFAULT FALSE,
+    isAdmin BOOLEAN NOT NULL DEFAULT FALSE,
+    warnings INTEGER DEFAULT 0
+);
 
-CREATE TABLE `BREEDS` (
-  `BREED_ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `ISFELINE` TINYINT(1) NOT NULL COMMENT '1 FOR CAT, 0 FOR DOG',
-  `IMAGE_LINK` VARCHAR(500) DEFAULT 'ASSETS/IMG/GENERIC_0.PNG',
-  `LENGTH` VARCHAR(255) DEFAULT 'MEDIUM',
-  `GOOD_WITH_CHILDREN` INT(1) DEFAULT 3,
-  `GOOD_WITH_DOGS` INT(1) DEFAULT 3,
-  `SHEDDING` INT(1) DEFAULT 3,
-  `GROOMING` INT(1) DEFAULT 3,
-  `DROOLING` INT(1) DEFAULT 3,
-  `COAT_LENGTH` VARCHAR(50) DEFAULT 'MEDIUM',
-  `GOOD_WITH_STRANGERS` INT(1) DEFAULT 3,
-  `PLAYFULNESS` INT(1) DEFAULT 3,
-  `PROTECTIVENESS` INT(1) DEFAULT 3,
-  `TRAINABILITY` INT(1) DEFAULT 3,
-  `ENERGY` INT(1) DEFAULT 3,
-  `VOCAL_COMMUNICATION` INT(1) DEFAULT 3,
-  `MIN_LIFE_EXPECTANCY` INT(2) DEFAULT 10,
-  `MAX_LIFE_EXPECTANCY` INT(2) DEFAULT 15,
-  `MAX_HEIGHT_MALE` DECIMAL(4,1) DEFAULT NULL,
-  `MAX_HEIGHT_FEMALE` DECIMAL(4,1) DEFAULT NULL,
-  `MAX_WEIGHT_MALE` DECIMAL(5,1) DEFAULT NULL,
-  `MAX_WEIGHT_FEMALE` DECIMAL(5,1) DEFAULT NULL,
-  `MIN_HEIGHT_MALE` DECIMAL(4,1) DEFAULT NULL,
-  `MIN_HEIGHT_FEMALE` DECIMAL(4,1) DEFAULT NULL,
-  `MIN_WEIGHT_MALE` DECIMAL(5,1) DEFAULT NULL,
-  `MIN_WEIGHT_FEMALE` DECIMAL(5,1) DEFAULT NULL,
-  `NAME` VARCHAR(100) NOT NULL,
-  `ORIGIN` VARCHAR(100) DEFAULT 'UNKNOWN',
-  `INTELLIGENCE` INT(1) DEFAULT 3,
-  `OTHER_PETS_FRIENDLY` INT(1) DEFAULT 3,
-  `FAMILY_FRIENDLY` INT(1) DEFAULT 3,
-  `GENERAL_HEALTH` INT(1) DEFAULT 3,
-  `POPULARITY_RANK` INT(3) DEFAULT NULL,
-  `DESCRIPTION` TEXT DEFAULT NULL,
-  `CREATED_AT` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`BREED_ID`)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+CREATE TABLE breeds (
+    breed_id SERIAL PRIMARY KEY,
+    isFeline BOOLEAN NOT NULL,
+    image_link VARCHAR(500) NOT NULL,
+    length VARCHAR(255) NOT NULL,
+    good_with_children INTEGER NOT NULL,
+    good_with_dogs INTEGER NOT NULL,
+    shedding INTEGER NOT NULL,
+    grooming INTEGER NOT NULL,
+    drooling INTEGER NOT NULL,
+    coat_length INTEGER NOT NULL,
+    good_with_strangers INTEGER NOT NULL,
+    playfulness INTEGER NOT NULL,
+    protectiveness INTEGER NOT NULL,
+    trainability INTEGER NOT NULL,
+    energy INTEGER NOT NULL,
+    vocal_communication INTEGER NOT NULL,
+    min_life_expectancy INTEGER NOT NULL,
+    max_life_expectancy INTEGER NOT NULL,
+    max_height_male INTEGER NOT NULL,
+    max_height_female INTEGER NOT NULL,
+    max_weight_male INTEGER NOT NULL,
+    max_weight_female INTEGER NOT NULL,
+    min_height_male INTEGER NOT NULL,
+    min_height_female INTEGER NOT NULL,
+    min_weight_male INTEGER NOT NULL,
+    min_weight_female INTEGER NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    origin VARCHAR(255) NOT NULL,
+    intelligence INTEGER NOT NULL,
+    other_pets_friendly INTEGER NOT NULL,
+    family_friendly INTEGER NOT NULL,
+    general_health INTEGER NOT NULL
+);
 
-CREATE TABLE `HEALTHCARE_PLANS` (
-  `HEALTHCARE_ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `PLAN_NAME` VARCHAR(100) NOT NULL,
-  `DESCRIPTION` TEXT DEFAULT NULL,
-  `MONTHLY_COST` DECIMAL(6,2) DEFAULT 0.00,
-  `COVERAGE_PERCENTAGE` INT(3) DEFAULT 80,
-  `ANNUAL_LIMIT` DECIMAL(8,2) DEFAULT 5000.00,
-  `DEDUCTIBLE` DECIMAL(6,2) DEFAULT 100.00,
-  `IS_ACTIVE` TINYINT(1) DEFAULT 1,
-  PRIMARY KEY (`HEALTHCARE_ID`)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+CREATE TABLE healthcare (
+    healthcare_id SERIAL PRIMARY KEY,
+    healthcare_name VARCHAR(255),
+    price DECIMAL(10,2) NOT NULL,
+    description VARCHAR(255)
+);
 
-CREATE TABLE `PET_DETAILS` (
-  `PET_ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `OWNER_ID` INT(11) NOT NULL,
-  `BREED_ID` INT(11) NOT NULL,
-  `HEALTHCARE_ID` INT(11) DEFAULT 1,
-  `NAME` VARCHAR(255) NOT NULL,
-  `GENDER` ENUM('MALE','FEMALE') NOT NULL,
-  `AGE` INT(11) NOT NULL,
-  `SIZE` ENUM('SMALL','MEDIUM','LARGE','EXTRA LARGE') NOT NULL DEFAULT 'MEDIUM',
-  `COLOR` VARCHAR(255) NOT NULL DEFAULT 'MIXED',
-  `STORY` TEXT NOT NULL,
-  `DIET` TEXT NOT NULL,
-  `TEMPERAMENT` VARCHAR(255) DEFAULT 'FRIENDLY',
-  `SPECIAL_NEEDS` TEXT DEFAULT NULL,
-  `VACCINATION_STATUS` ENUM('CURRENT','NEEDS UPDATE','UNKNOWN') DEFAULT 'CURRENT',
-  `MICROCHIPPED` TINYINT(1) DEFAULT 0,
-  `SPAYED_NEUTERED` TINYINT(1) DEFAULT 0,
-  `ADOPTION_FEE` DECIMAL(6,2) DEFAULT 0.00,
-  `STATUS` ENUM('AVAILABLE','PENDING','ADOPTED','NOT AVAILABLE') DEFAULT 'AVAILABLE',
-  `FEATURED` TINYINT(1) DEFAULT 0,
-  `VIEW_COUNT` INT(11) DEFAULT 0,
-  `REGISTER_DATE` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `LAST_UPDATED` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `ONLINE_PURCHASED` TINYINT(1) DEFAULT 0,
-  PRIMARY KEY (`PET_ID`),
-  KEY `OWNER_ID` (`OWNER_ID`),
-  KEY `BREED_ID` (`BREED_ID`),
-  KEY `HEALTHCARE_ID` (`HEALTHCARE_ID`)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+CREATE TABLE shipping_info (
+    shipping_id SERIAL PRIMARY KEY,
+    shipping_type VARCHAR(255) NOT NULL DEFAULT 'BusinessWeek',
+    shipping_cost DECIMAL(10,2),
+    shipping_region_id INTEGER
+);
 
-CREATE TABLE `PET_IMAGES` (
-  `IMAGE_ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `PET_ID` INT(11) NOT NULL,
-  `IMAGE_URL` VARCHAR(500) NOT NULL,
-  `IS_PRIMARY` TINYINT(1) DEFAULT 0,
-  `UPLOADED_AT` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`IMAGE_ID`),
-  KEY `PET_ID` (`PET_ID`)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+CREATE TABLE pet_details (
+    pet_id SERIAL PRIMARY KEY,
+    owner_id INTEGER NOT NULL REFERENCES users(user_id),
+    breed_id INTEGER NOT NULL REFERENCES breeds(breed_id),
+    name VARCHAR(255) NOT NULL,
+    gender VARCHAR(255) NOT NULL,
+    age INTEGER NOT NULL,
+    size VARCHAR(255) NOT NULL DEFAULT 'Medium',
+    color VARCHAR(255) NOT NULL DEFAULT 'Black',
+    story TEXT NOT NULL,
+    diet TEXT NOT NULL,
+    register_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    healthcare_id INTEGER REFERENCES healthcare(healthcare_id),
+    online_purchased BOOLEAN DEFAULT FALSE
+);
 
-CREATE TABLE `SHIPPING_REGIONS` (
-  `REGION_ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `REGION_NAME` VARCHAR(100) NOT NULL,
-  `COUNTRY_CODE` VARCHAR(3) DEFAULT 'BE',
-  `BASE_COST` DECIMAL(6,2) DEFAULT 0.00,
-  `DELIVERY_TIME_DAYS` INT(3) DEFAULT 3,
-  `IS_ACTIVE` TINYINT(1) DEFAULT 1,
-  PRIMARY KEY (`REGION_ID`)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+CREATE TABLE ads (
+    id SERIAL PRIMARY KEY,
+    pet_id INTEGER UNIQUE NOT NULL REFERENCES pet_details(pet_id) ON DELETE CASCADE,
+    advertised_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-CREATE TABLE `SHIPPING_INFO` (
-  `SHIPPING_ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `SHIPPING_TYPE` VARCHAR(255) NOT NULL DEFAULT 'STANDARD',
-  `SHIPPING_COST` DECIMAL(6,2) DEFAULT 15.00,
-  `SHIPPING_REGION_ID` INT(11) DEFAULT 1,
-  `ESTIMATED_DAYS` INT(3) DEFAULT 3,
-  `DESCRIPTION` TEXT DEFAULT NULL,
-  PRIMARY KEY (`SHIPPING_ID`),
-  KEY `SHIPPING_REGION_ID` (`SHIPPING_REGION_ID`)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+CREATE TABLE orders (
+    order_id SERIAL PRIMARY KEY,
+    date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    date_shipped TIMESTAMP DEFAULT (CURRENT_TIMESTAMP + INTERVAL '7 days'),
+    user_id INTEGER REFERENCES users(user_id),
+    status VARCHAR(255) NOT NULL,
+    shipping_id INTEGER REFERENCES shipping_info(shipping_id)
+);
 
-CREATE TABLE `SHOPPING_CART` (
-  `CART_ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `PET_ID` INT(11) DEFAULT NULL,
-  `USERID` INT(11) DEFAULT NULL,
-  `QUANTITY` INT(11) DEFAULT 1,
-  `ADDED_PRICE` DECIMAL(8,2) DEFAULT 0.00,
-  `DATEADDED` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `IS_REGIONAL` TINYINT(1) DEFAULT 0,
-  `SESSION_ID` VARCHAR(100) DEFAULT NULL,
-  PRIMARY KEY (`CART_ID`),
-  KEY `PET_ID` (`PET_ID`),
-  KEY `USERID` (`USERID`)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+CREATE TABLE order_details (
+    order_id INTEGER NOT NULL REFERENCES orders(order_id),
+    pet_id INTEGER NOT NULL REFERENCES pet_details(pet_id),
+    unit_cost DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (order_id, pet_id)
+);
 
-CREATE TABLE `ADOPTION_APPLICATIONS` (
-  `APPLICATION_ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `PET_ID` INT(11) NOT NULL,
-  `USER_ID` INT(11) NOT NULL,
-  `APPLICATION_DATE` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `STATUS` ENUM('PENDING','APPROVED','REJECTED','UNDER REVIEW') DEFAULT 'PENDING',
-  `FAMILY_MEMBERS` INT(2) DEFAULT NULL,
-  `CHILDREN_AGES` VARCHAR(100) DEFAULT NULL,
-  `OTHER_PETS` TEXT DEFAULT NULL,
-  `HOME_TYPE` ENUM('APARTMENT','HOUSE','FARM','OTHER') DEFAULT 'HOUSE',
-  `YARD_SIZE` VARCHAR(50) DEFAULT NULL,
-  `WORK_SCHEDULE` TEXT DEFAULT NULL,
-  `PREVIOUS_EXPERIENCE` TEXT DEFAULT NULL,
-  `REASON_FOR_ADOPTION` TEXT DEFAULT NULL,
-  `VET_REFERENCE` TEXT DEFAULT NULL,
-  `NOTES` TEXT DEFAULT NULL,
-  `CONTACTED_DATE` DATETIME DEFAULT NULL,
-  `DECISION_DATE` DATETIME DEFAULT NULL,
-  PRIMARY KEY (`APPLICATION_ID`),
-  KEY `PET_ID` (`PET_ID`),
-  KEY `USER_ID` (`USER_ID`)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+CREATE TABLE shopping_cart (
+    cart_id SERIAL PRIMARY KEY,
+    pet_id INTEGER UNIQUE REFERENCES pet_details(pet_id),
+    dateAdded TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    userid INTEGER REFERENCES users(user_id),
+    is_regional BOOLEAN
+);
 
-CREATE TABLE `TRANSACTIONS` (
-  `TRANSACTION_ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `USER_ID` INT(11) NOT NULL,
-  `PET_ID` INT(11) DEFAULT NULL,
-  `AMOUNT` DECIMAL(8,2) NOT NULL,
-  `TRANSACTION_TYPE` ENUM('ADOPTION FEE','DONATION','MEMBERSHIP','PRODUCT') DEFAULT 'ADOPTION FEE',
-  `PAYMENT_METHOD` VARCHAR(50) DEFAULT 'CREDIT CARD',
-  `STATUS` ENUM('PENDING','COMPLETED','FAILED','REFUNDED') DEFAULT 'PENDING',
-  `STRIPE_PAYMENT_INTENT_ID` VARCHAR(100) DEFAULT NULL,
-  `CREATED_AT` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `COMPLETED_AT` DATETIME DEFAULT NULL,
-  `SHIPPING_ADDRESS` TEXT DEFAULT NULL,
-  `BILLING_ADDRESS` TEXT DEFAULT NULL,
-  PRIMARY KEY (`TRANSACTION_ID`),
-  KEY `USER_ID` (`USER_ID`),
-  KEY `PET_ID` (`PET_ID`)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+-- Insert sample data
+INSERT INTO users (user_id, email, password, naam, zipcode, looking_for, can_advertise, isAdmin, warnings) VALUES
+(1, 'pieter.bruegel@vlaanderen.be', '$2y$10$8o.mgGy3.wZFCF1WJAKvn.BDbyn6V4JRhkqMXtEZGPxaAcoJVuh1a', 'Pieter Bruegel', '2800', 'Cat', FALSE, FALSE, 1),
+(2, 'jan.vandijck@vlaanderen.be', 'mu923', 'Jan van Dijck', '2800', 'Dog', TRUE, FALSE, 0),
+(3, 'rubens.petrus@vlaanderen.be', 'xe854', 'Petrus Rubens', '2800', 'Dog', FALSE, FALSE, 0),
+(4, 'margaretha.vaneyck@vlaanderen.be', '$2y$10$zqRgQ.YDzJuH5tecBH9m3.OrN41klCrp8aNA4Ojxem7PQGWKrdMG6', 'Margaretha van Eyck', '2800', 'Cat', TRUE, FALSE, 4),
+(5, 'joos.vandenberghe@vlaanderen.be', 're877', 'Joos van den Berghe', '2800', 'Cat', FALSE, FALSE, 0),
+(6, 'rogier.vanderweyden@vlaanderen.be', 'su373', 'Rogier van der Weyden', '2800', 'Cat', TRUE, FALSE, 0),
+(7, 'hugo.vandergo@vlaanderen.be', 'ru323', 'Hugo van der Goes', '2800', 'Cat', FALSE, FALSE, 0),
+(8, 'dirk.bouts@vlaanderen.be', '2022.Dewalt', 'Dirk Bouts', '2800', 'Cat', TRUE, FALSE, 0),
+(9, 'hans.memling@vlaanderen.be', 'xu808', 'Hans Memling', '2800', 'Cat', FALSE, FALSE, 0),
+(10, 'gerard.david@vlaanderen.be', 'su039', 'Gerard David', '2800', 'Cat', TRUE, FALSE, 0),
+(11, 'quentin.metsys@vlaanderen.be', 'mu847', 'Quentin Metsys', '2800', 'Cat', FALSE, FALSE, 0),
+(12, 'joachim.patinir@vlaanderen.be', 'pu470', 'Joachim Patinir', '2800', 'Cat', TRUE, FALSE, 0),
+(13, 'pieter.coecke@vlaanderen.be', 'yi659', 'Pieter Coecke', '2800', 'Dog', FALSE, FALSE, 0),
+(14, 'frans.floris@vlaanderen.be', 'xo902', 'Frans Floris', '2800', 'Cat', TRUE, FALSE, 0),
+(15, 'maarten.dehemskerk@vlaanderen.be', 'so705', 'Maarten de Hemskerk', '2800', 'Dog', FALSE, FALSE, 0),
+(16, 'anthonis.mor@vlaanderen.be', 'we764', 'Anthonis Mor', '2800', 'Dog', TRUE, FALSE, 0),
+(17, 'lucas.decranach@vlaanderen.be', 'ku426', 'Lucas de Cranach', '2800', 'Cat', FALSE, FALSE, 0),
+(18, 'cornelis.devos@vlaanderen.be', '$2y$10$IG6.rhv5mJyN0SmcTdB0yOLj1pT0v6J6zcp9NF4gqVWAOGOePYd1C', 'Cornelis de Vos', '2800', 'Cat', TRUE, FALSE, 0),
+(19, 'jacob.jordaens@vlaanderen.be', 'ha697', 'Jacob Jordaens', '2800', 'Cat', FALSE, FALSE, 0),
+(20, 'david.teniers@vlaanderen.be', 'wo037', 'David Teniers', '2800', 'Dog', TRUE, FALSE, 0),
+(21, 'adriaen.brouwer@vlaanderen.be', 'ze008', 'Adriaen Brouwer', '2800', 'Dog', FALSE, FALSE, 0),
+(22, 'jan.fyt@vlaanderen.be', 'qu222', 'Jan Fyt', '2800', 'Dog', TRUE, FALSE, 0),
+(23, 'frans.snyders@vlaanderen.be', 'ga632', 'Frans Snyders', '2800', 'Dog', FALSE, FALSE, 0),
+(24, 'paul.debril@vlaanderen.be', 'ma974', 'Paul de Bril', '2800', 'Dog', TRUE, FALSE, 0),
+(25, 'jan.brueghel@vlaanderen.be', 'ba739', 'Jan Brueghel', '2800', 'Cat', FALSE, FALSE, 0),
+(26, 'pieter.neefs@vlaanderen.be', 'si738', 'Pieter Neefs', '2580', 'Cat', TRUE, FALSE, 0),
+(27, 'hendrik.vansteenwijk@vlaanderen.be', 'le870', 'Hendrik van Steenwijk', '2580', 'Dog', FALSE, FALSE, 0),
+(28, 'paulus.bril@vlaanderen.be', 'ma317', 'Paulus Bril', '2580', 'Cat', TRUE, FALSE, 0),
+(29, 'abraham.janssens@vlaanderen.be', 'bu593', 'Abraham Janssens', '2580', 'Cat', FALSE, FALSE, 0),
+(30, 'cornelis.schut@vlaanderen.be', '$2y$10$Sp0h56K2unkf64w6U9doMuPJCNTMKDQrgnTnmymwjNrYuuxr33eAy', 'Cornelis Schut', '2580', 'Cat', TRUE, FALSE, 0),
+(31, 'theodoor.rombouts@vlaanderen.be', 'ki898', 'Theodoor Rombouts', '2580', 'Cat', FALSE, FALSE, 0),
+(32, 'gerard.seghers@vlaanderen.be', 'ge042', 'Gerard Seghers', '2580', 'Cat', TRUE, FALSE, 0),
+(33, 'gaspar.dekrayer@vlaanderen.be', 'pe045', 'Gaspar de Krayer', '2580', 'Cat', FALSE, FALSE, 0),
+(34, 'anthony.vandijck@vlaanderen.be', 'fu102', 'Anthony van Dijck', '2580', 'Cat', TRUE, FALSE, 0),
+(35, 'lucas.franchoys@vlaanderen.be', 'ru407', 'Lucas Franchoys', '2580', 'Cat', FALSE, FALSE, 0),
+(36, 'erasmus.quellinus@vlaanderen.be', 'te119', 'Erasmus Quellinus', '2580', 'Cat', TRUE, FALSE, 0),
+(37, 'jan.vandenhoecke@vlaanderen.be', 'ho310', 'Jan van den Hoecke', '2580', 'Dog', FALSE, FALSE, 0),
+(38, 'pieter.thijs@vlaanderen.be', 'da839', 'Pieter Thijs', '2580', 'Dog', TRUE, FALSE, 0),
+(39, 'jan.boeckhorst@vlaanderen.be', 'fo792', 'Jan Boeckhorst', '2580', 'Cat', FALSE, FALSE, 0),
+(40, 'theodoor.vanThulden@vlaanderen.be', 'Sbdinc123*', 'Theodoor van Thulden', '2860', 'Dog', TRUE, FALSE, 0),
+(41, 'thomas.willeboirts@vlaanderen.be', 'Arco0107', 'Thomas Willeboirts', '2800', 'Cat', FALSE, FALSE, 0),
+(42, 'gonzales.coques@vlaanderen.be', 'Mechelen2022.', 'Gonzales Coques', '2860', 'Dog', TRUE, FALSE, 0),
+(43, 'pieter.fransz@vlaanderen.be', 'nu710', 'Pieter Fransz', '2860', 'Dog', FALSE, FALSE, 0),
+(44, 'david.ryckaert@vlaanderen.be', 'Marlboro@123', 'David Ryckaert', '2860', 'Cat', TRUE, FALSE, 0),
+(45, 'adriaen.vanOstade@vlaanderen.be', 'zo855', 'Adriaen van Ostade', '2860', 'Cat', FALSE, FALSE, 0),
+(46, 'jan.steen@vlaanderen.be', 'Fmst1-71969!', 'Jan Steen', '2860', 'Dog', TRUE, FALSE, 0),
+(47, 'gerard.terborch@vlaanderen.be', 'ku674', 'Gerard ter Borch', '2860', 'Dog', FALSE, FALSE, 0),
+(48, 'gabriel.metsu@vlaanderen.be', 'na556', 'Gabriel Metsu', '2860', 'Dog', TRUE, FALSE, 0),
+(49, 'pieter.dehoogh@vlaanderen.be', 'fu995', 'Pieter de Hoogh', '2860', 'Cat', FALSE, FALSE, 0),
+(50, 'jan.vermeer@vlaanderen.be', 'vi613', 'Jan Vermeer', '2860', 'Dog', TRUE, FALSE, 0),
+(51, 'nicolaes.maes@vlaanderen.be', 'cu351', 'Nicolaes Maes', '2800', 'Cat', FALSE, FALSE, 0),
+(52, 'frans.hals@vlaanderen.be', 'qo364', 'Frans Hals', '2800', 'Cat', TRUE, FALSE, 0),
+(53, 'judith.leyster@vlaanderen.be', 'ma944', 'Judith Leyster', '2800', 'Cat', FALSE, FALSE, 0),
+(54, 'johannes.verspronck@vlaanderen.be', 'nu060', 'Johannes Verspronck', '2800', 'Cat', TRUE, FALSE, 0),
+(55, 'dirck.hals@vlaanderen.be', 'de489', 'Dirck Hals', '2800', 'Cat', FALSE, FALSE, 0),
+(56, 'willem.buytewech@vlaanderen.be', 'wo840', 'Willem Buytewech', '2800', 'Cat', TRUE, FALSE, 0),
+(57, 'esaias.vandevelde@vlaanderen.be', 'ku548', 'Esaias van de Velde', '2800', 'Cat', FALSE, FALSE, 0),
+(58, 'jan.vangoyen@vlaanderen.be', 'ce087', 'Jan van Goyen', '2800', 'Cat', TRUE, FALSE, 0),
+(59, 'salomon.vanruysdael@vlaanderen.be', 'ye188', 'Salomon van Ruysdael', '2800', 'Cat', FALSE, FALSE, 0),
+(60, 'jacob.vanruysdael@vlaanderen.be', 'tu251', 'Jacob van Ruysdael', '2800', 'Cat', TRUE, FALSE, 0),
+(61, 'meindert.hobbema@vlaanderen.be', 'tu337', 'Meindert Hobbema', '2800', 'Cat', FALSE, FALSE, 0),
+(62, 'aelbert.cuyp@vlaanderen.be', 'ye360', 'Aelbert Cuyp', '2800', 'Cat', TRUE, FALSE, 0),
+(63, 'paulus.potter@vlaanderen.be', 'du497', 'Paulus Potter', '2800', 'Cat', FALSE, FALSE, 0),
+(64, 'albert.vandereyk@vlaanderen.be', 'co485', 'Albert van der Eyk', '2800', 'Cat', TRUE, FALSE, 0),
+(65, 'pieter.saenredam@vlaanderen.be', 'he476', 'Pieter Saenredam', '2800', 'Cat', FALSE, FALSE, 0),
+(66, 'emanuel.dewitte@vlaanderen.be', 'gu820', 'Emanuel de Witte', '2800', 'Cat', TRUE, FALSE, 0),
+(67, 'hendrik.avercamp@vlaanderen.be', 'de853', 'Hendrik Avercamp', '2800', 'Dog', FALSE, FALSE, 0),
+(69, 'jacob.vandevelde@vlaanderen.be', '$2y$10$836481Q/GP.ijbl.PVVDletnkfOBSaReUNaQ6bHkh3FqFBa1v39BW', 'Jacob van de Velde', '1222', 'Dog', FALSE, TRUE, 0),
+(78, 'pieter.vandermeersch@vlaanderen.be', '$2y$10$scAH5azc4Zwpm/ylZpLXEukmdsERg8uQp3HzB/t7.DKdzOPOmye8K', 'Pieter van der Meersch', '1221', 'None', FALSE, TRUE, 0),
+(79, 'jan.vanherck@vlaanderen.be', '$2y$10$i5gHnbUYFP89uwmlodc6ru/2dKHm5wBHj.9cfc8eyFPFaiCdw9HTG', 'Jan van Herck', '1227', 'Dog', TRUE, TRUE, 0),
+(85, 'margareta.vanderpoel@vlaanderen.be', '$2y$10$8rzhpTGrt6PMbWJUaHvF8uerZBMfVtI2hqzw/gIHdinCgqTG2PAVi', 'Margareta van der Poel', '1200', 'Dog', TRUE, TRUE, 0),
+(87, 'andries.cornelissen@vlaanderen.be', '$2y$10$lqJ/m0zRyXwePdUEsbg1rOPbbH4Cd23Q90k3E.zxqKHnkPL3ePc1O', 'Andries Cornelissen', '2800', 'Dog', FALSE, FALSE, NULL);
 
-CREATE TABLE `REVIEWS` (
-  `REVIEW_ID` INT(11) NOT NULL AUTO_INCREMENT,
-  `PET_ID` INT(11) NOT NULL,
-  `USER_ID` INT(11) NOT NULL,
-  `RATING` INT(1) NOT NULL CHECK (RATING >= 1 AND RATING <= 5),
-  `TITLE` VARCHAR(255) DEFAULT NULL,
-  `COMMENT` TEXT NOT NULL,
-  `CREATED_AT` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  `IS_VERIFIED` TINYINT(1) DEFAULT 0,
-  `RESPONSE` TEXT DEFAULT NULL,
-  `RESPONSE_DATE` DATETIME DEFAULT NULL,
-  PRIMARY KEY (`REVIEW_ID`),
-  KEY `PET_ID` (`PET_ID`),
-  KEY `USER_ID` (`USER_ID`)
-) ENGINE=INNODB DEFAULT CHARSET=UTF8MB4;
+INSERT INTO healthcare (healthcare_id, healthcare_name, price, description) VALUES
+(4, 'Free', 0, 'Adopt-only. No controls for pet'),
+(5, 'Basic Care', 7.99, 'Vaccinations and health checks'),
+(6, 'Complete Care', 12.5, 'Basic Care + Regular parasite treatments'),
+(7, 'Complete Care Plus', 15.5, 'Complete Care + VIP Club exclusive offers');
 
--- ADD FOREIGN KEY CONSTRAINTS AFTER ALL TABLES ARE CREATED
-ALTER TABLE `PET_DETAILS` 
-  ADD CONSTRAINT `FK_PET_OWNER` FOREIGN KEY (`OWNER_ID`) REFERENCES `USERS` (`USER_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_PET_BREED` FOREIGN KEY (`BREED_ID`) REFERENCES `BREEDS` (`BREED_ID`) ON DELETE RESTRICT,
-  ADD CONSTRAINT `FK_PET_HEALTHCARE` FOREIGN KEY (`HEALTHCARE_ID`) REFERENCES `HEALTHCARE_PLANS` (`HEALTHCARE_ID`) ON DELETE SET NULL;
+INSERT INTO breeds (breed_id, isFeline, image_link, length, good_with_children, good_with_dogs, shedding, grooming, drooling, coat_length, good_with_strangers, playfulness, protectiveness, trainability, energy, vocal_communication, min_life_expectancy, max_life_expectancy, max_height_male, max_height_female, max_weight_male, max_weight_female, min_height_male, min_height_female, min_weight_male, min_weight_female, name, origin, intelligence, other_pets_friendly, family_friendly, general_health) VALUES
+(1, FALSE, 'https://api-ninjas.com/images/dogs/airedale_terrier.jpg', 'Large', 3, 3, 1, 3, 1, 2, 3, 3, 5, 3, 3, 3, 11, 14, 23, 23, 70, 70, 23, 23, 50, 50, 'Airedale Terrier', 'Canada', 5, 3, 4, 4),
+(2, FALSE, 'https://api-ninjas.com/images/dogs/akita.jpg', 'Large', 3, 1, 3, 3, 1, 1, 2, 3, 5, 3, 4, 2, 10, 14, 28, 28, 130, 100, 26, 26, 100, 70, 'Akita', 'Belgium', 1, 4, 1, 3),
+(3, FALSE, 'https://api-ninjas.com/images/dogs/american_staffordshire_terrier.jpg', 'Large', 3, 3, 2, 1, 1, 1, 4, 3, 5, 3, 3, 3, 12, 16, 19, 19, 70, 55, 18, 18, 55, 40, 'American Staffordshire Terrier', 'Canada', 4, 5, 5, 3),
+(4, FALSE, 'https://api-ninjas.com/images/dogs/anatolian_shepherd_dog.jpg', 'Large', 3, 3, 3, 2, 1, 1, 1, 3, 5, 2, 3, 3, 11, 13, 29, 29, 150, 120, 29, 29, 110, 80, 'Anatolian Shepherd Dog', 'Belgium', 5, 4, 1, 3),
+(5, FALSE, 'https://api-ninjas.com/images/dogs/black_russian_terrier.jpg', 'Large', 3, 3, 3, 4, 3, 2, 2, 3, 5, 4, 4, 3, 10, 12, 30, 30, 130, 130, 27, 27, 80, 80, 'Black Russian Terrier', 'Canada', 3, 1, 4, 2),
+(6, FALSE, 'https://api-ninjas.com/images/dogs/boerboel.jpg', 'Large', 4, 2, 3, 2, 3, 1, 3, 3, 5, 4, 3, 3, 9, 11, 27, 27, 200, 200, 24, 24, 150, 150, 'Boerboel', 'Belgium', 5, 1, 3, 2),
+(7, FALSE, 'https://api-ninjas.com/images/dogs/bullmastiff.jpg', 'Large', 3, 3, 3, 1, 3, 1, 3, 3, 5, 4, 4, 1, 7, 9, 27, 27, 130, 120, 25, 25, 110, 100, 'Bullmastiff', 'Canada', 4, 5, 2, 2),
+(8, FALSE, 'https://api-ninjas.com/images/dogs/cane_corso.jpg', 'Large', 3, 3, 2, 1, 3, 1, 3, 3, 5, 4, 4, 3, 9, 12, 28, 28, 110, 99, 25, 25, 99, 88, 'Cane Corso', 'Belgium', 4, 5, 4, 5),
+(9, FALSE, 'https://api-ninjas.com/images/dogs/caucasian_shepherd_dog.jpg', 'Large', 3, 2, 4, 3, 4, 1, 2, 2, 5, 3, 3, 2, 10, 12, 30, 30, 170, 170, 23, 23, 99, 99, 'Caucasian Shepherd Dog', 'Canada', 2, 1, 5, 5),
+(10, FALSE, 'https://api-ninjas.com/images/dogs/central_asian_shepherd_dog.jpg', 'Large', 3, 3, 3, 1, 3, 1, 1, 3, 5, 4, 3, 3, 12, 15, 31, 27, 170, 140, 26, 24, 110, 88, 'Central Asian Shepherd Dog', 'Belgium', 3, 2, 5, 1),
+(11, FALSE, 'https://api-ninjas.com/images/dogs/chow_chow.jpg', 'Large', 3, 2, 3, 3, 3, 1, 2, 3, 5, 3, 3, 1, 8, 12, 20, 20, 70, 70, 17, 17, 45, 45, 'Chow Chow', 'Canada', 4, 2, 3, 5),
+(12, FALSE, 'https://api-ninjas.com/images/dogs/croatian_sheepdog.jpg', 'Large', 3, 3, 2, 1, 3, 1, 2, 3, 5, 3, 3, 3, 13, 14, 20, 20, 44, 44, 16, 16, 29, 29, 'Croatian Sheepdog', 'Belgium', 1, 3, 2, 3),
+(13, FALSE, 'https://api-ninjas.com/images/dogs/czechoslovakian_vlcak.jpg', 'Large', 1, 1, 5, 2, 3, 1, 3, 3, 5, 3, 3, 3, 10, 15, 26, 26, 66, 57, 24, 24, 66, 57, 'Czechoslovakian Vlcak', 'Canada', 2, 5, 3, 2),
+(14, FALSE, 'https://api-ninjas.com/images/dogs/doberman_pinscher.jpg', 'Large', 5, 3, 4, 1, 2, 1, 4, 4, 5, 5, 5, 3, 10, 12, 28, 28, 100, 90, 26, 26, 75, 60, 'Doberman Pinscher', 'Belgium', 5, 1, 3, 2),
+(15, FALSE, 'https://api-ninjas.com/images/dogs/dogo_argentino.jpg', 'Large', 3, 3, 4, 1, 3, 1, 4, 4, 5, 5, 5, 3, 9, 15, 27, 27, 100, 100, 24, 24, 80, 80, 'Dogo Argentino', 'Canada', 3, 2, 5, 5),
+(16, FALSE, 'https://api-ninjas.com/images/dogs/dogue_de_bordeaux.jpg', 'Large', 3, 3, 4, 1, 5, 1, 3, 3, 5, 4, 3, 3, 5, 8, 23, 23, 140, 140, 23, 23, 120, 120, 'Dogue de Bordeaux', 'Belgium', 3, 1, 2, 2),
+(17, FALSE, 'https://api-ninjas.com/images/dogs/dutch_shepherd.jpg', 'Large', 3, 3, 3, 2, 2, 1, 3, 4, 5, 5, 5, 2, 11, 14, 25, 25, 75, 75, 22, 22, 42, 42, 'Dutch Shepherd', 'Canada', 3, 3, 3, 5),
+(18, FALSE, 'https://api-ninjas.com/images/dogs/entlebucher_mountain_dog.jpg', 'Large', 3, 5, 3, 1, 2, 1, 3, 3, 5, 3, 5, 3, 11, 13, 21, 21, 65, 55, 17, 17, 50, 40, 'Entlebucher Mountain Dog', 'Belgium', 5, 2, 1, 3),
+(19, FALSE, 'https://api-ninjas.com/images/dogs/estrela_mountain_dog.jpg', 'Large', 5, 3, 3, 2, 4, 1, 2, 3, 5, 4, 3, 3, 10, 14, 29, 29, 132, 132, 25, 25, 77, 77, 'Estrela Mountain Dog', 'Canada', 5, 2, 2, 1),
+(20, FALSE, 'https://api-ninjas.com/images/dogs/german_shepherd_dog.jpg', 'Large', 5, 3, 4, 2, 2, 1, 3, 4, 5, 5, 5, 3, 7, 10, 26, 26, 90, 70, 24, 24, 65, 50, 'German Shepherd Dog', 'Belgium', 4, 4, 2, 1),
+(21, FALSE, 'https://api-ninjas.com/images/dogs/alaskan_malamute.jpg', 'Large', 3, 3, 3, 3, 1, 1, 3, 3, 4, 5, 4, 3, 10, 14, 25, 25, 85, 75, 25, 25, 85, 75, 'Alaskan Malamute', 'Canada', 4, 4, 1, 2),
+(22, FALSE, 'https://api-ninjas.com/images/dogs/australian_cattle_dog.jpg', 'Large', 3, 3, 3, 1, 1, 1, 3, 3, 4, 4, 5, 1, 12, 16, 20, 20, 50, 50, 18, 18, 35, 35, 'Australian Cattle Dog', 'Belgium', 4, 1, 1, 2),
+(23, FALSE, 'https://api-ninjas.com/images/dogs/australian_kelpie.jpg', 'Large', 3, 3, 3, 1, 1, 1, 3, 3, 4, 4, 5, 1, 10, 13, 20, 20, 50, 50, 17, 17, 35, 35, 'Australian Kelpie', 'Canada', 3, 4, 2, 2),
+(24, FALSE, 'https://api-ninjas.com/images/dogs/australian_terrier.jpg', 'Large', 5, 3, 1, 2, 1, 1, 3, 4, 4, 4, 4, 5, 11, 15, 11, 11, 20, 20, 10, 10, 15, 15, 'Australian Terrier', 'Belgium', 5, 4, 3, 5),
+(25, FALSE, 'https://api-ninjas.com/images/dogs/beauceron.jpg', 'Large', 3, 3, 4, 3, 1, 1, 2, 3, 4, 3, 5, 3, 10, 12, 28, 28, 110, 110, 26, 26, 70, 70, 'Beauceron', 'Canada', 2, 3, 4, 4),
+(26, FALSE, 'https://api-ninjas.com/images/dogs/bedlington_terrier.jpg', 'Large', 3, 3, 1, 3, 1, 1, 3, 3, 4, 3, 4, 3, 11, 16, 18, 18, 23, 23, 15, 15, 17, 17, 'Bedlington Terrier', 'Belgium', 4, 3, 1, 3),
+(27, FALSE, 'https://api-ninjas.com/images/dogs/belgian_laekenois.jpg', 'Large', 3, 3, 3, 2, 1, 1, 3, 3, 4, 5, 4, 3, 10, 12, 26, 26, 65, 65, 24, 24, 55, 55, 'Belgian Laekenois', 'Canada', 3, 5, 2, 3),
+(28, FALSE, 'https://api-ninjas.com/images/dogs/belgian_malinois.jpg', 'Large', 3, 3, 3, 2, 1, 1, 3, 3, 4, 5, 4, 3, 14, 16, 26, 26, 80, 60, 24, 24, 60, 40, 'Belgian Malinois', 'Belgium', 3, 4, 2, 5),
+(29, FALSE, 'https://api-ninjas.com/images/dogs/belgian_sheepdog.jpg', 'Large', 3, 3, 3, 2, 1, 1, 3, 3, 4, 5, 4, 3, 12, 14, 26, 26, 75, 60, 24, 24, 55, 45, 'Belgian Sheepdog', 'Canada', 4, 1, 2, 2),
+(30, FALSE, 'https://api-ninjas.com/images/dogs/belgian_tervuren.jpg', 'Large', 3, 3, 3, 2, 1, 1, 3, 3, 4, 5, 4, 3, 12, 14, 26, 26, 75, 60, 24, 24, 55, 45, 'Belgian Tervuren', 'Belgium', 2, 4, 4, 4),
+(31, FALSE, 'https://api-ninjas.com/images/dogs/bergamasco_sheepdog.jpg', 'Large', 3, 3, 1, 1, 2, 1, 3, 3, 4, 3, 3, 1, 13, 15, 24, 24, 84, 71, 24, 24, 70, 57, 'Bergamasco Sheepdog', 'Canada', 3, 5, 4, 4),
+(32, FALSE, 'https://api-ninjas.com/images/dogs/berger_picard.jpg', 'Large', 3, 3, 3, 1, 1, 1, 3, 3, 4, 4, 4, 2, 12, 13, 26, 26, 70, 70, 24, 24, 50, 50, 'Berger Picard', 'Belgium', 1, 3, 2, 2),
+(33, FALSE, 'https://api-ninjas.com/images/dogs/bouvier_des_flandres.jpg', 'Large', 3, 3, 3, 4, 2, 1, 3, 3, 4, 4, 4, 3, 10, 12, 28, 28, 110, 110, 25, 25, 70, 70, 'Bouvier des Flandres', 'Canada', 2, 3, 3, 2),
+(34, FALSE, 'https://api-ninjas.com/images/dogs/boxer.jpg', 'Large', 5, 3, 2, 2, 3, 1, 4, 4, 4, 4, 4, 3, 10, 12, 25, 25, 80, 65, 23, 23, 65, 50, 'Boxer', 'Belgium', 1, 1, 2, 2),
+(35, FALSE, 'https://api-ninjas.com/images/dogs/briard.jpg', 'Large', 3, 3, 1, 4, 2, 1, 3, 3, 4, 3, 3, 1, 12, 12, 27, 27, 100, 100, 23, 23, 55, 55, 'Briard', 'Canada', 5, 4, 2, 4),
+(36, FALSE, 'https://api-ninjas.com/images/dogs/broholmer.jpg', 'Large', 3, 3, 3, 1, 3, 1, 3, 3, 4, 3, 2, 1, 8, 10, 30, 30, 150, 150, 28, 28, 90, 90, 'Broholmer', 'Belgium', 3, 3, 4, 4),
+(37, FALSE, 'https://api-ninjas.com/images/dogs/cairn_terrier.jpg', 'Large', 3, 3, 2, 2, 1, 1, 3, 4, 4, 3, 3, 4, 13, 15, 10, 10, 14, 13, 10, 10, 14, 13, 'Cairn Terrier', 'Canada', 1, 3, 2, 2),
+(38, FALSE, 'https://api-ninjas.com/images/dogs/canaan_dog.jpg', 'Large', 3, 3, 4, 2, 1, 1, 3, 3, 4, 4, 3, 5, 12, 15, 24, 24, 55, 45, 20, 20, 45, 35, 'Canaan Dog', 'Belgium', 1, 4, 5, 3),
+(39, FALSE, 'https://api-ninjas.com/images/dogs/catahoula_leopard_dog.jpg', 'Large', 3, 3, 3, 2, 2, 1, 3, 3, 4, 4, 5, 1, 10, 14, 24, 24, 95, 95, 22, 22, 50, 50, 'Catahoula Leopard Dog', 'Canada', 4, 5, 1, 3),
+(40, FALSE, 'https://api-ninjas.com/images/dogs/chesapeake_bay_retriever.jpg', 'Large', 3, 3, 3, 3, 2, 1, 3, 3, 4, 5, 4, 3, 10, 13, 26, 26, 80, 70, 23, 23, 65, 55, 'Chesapeake Bay Retriever', 'Belgium', 5, 3, 3, 5),
+(41, FALSE, 'https://api-ninjas.com/images/dogs/affenpinscher.jpg', 'Large', 3, 3, 3, 3, 1, 2, 5, 3, 3, 3, 3, 3, 12, 15, 12, 12, 10, 10, 9, 9, 7, 7, 'Affenpinscher', 'Canada', 5, 1, 4, 5),
+(42, FALSE, 'https://api-ninjas.com/images/dogs/afghan_hound.jpg', 'Large', 3, 3, 1, 4, 1, 1, 3, 3, 3, 1, 4, 3, 12, 18, 27, 27, 60, 60, 25, 25, 50, 50, 'Afghan Hound', 'Belgium', 2, 4, 1, 5),
+(43, FALSE, 'https://api-ninjas.com/images/dogs/american_english_coonhound.jpg', 'Large', 3, 5, 2, 1, 1, 1, 3, 3, 3, 3, 4, 4, 11, 12, 26, 26, 65, 65, 24, 24, 45, 45, 'American English Coonhound', 'Canada', 4, 2, 3, 1),
+(44, FALSE, 'https://api-ninjas.com/images/dogs/american_eskimo_dog.jpg', 'Large', 5, 3, 3, 3, 1, 1, 5, 3, 3, 4, 4, 3, 13, 15, 26, 26, 65, 65, 24, 24, 45, 45, 'American Eskimo Dog', 'Belgium', 4, 3, 1, 4),
+(45, FALSE, 'https://api-ninjas.com/images/dogs/american_foxhound.jpg', 'Large', 5, 5, 3, 1, 1, 1, 3, 3, 3, 3, 4, 5, 11, 13, 25, 25, 70, 65, 22, 22, 65, 60, 'American Foxhound', 'Canada', 2, 3, 5, 3),
+(46, FALSE, 'https://api-ninjas.com/images/dogs/american_hairless_terrier.jpg', 'Large', 5, 3, 1, 1, 1, 1, 3, 3, 3, 5, 3, 3, 14, 16, 16, 16, 16, 16, 12, 12, 12, 12, 'American Hairless Terrier', 'Belgium', 2, 5, 3, 4),
+(47, FALSE, 'https://api-ninjas.com/images/dogs/american_leopard_hound.jpg', 'Large', 5, 3, 3, 1, 1, 1, 3, 3, 3, 3, 4, 3, 12, 15, 27, 27, 70, 70, 21, 21, 45, 45, 'American Leopard Hound', 'Canada', 5, 3, 5, 3),
+(48, FALSE, 'https://api-ninjas.com/images/dogs/american_water_spaniel.jpg', 'Large', 3, 3, 1, 3, 1, 1, 3, 3, 3, 5, 3, 3, 10, 14, 18, 18, 45, 40, 15, 15, 30, 25, 'American Water Spaniel', 'Belgium', 4, 1, 3, 4),
+(49, FALSE, 'https://api-ninjas.com/images/dogs/appenzeller_sennenhund.jpg', 'Large', 3, 3, 3, 2, 1, 1, 3, 3, 3, 3, 3, 4, 12, 15, 22, 22, 70, 70, 19, 19, 48, 48, 'Appenzeller Sennenhund', 'Canada', 1, 3, 5, 2),
+(50, FALSE, 'https://api-ninjas.com/images/dogs/australian_shepherd.jpg', 'Large', 5, 3, 3, 2, 1, 1, 3, 4, 3, 5, 5, 3, 12, 15, 23, 23, 65, 55, 20, 20, 50, 40, 'Australian Shepherd', 'Belgium', 4, 5, 1, 3),
+(51, FALSE, 'https://api-ninjas.com/images/dogs/australian_stumpy_tail_cattle_dog.jpg', 'Large', 3, 1, 3, 3, 1, 1, 1, 3, 3, 3, 5, 1, 12, 15, 20, 20, 45, 35, 18, 18, 38, 32, 'Australian Stumpy Tail Cattle Dog', 'Canada', 3, 2, 5, 5),
+(52, FALSE, 'https://api-ninjas.com/images/dogs/azawakh.jpg', 'Large', 3, 3, 2, 2, 1, 1, 1, 3, 3, 2, 3, 1, 12, 15, 29, 29, 55, 44, 25, 25, 44, 33, 'Azawakh', 'Belgium', 3, 2, 4, 1),
+(53, FALSE, 'https://api-ninjas.com/images/dogs/barbet.jpg', 'Large', 5, 5, 1, 3, 1, 2, 3, 3, 3, 4, 3, 3, 12, 14, 25, 25, 65, 65, 19, 19, 35, 35, 'Barbet', 'Canada', 3, 1, 3, 4),
+(54, FALSE, 'https://api-ninjas.com/images/dogs/basenji.jpg', 'Large', 3, 3, 2, 1, 1, 1, 3, 3, 3, 2, 4, 1, 13, 14, 17, 17, 24, 22, 17, 17, 24, 22, 'Basenji', 'Belgium', 4, 1, 5, 3),
+(55, FALSE, 'https://api-ninjas.com/images/dogs/basset_fauve_de_bretagne.jpg', 'Large', 5, 4, 3, 2, 1, 1, 3, 3, 3, 3, 4, 4, 12, 12, 16, 16, 35, 35, 13, 13, 27, 27, 'Basset Fauve de Bretagne', 'Canada', 3, 4, 2, 2),
+(56, FALSE, 'https://api-ninjas.com/images/dogs/basset_hound.jpg', 'Large', 5, 5, 2, 3, 4, 1, 3, 3, 3, 3, 2, 4, 12, 13, 15, 14, 65, 65, 12, 11, 40, 40, 'Basset Hound', 'Belgium', 4, 3, 4, 4),
+(57, FALSE, 'https://api-ninjas.com/images/dogs/bavarian_mountain_scent_hound.jpg', 'Large', 3, 3, 3, 2, 2, 1, 3, 3, 3, 4, 4, 2, 12, 15, 21, 21, 66, 66, 17, 17, 37, 37, 'Bavarian Mountain Scent Hound', 'Canada', 1, 4, 3, 1),
+(58, FALSE, 'https://api-ninjas.com/images/dogs/bearded_collie.jpg', 'Large', 5, 5, 3, 4, 1, 1, 4, 4, 3, 3, 4, 5, 12, 14, 22, 22, 55, 55, 21, 21, 45, 45, 'Bearded Collie', 'Belgium', 5, 3, 4, 1),
+(59, FALSE, 'https://api-ninjas.com/images/dogs/bernese_mountain_dog.jpg', 'Large', 5, 5, 5, 3, 3, 1, 4, 4, 3, 4, 4, 3, 7, 10, 28, 28, 115, 95, 25, 25, 80, 70, 'Bernese Mountain Dog', 'Canada', 1, 1, 1, 3),
+(60, FALSE, 'https://api-ninjas.com/images/dogs/bohemian_shepherd.jpg', 'Large', 5, 3, 3, 2, 2, 1, 4, 3, 3, 4, 3, 3, 12, 15, 22, 22, 60, 53, 21, 21, 41, 37, 'Bohemian Shepherd', 'Belgium', 2, 3, 3, 1),
+(61, FALSE, 'https://api-ninjas.com/images/dogs/beagle.jpg', 'Large', 5, 5, 3, 2, 1, 1, 3, 4, 2, 3, 4, 4, 10, 15, 16, 15, 20, 30, 14, 13, 15, 20, 'Beagle', 'Canada', 1, 5, 4, 5),
+(62, FALSE, 'https://api-ninjas.com/images/dogs/bichon_frise.jpg', 'Large', 5, 5, 1, 5, 1, 1, 5, 4, 2, 4, 4, 3, 14, 15, 12, 12, 18, 18, 10, 10, 12, 12, 'Bichon Frise', 'Belgium', 2, 5, 5, 1),
+(63, FALSE, 'https://api-ninjas.com/images/dogs/biewer_terrier.jpg', 'Large', 3, 5, 1, 3, 1, 1, 3, 4, 2, 3, 3, 3, 16, 16, 11, 11, 8, 8, 7, 7, 4, 4, 'Biewer Terrier', 'Canada', 3, 3, 5, 2),
+(64, FALSE, 'https://api-ninjas.com/images/dogs/black_and_tan_coonhound.jpg', 'Large', 5, 5, 3, 2, 3, 1, 3, 3, 2, 3, 3, 4, 10, 12, 27, 27, 110, 110, 25, 25, 65, 65, 'Black and Tan Coonhound', 'Belgium', 3, 1, 3, 3),
+(65, FALSE, 'https://api-ninjas.com/images/dogs/bloodhound.jpg', 'Large', 3, 3, 3, 2, 5, 1, 3, 3, 2, 4, 3, 5, 10, 12, 27, 27, 110, 100, 25, 25, 90, 80, 'Bloodhound', 'Canada', 1, 5, 5, 2),
+(66, FALSE, 'https://api-ninjas.com/images/dogs/bluetick_coonhound.jpg', 'Large', 3, 5, 3, 2, 2, 1, 3, 3, 2, 4, 4, 4, 11, 12, 27, 27, 80, 65, 22, 22, 55, 45, 'Bluetick Coonhound', 'Belgium', 3, 2, 4, 2),
+(67, FALSE, 'https://api-ninjas.com/images/dogs/bolognese.jpg', 'Large', 3, 3, 1, 3, 1, 1, 3, 4, 2, 3, 4, 3, 12, 14, 12, 12, 9, 9, 10, 10, 6, 6, 'Bolognese', 'Canada', 3, 1, 1, 2),
+(68, FALSE, 'https://api-ninjas.com/images/dogs/hanoverian_scenthound.jpg', 'Large', 3, 5, 3, 2, 2, 1, 3, 3, 2, 4, 4, 4, 10, 14, 21, 21, 99, 99, 19, 19, 79, 79, 'Hanoverian Scenthound', 'Belgium', 2, 2, 4, 1),
+(69, FALSE, 'https://api-ninjas.com/images/dogs/sloughi.jpg', 'Large', 3, 3, 3, 1, 1, 1, 2, 3, 2, 3, 4, 2, 10, 15, 29, 29, 50, 50, 26, 26, 35, 35, 'Sloughi', 'Canada', 5, 1, 1, 5),
+(70, FALSE, 'https://api-ninjas.com/images/dogs/saluki.jpg', 'Large', 3, 3, 2, 1, 1, 1, 3, 3, 1, 3, 4, 3, 10, 17, 28, 28, 65, 65, 23, 23, 40, 40, 'Saluki', 'Belgium', 5, 5, 3, 4),
+(71, FALSE, 'https://api-ninjas.com/images/dogs/siberian_husky.jpg', 'Large', 5, 5, 4, 2, 1, 1, 5, 5, 1, 3, 5, 5, 12, 14, 24, 24, 60, 50, 21, 21, 45, 35, 'Siberian Husky', 'Canada', 3, 5, 2, 3),
+(72, TRUE, 'https://api-ninjas.com/images/cats/norwegian_forest.jpg', '12 to 18 inches', 4, 2, 4, 2, 4, 2, 2, 3, 2, 1, 2, 4, 12, 16, 9, 16, 13, 22, 13, 4, 13, 16, 'Norwegian Forest', 'Norway', 3, 4, 2, 2),
+(73, TRUE, 'https://api-ninjas.com/images/cats/abyssinian.jpg', '12 to 16 inches', 5, 5, 3, 3, 4, 2, 0, 5, 2, 1, 2, 1, 9, 15, 6, 18, 10, 10, 11, 21, 6, 13, 'Abyssinian', 'Southeast Asia', 2, 5, 3, 2),
+(74, TRUE, 'https://api-ninjas.com/images/cats/american_shorthair.jpg', '12 to 15 inches', 4, 2, 3, 4, 5, 4, 4, 2, 3, 1, 2, 1, 15, 20, 16, 20, 8, 12, 18, 4, 7, 20, 'American Shorthair', 'United States', 2, 3, 3, 4),
+(75, TRUE, 'https://api-ninjas.com/images/cats/british_shorthair.jpg', '22 to 25 inches, not including tail', 4, 3, 3, 4, 4, 3, 4, 2, 1, 1, 4, 4, 12, 17, 7, 11, 10, 17, 16, 7, 7, 20, 'British Shorthair', 'Great Britain', 3, 5, 3, 4),
+(76, TRUE, 'https://api-ninjas.com/images/cats/chartreux.jpg', '15 to 18 inches', 3, 3, 4, 2, 5, 5, 3, 3, 3, 2, 2, 5, 11, 15, 22, 5, 15, 16, 17, 18, 7, 15, 'Chartreux', 'France', 4, 4, 3, 4),
+(77, TRUE, 'https://api-ninjas.com/images/cats/chinese_li_hua.jpg', 'Medium to large', 4, 3, 3, 4, 3, 4, 0, 4, 2, 2, 5, 1, 9, 16, 17, 17, 9, 4, 9, 7, 9, 7, 'Chinese Li Hua', 'China', 4, 4, 3, 3),
+(78, TRUE, 'https://api-ninjas.com/images/cats/maine_coon.jpg', '30 to 40 inches', 5, 5, 4, 4, 2, 4, 2, 4, 3, 2, 4, 4, 9, 15, 22, 9, 12, 18, 13, 22, 9, 13, 'Maine Coon', 'Maine, USA', 1, 5, 3, 3),
+(79, TRUE, 'https://api-ninjas.com/images/cats/persian.jpg', '14 to 18 inches, not including tail', 2, 2, 5, 2, 1, 2, 2, 2, 1, 1, 2, 3, 10, 15, 13, 22, 12, 12, 9, 6, 7, 17, 'Persian', 'Persia (known as Iran today)', 1, 2, 3, 2),
+(80, TRUE, 'https://api-ninjas.com/images/cats/turkish_van.jpg', '14 to 17 inches', 3, 4, 2, 4, 1, 4, 2, 4, 1, 2, 3, 2, 12, 17, 8, 22, 6, 18, 17, 10, 10, 11, 'Turkish Van', 'Lake Van, Turkey', 5, 3, 3, 4),
+(81, TRUE, 'https://api-ninjas.com/images/cats/american_bobtail.jpg', 'Medium', 4, 5, 4, 3, 4, 2, 4, 4, 3, 2, 1, 3, 11, 15, 21, 13, 15, 13, 17, 15, 8, 20, 'American Bobtail', 'United States and Canada', 5, 4, 4, 4),
+(82, TRUE, 'https://api-ninjas.com/images/cats/american_wirehair.jpg', 'Medium to large', 4, 5, 3, 5, 5, 5, 3, 3, 3, 1, 3, 1, 14, 18, 15, 13, 14, 15, 8, 16, 8, 12, 'American Wirehair', 'United States', 2, 3, 4, 5),
+(83, TRUE, 'https://api-ninjas.com/images/cats/aphrodite_giant.jpg', 'Large', 5, 2, 4, 2, 5, 5, 4, 4, 2, 1, 4, 2, 12, 15, 8, 19, 11, 24, 12, 7, 11, 16, 'Aphrodite Giant', 'Cyprus', 2, 4, 4, 3),
+(84, TRUE, 'https://api-ninjas.com/images/cats/arabian_mau.jpg', 'Medium', 4, 5, 2, 5, 1, 2, 4, 4, 1, 1, 3, 3, 12, 14, 14, 20, 17, 16, 22, 15, 8, 7, 'Arabian Mau', 'Saudi Arabia', 4, 3, 4, 4),
+(85, TRUE, 'https://api-ninjas.com/images/cats/balinese.jpg', 'Up to 18 inches, not including tail', 4, 2, 3, 4, 1, 1, 4, 4, 2, 2, 3, 1, 9, 15, 22, 13, 12, 10, 17, 9, 5, 9, 'Balinese', 'United States and Thailand', 2, 4, 4, 2),
+(86, TRUE, 'https://api-ninjas.com/images/cats/bambino.jpg', 'Short', 4, 3, 1, 2, 3, 1, 3, 4, 2, 2, 1, 3, 9, 15, 13, 15, 13, 9, 17, 5, 4, 10, 'Bambino', 'United States', 4, 3, 4, 3),
+(87, TRUE, 'https://api-ninjas.com/images/cats/bombay.jpg', '13 to 20 inches', 4, 1, 2, 4, 2, 1, 4, 4, 2, 2, 1, 3, 12, 20, 10, 17, 14, 15, 16, 17, 8, 12, 'Bombay', 'Kentucky, USA', 4, 4, 4, 4),
+(88, TRUE, 'https://api-ninjas.com/images/cats/brazilian_shorthair.jpg', 'Medium to large', 5, 4, 1, 4, 5, 4, 4, 4, 3, 2, 3, 3, 14, 20, 8, 19, 8, 22, 19, 10, 10, 8, 'Brazilian Shorthair', 'Brazil', 2, 4, 4, 3),
+(89, TRUE, 'https://api-ninjas.com/images/cats/british_longhair.jpg', 'Medium to Large', 4, 3, 4, 2, 3, 2, 4, 3, 2, 1, 5, 3, 15, 17, 6, 22, 13, 18, 14, 8, 9, 15, 'British Longhair', 'Great Britain', 1, 3, 4, 3),
+(90, TRUE, 'https://api-ninjas.com/images/cats/burmilla.jpg', 'Medium', 4, 4, 3, 4, 4, 2, 0, 5, 3, 2, 5, 1, 10, 15, 8, 12, 15, 13, 14, 5, 7, 16, 'Burmilla', 'England', 5, 4, 4, 3),
+(91, TRUE, 'https://api-ninjas.com/images/cats/california_spangled.jpg', 'Medium to Large', 4, 3, 2, 5, 2, 3, 4, 4, 1, 2, 1, 2, 9, 16, 6, 15, 15, 15, 8, 8, 8, 16, 'California Spangled', 'USA', 5, 3, 4, 4),
+(92, TRUE, 'https://api-ninjas.com/images/cats/chantilly-tiffany.jpg', 'Medium', 4, 2, 3, 2, 3, 4, 2, 4, 1, 1, 5, 5, 7, 16, 15, 20, 17, 12, 21, 13, 6, 16, 'Chantilly-Tiffany', 'United States', 5, 3, 4, 4),
+(93, TRUE, 'https://api-ninjas.com/images/cats/chausie.jpg', 'Large', 1, 1, 1, 5, 1, 4, 3, 4, 2, 2, 1, 3, 12, 14, 17, 16, 6, 30, 18, 12, 15, 22, 'Chausie', 'Egypt', 4, 4, 4, 4),
+(94, TRUE, 'https://api-ninjas.com/images/cats/cyprus.jpg', 'Medium', 4, 3, 2, 4, 3, 4, 3, 5, 2, 2, 2, 3, 12, 15, 13, 14, 10, 16, 21, 17, 8, 17, 'Cyprus', 'Cyprus', 2, 4, 4, 4),
+(95, TRUE, 'https://api-ninjas.com/images/cats/desert_lynx.jpg', 'Medium', 4, 1, 1, 4, 4, 1, 3, 4, 2, 2, 4, 3, 13, 15, 10, 17, 12, 16, 7, 12, 8, 19, 'Desert Lynx', 'United States', 4, 3, 4, 4),
+(96, TRUE, 'https://api-ninjas.com/images/cats/donskoy.jpg', 'Medium', 4, 2, 1, 2, 2, 4, 4, 4, 3, 1, 2, 3, 12, 15, 15, 17, 16, 15, 5, 12, 6, 5, 'Donskoy', 'Russia', 2, 4, 4, 3),
+(97, TRUE, 'https://api-ninjas.com/images/cats/european_shorthair.jpg', 'Medium', 5, 2, 2, 5, 4, 5, 4, 4, 3, 1, 3, 3, 15, 20, 21, 12, 12, 15, 21, 8, 8, 12, 'European Shorthair', 'Italy', 4, 4, 4, 4),
+(98, TRUE, 'https://api-ninjas.com/images/cats/exotic.jpg', 'Medium', 3, 2, 3, 2, 3, 5, 0, 4, 1, 2, 5, 5, 8, 15, 11, 18, 17, 12, 7, 17, 7, 6, 'Exotic', 'United States', 5, 3, 4, 2),
+(99, TRUE, 'https://api-ninjas.com/images/cats/german_rex.jpg', 'Small to medium', 4, 3, 2, 2, 5, 4, 4, 4, 1, 2, 5, 2, 9, 14, 12, 18, 14, 8, 13, 19, 5, 13, 'German Rex', 'Germany', 3, 4, 4, 3),
+(100, TRUE, 'https://api-ninjas.com/images/cats/highlander.jpg', 'Medium to large', 4, 5, 2, 3, 2, 4, 4, 4, 2, 1, 2, 3, 10, 15, 4, 18, 18, 20, 12, 4, 10, 19, 'Highlander', 'United States', 3, 5, 4, 4),
+(101, TRUE, 'https://api-ninjas.com/images/cats/aegean.jpg', 'Medium', 5, 4, 3, 4, 5, 3, 4, 4, 3, 1, 2, 4, 9, 10, 4, 15, 21, 10, 17, 20, 7, 8, 'Aegean', 'Greece', 5, 3, 5, 4),
+(102, TRUE, 'https://api-ninjas.com/images/cats/american_curl.jpg', 'Medium', 4, 5, 4, 4, 5, 2, 4, 4, 1, 2, 4, 5, 12, 16, 15, 7, 7, 10, 10, 5, 5, 13, 'American Curl', 'California, USA', 5, 4, 5, 5),
+(103, TRUE, 'https://api-ninjas.com/images/cats/asian.jpg', 'Medium', 5, 4, 1, 3, 1, 1, 4, 4, 1, 2, 4, 4, 15, 15, 7, 12, 15, 10, 18, 21, 10, 11, 'Asian', 'Great Britain', 3, 4, 5, 4),
+(104, TRUE, 'https://api-ninjas.com/images/cats/australian_mist.jpg', 'Medium', 4, 5, 2, 4, 3, 4, 3, 4, 2, 2, 5, 2, 15, 18, 5, 10, 11, 15, 4, 21, 8, 15, 'Australian Mist', 'Australia', 3, 3, 5, 4),
+(105, TRUE, 'https://api-ninjas.com/images/cats/bengal_cats.jpg', '17 to 22 inches, not including tail', 5, 5, 2, 4, 3, 4, 3, 5, 2, 1, 5, 2, 10, 16, 8, 10, 22, 17, 22, 18, 8, 4, 'Bengal Cats', 'USA', 4, 5, 5, 3),
+(106, TRUE, 'https://api-ninjas.com/images/cats/birman.jpg', '15 to 18 inches', 5, 2, 3, 2, 4, 5, 0, 4, 3, 1, 2, 4, 12, 16, 21, 11, 8, 12, 22, 9, 6, 12, 'Birman', 'Unknown', 2, 5, 5, 2),
+(107, TRUE, 'https://api-ninjas.com/images/cats/burmese.jpg', '15 to 18 inches', 5, 2, 2, 5, 2, 1, 5, 4, 1, 1, 1, 1, 10, 16, 11, 16, 22, 12, 4, 6, 8, 16, 'Burmese', 'Burma and Thailand', 3, 4, 5, 2),
+(108, TRUE, 'https://api-ninjas.com/images/cats/colorpoint_shorthair.jpg', 'Small to medium', 4, 3, 2, 4, 5, 2, 0, 5, 3, 1, 2, 1, 12, 17, 21, 14, 5, 10, 16, 22, 5, 4, 'Colorpoint Shorthair', 'England', 1, 4, 5, 2),
+(109, TRUE, 'https://api-ninjas.com/images/cats/cornish_rex.jpg', 'Small', 5, 4, 2, 5, 1, 3, 5, 5, 3, 2, 1, 2, 11, 15, 9, 8, 10, 10, 5, 8, 6, 21, 'Cornish Rex', 'United Kingdom', 4, 5, 5, 3),
+(110, TRUE, 'https://api-ninjas.com/images/cats/cymric.jpg', '14 to 18 inches', 3, 3, 4, 2, 1, 2, 4, 0, 1, 1, 1, 2, 8, 14, 21, 20, 16, 12, 14, 20, 8, 18, 'Cymric', 'Isle of Man, UK', 3, 3, 5, 3),
+(111, TRUE, 'https://api-ninjas.com/images/cats/devon_rex.jpg', '15 to 18 inches', 5, 1, 1, 5, 2, 5, 5, 4, 2, 1, 4, 3, 9, 15, 7, 16, 18, 10, 19, 20, 5, 20, 'Devon Rex', 'Devon, England', 4, 4, 5, 1),
+(112, TRUE, 'https://api-ninjas.com/images/cats/egyptian_mau.jpg', 'Medium', 4, 1, 3, 4, 1, 1, 2, 4, 1, 2, 2, 2, 12, 15, 15, 13, 17, 14, 5, 9, 6, 7, 'Egyptian Mau', 'Egypt', 5, 3, 5, 4),
+(113, TRUE, 'https://api-ninjas.com/images/cats/european_burmese.jpg', 'Medium', 5, 2, 2, 5, 5, 5, 5, 5, 1, 1, 4, 1, 10, 15, 22, 10, 20, 10, 9, 20, 6, 11, 'European Burmese', 'Burma and Thailand', 3, 5, 5, 1),
+(114, TRUE, 'https://api-ninjas.com/images/cats/foldex.jpg', 'Medium', 5, 1, 3, 3, 4, 3, 4, 4, 3, 1, 2, 3, 12, 15, 12, 4, 18, 14, 19, 16, 5, 22, 'Foldex', 'Quebec, Canada', 5, 4, 5, 4),
+(115, TRUE, 'https://api-ninjas.com/images/cats/havana_brown.jpg', '12 to 15 inches', 4, 2, 3, 5, 2, 3, 3, 3, 1, 2, 4, 1, 10, 15, 20, 10, 6, 10, 15, 17, 6, 15, 'Havana Brown', 'England', 5, 4, 5, 4),
+(116, TRUE, 'https://api-ninjas.com/images/cats/japanese_bobtail.jpg', 'Medium', 5, 3, 3, 4, 3, 5, 0, 5, 1, 2, 2, 1, 9, 15, 21, 18, 7, 10, 14, 7, 6, 8, 'Japanese Bobtail', 'China and Japan', 2, 5, 5, 4),
+(117, TRUE, 'https://api-ninjas.com/images/cats/javanese.jpg', 'Small to medium', 4, 5, 3, 4, 4, 2, 4, 4, 3, 2, 3, 1, 10, 15, 18, 22, 14, 10, 20, 19, 5, 10, 'Javanese', 'United States and Canada', 3, 4, 5, 2),
+(118, TRUE, 'https://api-ninjas.com/images/cats/korat.jpg', '15 to 18 inches', 3, 5, 1, 5, 5, 5, 2, 0, 2, 2, 3, 5, 10, 15, 7, 4, 12, 10, 7, 14, 6, 7, 'Korat', 'Thailand', 2, 3, 5, 4),
+(119, TRUE, 'https://api-ninjas.com/images/cats/peterbald.jpg', 'Medium', 4, 4, 1, 2, 4, 1, 4, 4, 2, 2, 3, 4, 12, 15, 11, 12, 21, 10, 10, 19, 6, 6, 'Peterbald', 'Russia', 1, 4, 5, 3),
+(120, TRUE, 'https://api-ninjas.com/images/cats/pixie-bob.jpg', '20 to 24 inches', 5, 5, 4, 2, 2, 1, 3, 4, 1, 2, 3, 3, 13, 15, 9, 21, 20, 17, 12, 15, 8, 16, 'Pixie-Bob', 'Washington, USA', 3, 4, 5, 5);
 
-ALTER TABLE `PET_IMAGES` 
-  ADD CONSTRAINT `FK_IMAGE_PET` FOREIGN KEY (`PET_ID`) REFERENCES `PET_DETAILS` (`PET_ID`) ON DELETE CASCADE;
+INSERT INTO shipping_info (shipping_type, shipping_cost, shipping_region_id)
+VALUES ('BusinessWeek', 9.99, 1);
 
-ALTER TABLE `SHIPPING_INFO` 
-  ADD CONSTRAINT `FK_SHIPPING_REGION` FOREIGN KEY (`SHIPPING_REGION_ID`) REFERENCES `SHIPPING_REGIONS` (`REGION_ID`) ON DELETE SET NULL;
+INSERT INTO pet_details (owner_id, breed_id, name, gender, age, size, color, story, diet, register_date, healthcare_id, online_purchased)
+VALUES
+(59, 30, 'Chaos', 'Male', 10, 'Medium', 'Blue', 'He''s got the looks, he''s got the vibe, he''s got it all! And then some. Mickey is more fun than a barrel of monkeys, especially if you are into high-energy and endlessly enthusiastic young dogs. Currently Mickey is getting trained at our San Quentin Pen Pa', 'Apricots', '2022-09-21 14:39:36', 5, FALSE),
+(59, 69, 'Rusty', 'Female', 3, 'Medium', 'Chestnut', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Angelica', '2022-09-21 14:39:36', 6, FALSE),
+(59, 44, 'Molly', 'Male', 10, 'Small', 'Light', 'Well hello there! My name is Slate! I''m a very handsome boy that is looking for a home! I am currently at Happy Hound Doggie Daycare having a BLAST! I get to go into playgroup everyday and play with many dogs! it''s seriously the BEST! I''m not sure what my', 'Duck', '2022-09-21 14:39:36', 6, FALSE),
+(59, 87, 'Josie', 'Female', 6, 'Medium', 'Silver', 'Highly energetic and friendly Ella needs lots of play time! Super sweet and goofy, but not a beginner dog.Her favorite activities are:- running- tug games- chewing heavy duty rubber toys- napping with her peopleShe wants to be involved in whatever', 'Cider with golden cheese', '2022-09-21 14:39:36', 5, FALSE),
+(59, 87, 'Peppy', 'Female', 9, 'Small', 'Beige', 'Lucy was born Jan 2021. We adopted her from a rescue at 3 months. She''s current on all vaccines. She is the sweeeeetest dog you''ll ever meet. Zero aggression but barks at strange sounds/people at night. Lucy is very treat-motivated. She knows sit, down, s', 'Canola Oil', '2022-09-21 14:39:36', 4, FALSE),
+(59, 44, 'Amigo', 'Female', 6, 'Small', 'Red', 'Ollie is a wonderful dog with lots of energy. He loves to swim and loves to play fetch. He really loves affection. Unfortunately we can no longer provide him with what he needs as we have a new born and cannot provide him with the life he needs anymore. I', 'Cannellini Beans', '2022-09-21 14:39:36', 6, FALSE),
+(59, 44, 'Chi Chi', 'Male', 5, 'Small', 'Gold', 'Lookit this guy. Such a lovable dork. Milton is a leggy American Bully, full of good fun, super affectionate and in love with people. Like, wants to follow you everywhere and gaze into your eyes affectionate. He''s just over 1yo, is house trained now (uses', 'Chocolate', '2022-09-21 14:39:36', 7, FALSE),
+(59, 4, 'Booker', 'Male', 9, 'Medium', 'Black', 'Ace is a puppy acquired from a litter of a friend that I know. He is an extremely friendly dog and unfortunately has too much energy for us. He has never been aggressive but he does like to play rough/play bite. He gets along with other dogs that can matc', 'Cumin', '2022-09-21 14:39:36', 7, FALSE),
+(59, 69, 'Earl', 'Female', 7, 'Small', 'Brown', 'I acquired my pet from the next door crack house around the year 2015. She was 4 months at the time and pooping worms. Siblings and I took her on park strolls, dog park, grooming services, vaccines at spca, etc. I moved out and became a mother so my atten', 'Spearmint', '2022-09-21 14:39:36', 5, FALSE),
+(59, 69, 'Precious', 'Female', 7, 'Small', 'Yellow', 'Hi, I''m Bobby! I''m a very sweet boy! I''d love a home to call my own! I''m currently in foster and loving it! I''m with my brother Ricky and he''s also available! I''m super sweet and loving and would love a home that can continue training me and getting me to', 'Cider', '2022-09-21 14:39:36', 7, FALSE),
+(59, 34, 'Puddles', 'Female', 5, 'Small', 'Tan', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Salsa', '2022-09-21 14:39:36', 7, FALSE),
+(59, 38, 'Callie', 'Male', 9, 'Small', 'Wheaten', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Artificial Sweetener', '2022-09-21 14:39:36', 5, FALSE),
+(59, 11, 'Koba', 'Male', 9, 'Small', 'White', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Passion Fruit', '2022-09-21 14:39:36', 4, FALSE),
+(59, 55, 'Josie', 'Male', 7, 'Small', 'Darka', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Tonic Water', '2022-09-21 14:39:36', 6, FALSE),
+(59, 22, 'Niko', 'Female', 3, 'Small', 'Gray', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Succotash', '2022-09-21 14:39:36', 5, FALSE),
+(59, 9, 'Nibby', 'Male', 2, 'Medium', 'Creama', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Spearmint', '2022-09-21 14:39:36', 4, FALSE),
+(59, 53, 'Tuck', 'Male', 7, 'Small', 'Rust', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Brown Rice', '2022-09-21 14:39:36', 6, FALSE),
+(59, 8, 'Puddles', 'Male', 2, 'Small', 'Lilac', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Cumin', '2022-09-21 14:39:36', 7, FALSE),
+(59, 5, 'Crackers', 'Male', 9, 'Medium', 'Apricot', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Croutons', '2022-09-21 14:39:36', 7, FALSE),
+(59, 54, 'Quinn', 'Male', 7, 'Medium', 'Orange', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Rice', '2022-09-21 14:39:36', 4, FALSE),
+(59, 61, 'Puddles', 'Male', 8, 'Medium', 'Fawn', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Wasabi', '2022-09-21 14:39:36', 5, FALSE),
+(59, 14, 'Boots', 'Female', 10, 'Small', 'Blue', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Raspberries', '2022-09-21 14:39:36', 6, FALSE),
+(59, 12, 'Hans', 'Female', 10, 'Small', 'Chestnut', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Artificial Sweetener', '2022-09-21 14:39:36', 4, FALSE),
+(59, 32, 'Yaka', 'Female', 8, 'Small', 'Light', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Soymilk', '2022-09-21 14:39:36', 6, FALSE),
+(59, 8, 'Bubbles', 'Male', 4, 'Small', 'Silver', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Flounder', '2022-09-21 14:39:36', 7, FALSE),
+(59, 11, 'Cujo', 'Female', 4, 'Small', 'Beige', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Geese', '2022-09-21 14:39:36', 7, FALSE),
+(59, 51, 'Barbie', 'Male', 9, 'Small', 'Red', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Salmon', '2022-09-21 14:39:36', 4, FALSE),
+(59, 43, 'Peppy', 'Male', 4, 'Small', 'Gold', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Sea Cucumbers', '2022-09-21 14:39:36', 6, FALSE),
+(59, 8, 'Crackers', 'Male', 6, 'Small', 'Black', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Bay Leaves', '2022-09-21 14:39:36', 6, FALSE),
+(59, 41, 'Gromit', 'Male', 1, 'Medium', 'Brown', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Pomegranates', '2022-09-21 14:39:36', 7, FALSE),
+(59, 4, 'Amigo', 'Male', 5, 'Medium', 'Yellow', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Sazon', '2022-09-21 14:39:36', 5, FALSE),
+(59, 4, 'Mo', 'Female', 3, 'Medium', 'Tan', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Lemon Peel', '2022-09-21 14:39:36', 4, FALSE),
+(59, 8, 'Admiral', 'Female', 4, 'Medium', 'Wheaten', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Plums', '2022-09-21 14:39:36', 6, FALSE),
+(59, 14, 'Fritz', 'Male', 4, 'Medium', 'White', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Wasabi', '2022-09-21 14:39:36', 6, FALSE),
+(59, 25, 'Shiloh', 'Female', 2, 'Small', 'Darka', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Rice Vinegar', '2022-09-21 14:39:36', 6, FALSE),
+(59, 35, 'Oscar', 'Male', 9, 'Small', 'Gray', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Kidney Beans', '2022-09-21 14:39:36', 6, FALSE),
+(59, 42, 'Puddles', 'Female', 1, 'Medium', 'Creama', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Apples', '2022-09-21 14:39:36', 6, FALSE),
+(59, 32, 'Beauty', 'Female', 4, 'Medium', 'Rust', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Spearmint', '2022-09-21 14:39:36', 6, FALSE),
+(59, 14, 'Pumpkin', 'Female', 7, 'Medium', 'Lilac', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Salmon', '2022-09-21 14:39:36', 5, FALSE),
+(59, 48, 'Bruiser', 'Male', 7, 'Small', 'Apricot', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Cottage Cheese', '2022-09-21 14:39:36', 4, FALSE),
+(59, 26, 'Pete', 'Male', 5, 'Small', 'Orange', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Hoisin Sauce', '2022-09-21 14:39:36', 6, FALSE),
+(59, 29, 'Callie', 'Male', 6, 'Small', 'Fawn', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Five-Spice Powder', '2022-09-21 14:39:36', 7, FALSE),
+(59, 51, 'Prissy', 'Male', 1, 'Medium', 'Blue', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Hoisin Sauce', '2022-09-21 14:39:36', 6, FALSE),
+(59, 44, 'Sierra', 'Female', 9, 'Small', 'Chestnut', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Cantaloupes', '2022-09-21 14:39:36', 5, FALSE),
+(59, 39, 'Paco', 'Female', 2, 'Small', 'Light', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Chocolate', '2022-09-21 14:39:36', 4, FALSE),
+(59, 22, 'Sheena', 'Male', 6, 'Small', 'Silver', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Alligator', '2022-09-21 14:39:36', 7, FALSE),
+(59, 35, 'Boots', 'Female', 3, 'Small', 'Beige', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Artificial Sweetener', '2022-09-21 14:39:36', 6, FALSE),
+(59, 11, 'Oscar', 'Male', 5, 'Small', 'Red', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Pomegranates', '2022-09-21 14:39:36', 5, FALSE),
+(59, 67, 'Butchy', 'Female', 5, 'Small', 'Gold', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Sugar', '2022-09-21 14:39:36', 6, FALSE),
+(59, 51, 'Peppy', 'Female', 8, 'Small', 'Black', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Pecans', '2022-09-21 14:39:36', 6, FALSE),
+(59, 22, 'Pete', 'Male', 7, 'Small', 'Brown', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Alligator', '2022-09-21 14:39:36', 4, FALSE),
+(59, 15, 'Lady', 'Female', 6, 'Medium', 'Yellow', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Mustard Seeds', '2022-09-21 14:39:36', 7, FALSE),
+(59, 31, 'Bucko', 'Female', 8, 'Medium', 'Tan', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Lemon Peel', '2022-09-21 14:39:36', 5, FALSE),
+(59, 38, 'Savannah', 'Male', 7, 'Medium', 'Wheaten', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Mustard Seeds', '2022-09-21 14:39:36', 6, FALSE),
+(59, 51, 'Bucko', 'Male', 7, 'Medium', 'White', 'Thank you for inquiring interest in Flash.This guy is a quiet, well behaved bundle of love. To learn more about him please tell us about your current or past breed experience, yard and fencing, area you live in, your activity level, other dogs and or ca', 'Okra', '2022-09-21 14:39:36', 4, FALSE),
+(59, 69, 'Tuck', 'Male', 5, 'Medium', 'Darka', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Peas', '2022-09-21 14:39:36', 5, FALSE),
+(59, 27, 'Red', 'Female', 7, 'Small', 'Gray', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Chives', '2022-09-21 14:39:36', 6, FALSE),
+(59, 32, 'Chaos', 'Female', 7, 'Small', 'Creama', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Salsa', '2022-09-21 14:39:36', 6, FALSE),
+(59, 28, 'Sierra', 'Male', 10, 'Medium', 'Rust', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Succotash', '2022-09-21 14:39:36', 4, FALSE),
+(59, 29, 'Max', 'Female', 6, 'Small', 'Lilac', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Chocolate', '2022-09-21 14:39:36', 5, FALSE),
+(59, 67, 'Peppy', 'Female', 9, 'Small', 'Apricot', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Green Beans', '2022-09-21 14:39:36', 7, FALSE),
+(59, 4, 'Gavin', 'Male', 6, 'Small', 'Orange', 'Hi! My name is Sweeney, and I am the goodest boy ever, can''t you tell?!I''m only 6 months old, but I''ve seen and been through a lot in my short life. My siblings and I found ourselves malnourished in a Texas shelter with parvo and coccidia at about 6 wee', 'Cumin', '2022-09-21 14:39:36', 6, FALSE),
+(59, 4, 'Tilly', 'Female', 6, 'Medium', 'Fawn', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Eggplants', '2022-09-21 14:39:36', 7, FALSE),
+(59, 3, 'Oscar', 'Female', 7, 'Small', 'Blue', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Cannellini Beans', '2022-09-21 14:39:36', 6, FALSE),
+(59, 61, 'Meadow', 'Female', 9, 'Small', 'Chestnut', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Watermelons', '2022-09-21 14:39:36', 4, FALSE),
+(59, 51, 'Bubbles', 'Female', 7, 'Medium', 'Light', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Cantaloupes', '2022-09-21 14:39:36', 5, FALSE),
+(59, 18, 'Elliot', 'Male', 1, 'Medium', 'Silver', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Lentils', '2022-09-21 14:39:36', 4, FALSE),
+(59, 39, 'Callie', 'Female', 7, 'Medium', 'Beige', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Sugar', '2022-09-21 14:39:36', 4, FALSE),
+(59, 63, 'Josie', 'Male', 10, 'Medium', 'Red', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Salmon', '2022-09-21 14:39:36', 4, FALSE),
+(59, 30, 'Gavin', 'Female', 4, 'Medium', 'Gold', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Pomegranates', '2022-09-21 14:39:36', 6, FALSE),
+(59, 49, 'Beauty', 'Female', 6, 'Medium', 'Black', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Panko Bread Crumbs', '2022-09-21 14:39:36', 4, FALSE),
+(59, 42, 'Admiral', 'Female', 3, 'Small', 'Brown', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Cappuccino Latte', '2022-09-21 14:39:36', 4, FALSE),
+(59, 58, 'Bullet', 'Female', 6, 'Small', 'Yellow', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Breadfruit', '2022-09-21 14:39:36', 7, FALSE),
+(59, 2, 'Bunky', 'Male', 6, 'Medium', 'Tan', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Wild Rice', '2022-09-21 14:39:36', 7, FALSE),
+(59, 54, 'Madison', 'Male', 10, 'Medium', 'Wheaten', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Flax Seed', '2022-09-21 14:39:36', 4, FALSE),
+(59, 12, 'Josie', 'Male', 5, 'Small', 'White', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Dill', '2022-09-21 14:39:36', 5, FALSE),
+(59, 39, 'Puddles', 'Female', 6, 'Medium', 'Darka', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Milk', '2022-09-21 14:39:36', 5, FALSE),
+(59, 61, 'Mister', 'Male', 5, 'Medium', 'Gray', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Cantaloupes', '2022-09-21 14:39:36', 5, FALSE),
+(59, 50, 'Mitzi', 'Female', 4, 'Small', 'Creama', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Cloves', '2022-09-21 14:39:36', 6, FALSE),
+(59, 69, 'Paco', 'Male', 3, 'Medium', 'Rust', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Cappuccino Latte', '2022-09-21 14:39:36', 5, FALSE),
+(59, 39, 'Mister', 'Female', 6, 'Medium', 'Lilac', 'I am a puppy. I''m very cuteI''m not potty trained because I''m a puppyI''m not trained in anything because I''m a puppyI''m teething because I''m a puppyI''m a puppy please remember I''m a puppy.', 'Condensed Milk', '2022-09-21 14:39:36', 6, FALSE),
+(59, 4, 'Goldie', 'Female', 3, 'Small', 'Apricot', 'Diego is an owner surrender which we had to fully vet. He is the sweetest daintiest little boy. He loves dogs his size but is not a huge fan of any larger dogs. He loves running indie 500''s in the yard with one of the biggest smiles. He is all around a gr', 'Brandy', '2022-09-21 14:39:36', 6, FALSE),
+(59, 28, 'Koba', 'Male', 8, 'Small', 'Orange', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Soymilk', '2022-09-21 14:39:36', 5, FALSE),
+(59, 37, 'Boo-boo', 'Female', 1, 'Small', 'Fawn', 'This little feller is sweet as pie and loves to play with other doggos. He''s on steroids for an autoimmune issue. We have taken him to specialists and have him on the perfect low dose of inexpensive meds once a day to keep him playful and happy. So that''s', 'Granola', '2022-09-21 14:39:36', 6, FALSE),
+(59, 65, 'Rags', 'Male', 9, 'Medium', 'Blue', 'London is a confident and curious  10 month-old, 35 -pound terrier shepherd mix from Texas.She loves every person and dog she meets, and will sit down politely to greet people before doing a very cute wiggle-scoot on her butt to get close to them for pe', 'Canadian Bacon', '2022-09-21 14:39:36', 4, FALSE),
+(59, 6, 'Precious', 'Female', 2, 'Small', 'Chestnut', 'I have issues with my ACL which is common for my breed.I need a low energy lifestyle but I don''t know my limitations and want to jump around.I''m still not getting this whole potty training thing.I''ve learned to kennel and crate myself.I will do anythi', 'Alligator', '2022-09-21 14:39:36', 5, FALSE),
+(59, 31, 'Cocoa', 'Male', 1, 'Small', 'Light', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Vanilla Bean', '2022-09-21 14:39:36', 5, FALSE),
+(59, 87, 'Sunday', 'Female', 8, 'Medium', 'Silver', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Lentils and pumpkins', '2022-09-21 14:39:36', 4, FALSE),
+(59, 1, 'Molly', 'Male', 4, 'Small', 'Beige', 'We are still trying to figure out what this puppy is mixed with but we do not think he will be bigger then thirty pounds. He is active and gets very excited to play. He is super friendly but he is a puppy.I am a puppy. I''m very cuteI''m not potty trained', 'Rice Vinegar', '2022-09-21 14:39:36', 5, FALSE),
+(59, 42, 'Bambi', 'Female', 7, 'Small', 'Red', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Eggplants', '2022-09-21 14:39:36', 6, FALSE),
+(59, 87, 'Harley', 'Female', 8, 'Small', 'Gold', 'I am a puppy. I''m very cuteI''m not potty trained because I''m a puppyI''m not trained in anything because I''m a puppyI''m teething because I''m a puppyI''m a puppy please remember I''m a puppy.I do not like car rides they make me sick.', 'Okra', '2022-09-21 14:39:36', 4, FALSE),
+(59, 7, 'Rosebud', 'Female', 6, 'Medium', 'Black', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Duck', '2022-09-21 14:39:36', 4, FALSE),
+(59, 66, 'Barbie', 'Male', 7, 'Small', 'Brown', 'Is a great buddy. I''ve had many cats and dogs since they were 9 weeks old. Big cuddle loaf. Loves people and sitting on laps and going outside just to lay in the sun. Is a pretty ideal easy going pet. Unfortunately I haven''t had a house of my own since Ap', 'Spearmint', '2022-09-21 14:39:36', 7, FALSE),
+(59, 1, 'Amigo', 'Male', 8, 'Medium', 'Yellow', 'When I see Luke I remember the day we got him. He was rushed to the hospital with parvo he was so sick I hoped he would make it.10 days of critical care then off to another vet for 14 days of isolation. This poor boy had a very tuff start. Then off to to ', 'Panko Bread Crumbs', '2022-09-21 14:39:36', 6, FALSE),
+(59, 1, 'Sumo', 'Male', 4, 'Medium', 'Tan', 'Rambo is a great kitty. I''ve had her and Costanza since they were 9 weeks old. She is a big cuddle loaf. She loves people and sitting on laps and going outside just to lay in the sun.Rambo is a pretty ideal easy going kitty.Unfortunately I haven''t had ', 'Brandy', '2022-09-21 14:39:36', 7, FALSE),
+(59, 44, 'Porche', 'Male', 2, 'Small', 'Wheaten', 'Hi we are looking for someone who could take care of this pet. For more information contact +32498123456', 'Rice', '2022-09-21 14:39:36', 4, FALSE),
+(59, 1, 'Sheena', 'Male', 2, 'Small', 'White', 'SheetZozo was born in early October 2019. She and her littermates were abandoned by their feral mom just a few days old. A family friend took them in and nursed them until they were ready to go to individual homes. She also helped her get spayed a few ', 'Summer Squash', '2022-09-21 14:39:36', 4, FALSE),
+(59, 44, 'Quinn', 'Female', 10, 'Small', 'Darka', 'He is very loving, human friendly, great hugger and adorable cat. Has to be Dog free Home.Thanks ', 'Pecans', '2022-09-21 14:39:36', 6, FALSE),
+(59, 79, 'Punkin', 'Female', 5, 'Small', 'Gray', 'Max Is a complex cat who we believe would do well in a quiet household.When in a good mood, Max is the best. He loves to demand lap space and drape himself across your legs like a cat-shaped blanket. When he''s content, Max has a deep rumbly purr that ca', 'Rice Vinegar', '2022-09-21 14:39:36', 7, FALSE),
+(59, 69, 'Amigo', 'Male', 6, 'Medium', 'Creama', 'Sylvester is sweet with people, and calm. He was abandoned by a neighbor when she moved. Something happened while he was out in the streets and his tail was badly damaged, so the vet had to remove most of it, so it''s short now. He was an indoor/outdoor an', 'Pheasants', '2022-09-21 14:39:36', 6, FALSE),
+(59, 79, 'Akira', 'Female', 1, 'Medium', 'Black', 'Akira is a great great boy!', 'Carrots', '2022-11-29 22:10:12', 6, FALSE);
 
-ALTER TABLE `SHOPPING_CART` 
-  ADD CONSTRAINT `FK_CART_PET` FOREIGN KEY (`PET_ID`) REFERENCES `PET_DETAILS` (`PET_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_CART_USER` FOREIGN KEY (`USERID`) REFERENCES `USERS` (`USER_ID`) ON DELETE CASCADE;
+INSERT INTO ads (id, pet_id, advertised_date) VALUES
+(100, 1, '2022-03-11 14:49:48'),
+(103, 2, '2022-03-02 14:49:48'),
+(126, 3, '2022-02-09 14:49:48'),
+(128, 4, '2022-01-16 14:49:48'),
+(140, 5, '2022-03-02 14:49:48'),
+(171, 6, '2022-02-17 14:49:48'),
+(186, 7, '2022-02-02 14:49:48'),
+(220, 8, '2022-04-03 14:49:48'),
+(285, 9, '2022-04-20 14:49:48'),
+(318, 10, '2022-04-13 14:49:48'),
+(372, 11, '2022-01-05 14:49:48'),
+(559, 12, '2022-12-20 23:04:22'),
+(560, 13, '2022-12-20 23:04:22'),
+(562, 14, '2022-12-20 23:04:23'),
+(563, 15, '2022-12-20 23:04:23'),
+(564, 16, '2022-12-20 23:04:23'),
+(565, 17, '2022-12-20 23:04:23'),
+(566, 18, '2022-12-20 23:04:23'),
+(567, 19, '2022-12-20 23:04:23'),
+(568, 20, '2022-12-20 23:04:23'),
+(569, 21, '2022-12-20 23:04:23'),
+(570, 22, '2022-12-20 23:04:23'),
+(572, 23, '2022-12-20 23:04:23'),
+(574, 24, '2022-12-20 23:04:23'),
+(577, 25, '2022-12-20 23:04:23'),
+(578, 26, '2022-12-20 23:04:23'),
+(580, 27, '2022-12-20 23:04:24'),
+(581, 28, '2022-12-20 23:04:24'),
+(582, 29, '2022-12-20 23:04:24'),
+(584, 30, '2022-12-20 23:04:24'),
+(585, 31, '2022-12-20 23:04:24'),
+(587, 32, '2022-12-20 23:04:24'),
+(588, 33, '2022-12-20 23:04:24'),
+(589, 34, '2022-12-20 23:04:24'),
+(590, 35, '2022-12-20 23:04:24'),
+(591, 36, '2022-12-20 23:04:24'),
+(592, 37, '2022-12-20 23:04:24'),
+(593, 38, '2022-12-20 23:04:24'),
+(596, 39, '2022-12-20 23:04:24'),
+(597, 40, '2022-12-20 23:04:24'),
+(598, 41, '2022-12-20 23:04:24'),
+(599, 42, '2022-12-20 23:04:24'),
+(602, 43, '2022-12-20 23:04:24'),
+(603, 44, '2022-12-20 23:04:24'),
+(604, 45, '2022-12-20 23:04:24'),
+(605, 46, '2022-12-20 23:04:24'),
+(607, 47, '2022-12-20 23:04:24'),
+(609, 48, '2022-12-20 23:04:25'),
+(613, 49, '2022-12-20 23:04:25'),
+(617, 50, '2022-12-20 23:04:25'),
+(625, 51, '2022-12-20 23:04:25'),
+(626, 52, '2022-12-20 23:04:25'),
+(627, 53, '2022-12-20 23:04:25'),
+(637, 54, '2022-12-20 23:04:25'),
+(642, 55, '2022-12-20 23:04:26'),
+(646, 56, '2022-12-20 23:04:26'),
+(647, 57, '2022-12-20 23:04:26'),
+(650, 58, '2022-12-20 23:04:26'),
+(652, 59, '2022-12-20 23:04:26'),
+(654, 60, '2022-12-20 23:04:26'),
+(656, 61, '2022-12-20 23:04:26'),
+(657, 62, '2022-12-20 23:04:26'),
+(659, 63, '2022-12-20 23:04:26'),
+(660, 64, '2022-12-20 23:04:26'),
+(663, 65, '2022-12-20 23:04:26'),
+(666, 66, '2022-12-20 23:04:26'),
+(674, 67, '2022-12-20 23:04:27'),
+(675, 68, '2022-12-20 23:04:27'),
+(682, 69, '2022-12-20 23:04:27'),
+(689, 70, '2022-12-20 23:04:27'),
+(692, 71, '2022-12-20 23:04:27'),
+(699, 72, '2022-12-20 23:04:27'),
+(701, 73, '2022-12-20 23:04:28'),
+(702, 74, '2022-12-20 23:04:28'),
+(710, 75, '2022-12-20 23:04:28'),
+(711, 76, '2022-12-20 23:04:28'),
+(719, 77, '2022-12-20 23:04:28'),
+(720, 78, '2022-12-20 23:04:28'),
+(721, 79, '2022-12-20 23:04:28'),
+(724, 80, '2022-12-20 23:04:28'),
+(734, 81, '2022-12-20 23:04:29'),
+(735, 82, '2022-12-20 23:04:29'),
+(741, 83, '2022-12-20 23:04:29'),
+(742, 84, '2022-12-20 23:04:29'),
+(746, 85, '2022-12-20 23:04:29'),
+(747, 86, '2022-12-20 23:04:29'),
+(766, 87, '2022-12-20 23:04:30'),
+(781, 88, '2022-12-20 23:04:30'),
+(792, 89, '2022-12-20 23:04:31'),
+(797, 90, '2022-12-20 23:04:31'),
+(823, 91, '2022-12-20 23:04:32'),
+(836, 92, '2022-12-20 23:04:32'),
+(851, 93, '2022-12-20 23:04:32'),
+(864, 94, '2022-12-20 23:04:33'),
+(871, 95, '2022-12-20 23:04:33'),
+(976, 96, '2022-12-20 23:04:37'),
+(1000, 97, '2022-12-20 23:04:37'),
+(1072, 98, '2022-12-20 23:04:40'),
+(1830, 99, '2022-12-21 00:19:12'),
+(3650, 100, '2022-12-21 01:20:27');
 
-ALTER TABLE `ADOPTION_APPLICATIONS` 
-  ADD CONSTRAINT `FK_APPLICATION_PET` FOREIGN KEY (`PET_ID`) REFERENCES `PET_DETAILS` (`PET_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_APPLICATION_USER` FOREIGN KEY (`USER_ID`) REFERENCES `USERS` (`USER_ID`) ON DELETE CASCADE;
+INSERT INTO orders (user_id, status, shipping_id)
+VALUES (1, 'Pending', 1);
 
-ALTER TABLE `TRANSACTIONS` 
-  ADD CONSTRAINT `FK_TRANSACTION_USER` FOREIGN KEY (`USER_ID`) REFERENCES `USERS` (`USER_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_TRANSACTION_PET` FOREIGN KEY (`PET_ID`) REFERENCES `PET_DETAILS` (`PET_ID`) ON DELETE SET NULL;
+INSERT INTO order_details (order_id, pet_id, unit_cost)
+VALUES (1, 1, 150.00);
 
-ALTER TABLE `REVIEWS` 
-  ADD CONSTRAINT `FK_REVIEW_PET` FOREIGN KEY (`PET_ID`) REFERENCES `PET_DETAILS` (`PET_ID`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_REVIEW_USER` FOREIGN KEY (`USER_ID`) REFERENCES `USERS` (`USER_ID`) ON DELETE CASCADE;
-
--- INSERT HEALTHCARE PLANS
-INSERT INTO `HEALTHCARE_PLANS` (`HEALTHCARE_ID`, `PLAN_NAME`, `DESCRIPTION`, `MONTHLY_COST`, `COVERAGE_PERCENTAGE`, `ANNUAL_LIMIT`, `DEDUCTIBLE`) VALUES
-(1, 'BASIC CARE', 'ESSENTIAL VETERINARY COVERAGE FOR ROUTINE CARE', 25.00, 80, 2000.00, 100.00),
-(2, 'PREMIUM CARE', 'COMPREHENSIVE COVERAGE INCLUDING EMERGENCIES', 45.00, 90, 5000.00, 50.00),
-(3, 'PLATINUM CARE', 'FULL COVERAGE WITH LOWEST DEDUCTIBLE', 65.00, 95, 10000.00, 25.00),
-(4, 'SENIOR CARE', 'SPECIALIZED CARE FOR OLDER PETS', 35.00, 85, 3000.00, 75.00),
-(5, 'NO PLAN', 'SELF-INSURED OPTION', 0.00, 0, 0.00, 0.00);
-
--- INSERT SHIPPING REGIONS
-INSERT INTO `SHIPPING_REGIONS` (`REGION_ID`, `REGION_NAME`, `COUNTRY_CODE`, `BASE_COST`, `DELIVERY_TIME_DAYS`) VALUES
-(1, 'FLANDERS', 'BE', 15.00, 2),
-(2, 'WALLONIA', 'BE', 20.00, 3),
-(3, 'BRUSSELS', 'BE', 10.00, 1),
-(4, 'NETHERLANDS', 'NL', 25.00, 3),
-(5, 'GERMANY', 'DE', 30.00, 4),
-(6, 'FRANCE', 'FR', 35.00, 5),
-(7, 'UK', 'GB', 45.00, 7);
-
--- INSERT SHIPPING INFO
-INSERT INTO `SHIPPING_INFO` (`SHIPPING_ID`, `SHIPPING_TYPE`, `SHIPPING_COST`, `SHIPPING_REGION_ID`, `ESTIMATED_DAYS`, `DESCRIPTION`) VALUES
-(1, 'STANDARD', 15.00, 1, 3, 'REGULAR DELIVERY WITHIN FLANDERS'),
-(2, 'EXPRESS', 25.00, 1, 1, 'NEXT DAY DELIVERY'),
-(3, 'INTERNATIONAL', 45.00, 4, 5, 'DELIVERY TO NEIGHBORING COUNTRIES'),
-(4, 'PREMIUM', 35.00, 1, 2, 'PRIORITY HANDLING AND DELIVERY');
-
--- INSERT BREEDS WITH GENERIC IMAGES (DOGS: GENERIC_1.PNG, CATS: GENERIC_0.PNG)
-INSERT INTO `BREEDS` (`BREED_ID`, `ISFELINE`, `IMAGE_LINK`, `NAME`, `ORIGIN`, `MIN_LIFE_EXPECTANCY`, `MAX_LIFE_EXPECTANCY`, `MIN_WEIGHT_MALE`, `MAX_WEIGHT_MALE`, `MIN_WEIGHT_FEMALE`, `MAX_WEIGHT_FEMALE`, `GOOD_WITH_CHILDREN`, `GOOD_WITH_DOGS`, `SHEDDING`, `GROOMING`, `ENERGY`, `TRAINABILITY`, `POPULARITY_RANK`, `DESCRIPTION`) VALUES
--- DOGS (ISFELINE = 0, IMAGE_LINK = ASSETS/IMG/GENERIC_1.PNG)
-(1, 0, 'ASSETS/IMG/GENERIC_1.PNG', 'GOLDEN RETRIEVER', 'SCOTLAND', 10, 12, 27.0, 34.0, 25.0, 32.0, 5, 5, 4, 3, 4, 5, 3, 'FRIENDLY, INTELLIGENT AND DEVOTED. PERFECT FAMILY DOGS WITH GENTLE NATURE.'),
-(2, 0, 'ASSETS/IMG/GENERIC_1.PNG', 'GERMAN SHEPHERD', 'GERMANY', 9, 13, 30.0, 40.0, 22.0, 32.0, 4, 3, 4, 3, 5, 5, 2, 'CONFIDENT, COURAGEOUS AND SMART. EXCELLENT WORKING DOGS AND LOYAL COMPANIONS.'),
-(3, 0, 'ASSETS/IMG/GENERIC_1.PNG', 'LABRADOR RETRIEVER', 'CANADA', 10, 12, 29.0, 36.0, 25.0, 32.0, 5, 5, 4, 2, 5, 5, 1, 'KIND, PLEASANT AND OUTGOING. THE MOST POPULAR BREED FOR GOOD REASON.'),
-(4, 0, 'ASSETS/IMG/GENERIC_1.PNG', 'FRENCH BULLDOG', 'FRANCE', 10, 12, 11.0, 13.0, 9.0, 11.0, 5, 4, 2, 2, 3, 3, 4, 'ADAPTABLE, PLAYFUL AND SMART. PERFECT FOR APARTMENT LIVING.'),
-(5, 0, 'ASSETS/IMG/GENERIC_1.PNG', 'SIBERIAN HUSKY', 'RUSSIA', 12, 15, 20.0, 27.0, 16.0, 23.0, 4, 5, 5, 3, 5, 3, 12, 'LOYAL, OUTGOING AND MISCHIEVOUS. BEAUTIFUL DOGS WITH STRIKING EYES.'),
-
--- CATS (ISFELINE = 1, IMAGE_LINK = ASSETS/IMG/GENERIC_0.PNG)
-(21, 1, 'ASSETS/IMG/GENERIC_0.PNG', 'PERSIAN', 'IRAN', 12, 17, 3.5, 7.0, 3.0, 5.5, 3, 2, 5, 5, 2, 3, 5, 'SWEET, GENTLE AND QUIET. LUXURIOUS LONG COAT REQUIRES REGULAR GROOMING.'),
-(22, 1, 'ASSETS/IMG/GENERIC_0.PNG', 'MAINE COON', 'UNITED STATES', 12, 15, 6.0, 8.0, 4.0, 6.0, 5, 4, 4, 3, 3, 4, 8, 'GENTLE GIANTS WITH DOG-LIKE PERSONALITY. VERY SOCIABLE AND FRIENDLY.'),
-(23, 1, 'ASSETS/IMG/GENERIC_0.PNG', 'SIAMESE', 'THAILAND', 12, 15, 4.0, 6.0, 3.0, 4.5, 4, 3, 2, 2, 5, 5, 3, 'TALKATIVE, SOCIAL AND DEMANDING. VERY VOCAL AND INTELLIGENT CATS.'),
-(24, 1, 'ASSETS/IMG/GENERIC_0.PNG', 'BENGAL', 'UNITED STATES', 12, 16, 4.5, 6.5, 3.5, 5.5, 4, 3, 2, 2, 5, 5, 7, 'ENERGETIC, ATHLETIC AND WILD-LOOKING. VERY ACTIVE AND PLAYFUL.'),
-(25, 1, 'ASSETS/IMG/GENERIC_0.PNG', 'BRITISH SHORTHAIR', 'ENGLAND', 12, 20, 4.5, 8.0, 3.5, 6.5, 4, 3, 3, 2, 2, 3, 6, 'CALM, EASYGOING AND DIGNIFIED. THE CLASSIC BRITISH COMPANION.');
-
--- INSERT REALISTIC USERS FROM AROUND THE WORLD
-INSERT INTO `USERS` (`USER_ID`, `EMAIL`, `PASSWORD`, `NAAM`, `ZIPCODE`, `LOOKING_FOR`, `CAN_ADVERTISE`, `ISADMIN`, `WARNINGS`, `CITY`, `COUNTRY`, `VERIFIED`, `BIO`, `PHONE`) VALUES
-(1, 'ADMIN@CDSURFING.BE', '$2Y$10$8O.MGGY3.WZFCF1WJAKVN.BDBYN6V4JRHKQMXTEZGPXAACOJVUH1A', 'ADMIN USER', '2800', 'BOTH', 1, 1, 0, 'MECHELEN', 'BELGIUM', 1, 'PLATFORM ADMINISTRATOR ENSURING ALL PETS FIND LOVING HOMES.', '+32 123 456 789'),
-(2, 'SOPHIE.DUPONT@EMAIL.COM', '$2Y$10$ZQRGQ.YDZJUH5TECBH9M3.ORN41KLCRP8ANA4OJXEM7PQGWKRDMG6', 'SOPHIE DUPONT', '1000', 'CAT', 1, 0, 0, 'BRUSSELS', 'BELGIUM', 1, 'ANIMAL LOVER WITH 10 YEARS OF EXPERIENCE FOSTERING CATS. VOLUNTEER AT LOCAL SHELTER.', '+32 234 567 890'),
-(3, 'MARK.VANBROEK@EMAIL.COM', 'MU923', 'MARK VAN BROEK', '3000', 'DOG', 1, 0, 0, 'LEUVEN', 'BELGIUM', 1, 'PROFESSIONAL DOG TRAINER SPECIALIZING IN RESCUE DOGS. HAPPY TO HELP NEW OWNERS!', '+32 345 678 901'),
-(4, 'LISA.MULLER@EMAIL.COM', 'XE854', 'LISA MÜLLER', '50667', 'BOTH', 1, 0, 0, 'COLOGNE', 'GERMANY', 1, 'VETERINARY STUDENT PASSIONATE ABOUT ANIMAL WELFARE. FOSTER HOME FOR SENIOR PETS.', '+49 221 123 456'),
-(5, 'PIERRE.LEFEVRE@EMAIL.COM', '$2Y$10$8O.MGGY3.WZFCF1WJAKVN.BDBYN6V4JRHKQMXTEZGPXAACOJVUH1A', 'PIERRE LEFÈVRE', '75008', 'DOG', 0, 0, 1, 'PARIS', 'FRANCE', 1, 'LOOKING FOR A RUNNING COMPANION. ACTIVE LIFESTYLE WITH PLENTY OF PARK ACCESS.', '+33 1 2345 6789'),
-(6, 'MARIA.RODRIGUEZ@EMAIL.COM', '$2Y$10$ZQRGQ.YDZJUH5TECBH9M3.ORN41KLCRP8ANA4OJXEM7PQGWKRDMG6', 'MARIA RODRÍGUEZ', '28013', 'CAT', 1, 0, 0, 'MADRID', 'SPAIN', 1, 'CAT BEHAVIOR SPECIALIST. SMALL APARTMENT BUT PERFECT FOR INDOOR CATS.', '+34 91 234 5678'),
-(7, 'JOHN.SMITH@EMAIL.COM', 'MU923', 'JOHN SMITH', 'SW1A 1AA', 'BOTH', 1, 0, 0, 'LONDON', 'UNITED KINGDOM', 1, 'FAMILY OF FOUR LOOKING TO ADOPT OUR FIRST PET. CHILDREN AGES 8 AND 10.', '+44 20 7946 0958'),
-(8, 'ANNA.KOWALSKI@EMAIL.COM', 'XE854', 'ANNA KOWALSKI', '00-001', 'DOG', 1, 0, 0, 'WARSAW', 'POLAND', 1, 'EXPERIENCED WITH LARGE BREEDS. HAVE A FENCED YARD PERFECT FOR ACTIVE DOGS.', '+48 22 123 4567');
-
--- INSERT PET DETAILS WITH REALISTIC STORIES AND DIVERSE BACKGROUNDS
-INSERT INTO `PET_DETAILS` (`PET_ID`, `OWNER_ID`, `BREED_ID`, `HEALTHCARE_ID`, `NAME`, `GENDER`, `AGE`, `SIZE`, `COLOR`, `STORY`, `DIET`, `TEMPERAMENT`, `SPECIAL_NEEDS`, `VACCINATION_STATUS`, `MICROCHIPPED`, `SPAYED_NEUTERED`, `ADOPTION_FEE`, `STATUS`, `FEATURED`, `VIEW_COUNT`) VALUES
-(1, 2, 21, 2, 'LUNA', 'FEMALE', 3, 'MEDIUM', 'WHITE', 'RESCUED FROM A HOARDING SITUATION, LUNA HAS BLOSSOMED INTO A CONFIDENT AND LOVING COMPANION. SHE WAS ONE OF 25 CATS LIVING IN UNSUITABLE CONDITIONS BUT HAS MADE REMARKABLE PROGRESS IN FOSTER CARE.', 'ROYAL CANIN PERSIAN DRY FOOD, WET FOOD TWICE DAILY', 'GENTLE', 'REQUIRES DAILY GROOMING DUE TO LONG COAT', 'CURRENT', 1, 1, 150.00, 'AVAILABLE', 1, 124),
-(2, 3, 1, 3, 'MAX', 'MALE', 2, 'LARGE', 'GOLDEN', 'MAX WAS SURRENDERED WHEN HIS FAMILY MOVED OVERSEAS. HE IS FULLY TRAINED, KNOWS BASIC COMMANDS, AND GETS ALONG WONDERFULLY WITH CHILDREN AND OTHER DOGS.', 'HIGH-QUALITY KIBBLE TWICE DAILY, LOVES CARROTS AS TREATS', 'FRIENDLY', 'NONE', 'CURRENT', 1, 1, 250.00, 'PENDING', 1, 89),
-(3, 4, 22, 2, 'SIMBA', 'MALE', 4, 'LARGE', 'BROWN TABBY', 'SIMBA WAS FOUND AS A STRAY AND TAKEN IN BY A GOOD SAMARITAN. HE IS A GENTLE GIANT WHO ENJOYS WATCHING BIRDS FROM THE WINDOW AND CUDDLING ON THE COUCH.', 'GRAIN-FREE DRY FOOD, OCCASIONAL FISH TREATS', 'CALM', 'NONE', 'CURRENT', 1, 1, 200.00, 'AVAILABLE', 0, 67),
-(4, 2, 23, 1, 'MILO', 'MALE', 1, 'MEDIUM', 'SEAL POINT', 'MILO IS A PLAYFUL SIAMESE KITTEN WHO WAS BORN IN FOSTER CARE. HE IS VERY SOCIAL AND WILL FOLLOW YOU AROUND THE HOUSE CHATTING ABOUT HIS DAY.', 'KITTEN FORMULA WET FOOD THREE TIMES DAILY', 'PLAYFUL', 'NONE', 'CURRENT', 1, 1, 180.00, 'AVAILABLE', 1, 156),
-(5, 3, 2, 3, 'BELLA', 'FEMALE', 5, 'LARGE', 'BLACK AND TAN', 'BELLA IS A RETIRED SERVICE DOG LOOKING FOR A QUIET RETIREMENT HOME. SHE IS EXCEPTIONALLY WELL-TRAINED AND HAS EXPERIENCE WITH VARIOUS COMMANDS AND TASKS.', 'SENIOR DOG FORMULA, JOINT SUPPLEMENTS', 'OBEDIENT', 'ARTHRITIS MEDICATION TWICE DAILY', 'CURRENT', 1, 1, 300.00, 'AVAILABLE', 1, 203),
-(6, 6, 24, 2, 'ZARA', 'FEMALE', 2, 'MEDIUM', 'SPOTTED ROSETTE', 'ZARA HAS INCREDIBLE ENERGY AND INTELLIGENCE. SHE ENJOYS PUZZLE TOYS AND NEEDS AN ACTIVE FAMILY WHO CAN KEEP UP WITH HER CURIOSITY AND PLAYFULNESS.', 'HIGH-PROTEIN DIET, RAW FOOD PREFERRED', 'ENERGETIC', 'REQUIRES MENTAL STIMULATION', 'CURRENT', 1, 1, 350.00, 'AVAILABLE', 0, 45),
-(7, 4, 25, 4, 'WINSTON', 'MALE', 7, 'MEDIUM', 'BLUE', 'WINSTON IS A SENIOR GENTLEMAN LOOKING FOR A QUIET HOME TO ENJOY HIS GOLDEN YEARS. HE PREFERS A CALM ENVIRONMENT AND ENJOYS NAPPING IN SUNNY SPOTS.', 'RENAL SUPPORT DIET, WET FOOD PREFERRED', 'QUIET', 'ANNUAL BLOOD WORK RECOMMENDED', 'CURRENT', 1, 1, 100.00, 'AVAILABLE', 0, 23),
-(8, 2, 3, 2, 'CHARLIE', 'MALE', 4, 'LARGE', 'YELLOW', 'CHARLIE IS A THERAPY DOG CANDIDATE WITH EXCELLENT TEMPERAMENT. HE HAS EXPERIENCE VISITING NURSING HOMES AND BRINGS JOY TO EVERYONE HE MEETS.', 'STANDARD ADULT DOG FOOD, NO ALLERGIES', 'THERAPEUTIC', 'NONE', 'CURRENT', 1, 1, 275.00, 'AVAILABLE', 1, 178);
-
--- INSERT PET IMAGES
-INSERT INTO `PET_IMAGES` (`PET_ID`, `IMAGE_URL`, `IS_PRIMARY`) VALUES
-(1, 'ASSETS/IMG/PERSIAN_LUNA_1.JPG', 1),
-(1, 'ASSETS/IMG/PERSIAN_LUNA_2.JPG', 0),
-(2, 'ASSETS/IMG/GOLDEN_MAX_1.JPG', 1),
-(3, 'ASSETS/IMG/MAINECOON_SIMBA_1.JPG', 1),
-(4, 'ASSETS/IMG/SIAMESE_MILO_1.JPG', 1),
-(5, 'ASSETS/IMG/GERMANSHEPHERD_BELLA_1.JPG', 1),
-(6, 'ASSETS/IMG/BENGAL_ZARA_1.JPG', 1),
-(7, 'ASSETS/IMG/BRITISH_WINSTON_1.JPG', 1),
-(8, 'ASSETS/IMG/LABRADOR_CHARLIE_1.JPG', 1);
-
--- INSERT ADOPTION APPLICATIONS SHOWING REAL INTEREST
-INSERT INTO `ADOPTION_APPLICATIONS` (`PET_ID`, `USER_ID`, `FAMILY_MEMBERS`, `CHILDREN_AGES`, `OTHER_PETS`, `HOME_TYPE`, `YARD_SIZE`, `WORK_SCHEDULE`, `PREVIOUS_EXPERIENCE`, `REASON_FOR_ADOPTION`) VALUES
-(2, 7, 4, '8,10', 'NONE', 'HOUSE', 'MEDIUM (500M²)', 'BOTH PARENTS WORK FROM HOME 3 DAYS/WEEK', 'FIRST-TIME DOG OWNERS BUT HAVE DONE EXTENSIVE RESEARCH', 'LOOKING FOR A FAMILY PET TO TEACH CHILDREN RESPONSIBILITY'),
-(1, 5, 2, 'NONE', 'NONE', 'APARTMENT', 'BALCONY ONLY', 'WORK FROM HOME FULL-TIME', 'GREW UP WITH CATS, HAD PERSIANS AS A CHILD', 'COMPANIONSHIP FOR WORKING FROM HOME'),
-(5, 8, 1, 'NONE', 'NONE', 'HOUSE', 'LARGE (1000M²)', 'FLEXIBLE SCHEDULE, OFTEN WORK FROM HOME', 'PREVIOUS EXPERIENCE WITH GERMAN SHEPHERDS', 'LOOKING FOR A RUNNING PARTNER AND HOME COMPANION');
-
--- INSERT SHOPPING CART ITEMS SHOWING ACTIVE USER ENGAGEMENT
-INSERT INTO `SHOPPING_CART` (`PET_ID`, `USERID`, `ADDED_PRICE`, `IS_REGIONAL`) VALUES
-(1, 5, 150.00, 0),
-(3, 7, 200.00, 0),
-(6, 8, 350.00, 1),
-(8, 5, 275.00, 0);
-
--- INSERT SUCCESSFUL TRANSACTIONS
-INSERT INTO `TRANSACTIONS` (`USER_ID`, `PET_ID`, `AMOUNT`, `TRANSACTION_TYPE`, `PAYMENT_METHOD`, `STATUS`, `COMPLETED_AT`) VALUES
-(7, 2, 250.00, 'ADOPTION FEE', 'CREDIT CARD', 'COMPLETED', '2024-01-15 14:30:00'),
-(5, NULL, 50.00, 'DONATION', 'PAYPAL', 'COMPLETED', '2024-01-10 09:15:00'),
-(8, NULL, 25.00, 'MEMBERSHIP', 'CREDIT CARD', 'COMPLETED', '2024-01-08 16:45:00');
-
--- INSERT GENUINE REVIEWS FROM ADOPTERS
-INSERT INTO `REVIEWS` (`PET_ID`, `USER_ID`, `RATING`, `TITLE`, `COMMENT`, `IS_VERIFIED`, `RESPONSE`) VALUES
-(2, 7, 5, 'PERFECT FAMILY ADDITION!', 'MAX HAS SETTLED IN WONDERFULLY WITH OUR FAMILY. THE ADOPTION PROCESS WAS SMOOTH AND THE SUPPORT FROM THE SHELTER HAS BEEN EXCEPTIONAL. HIGHLY RECOMMEND!', 1, 'THANK YOU FOR GIVING MAX A LOVING HOME! WE ARE THRILLED TO HEAR HE IS DOING WELL.'),
-(1, 5, 4, 'BEAUTIFUL PERSIAN PRINCESS', 'LUNA IS ADJUSTING WELL TO APARTMENT LIFE. SHE REQUIRES MORE GROOMING THAN I ANTICIPATED, BUT SHE IS WORTH EVERY MINUTE. WONDERFUL TEMPERAMENT!', 1, 'SO HAPPY TO HEAR LUNA IS DOING WELL IN HER NEW HOME!');
-
--- UPDATE THE AUTO-INCREMENT VALUES TO CONTINUE FROM APPROPRIATE NUMBERS
-ALTER TABLE `USERS` AUTO_INCREMENT = 100;
-ALTER TABLE `BREEDS` AUTO_INCREMENT = 100;
-ALTER TABLE `PET_DETAILS` AUTO_INCREMENT = 100;
-ALTER TABLE `HEALTHCARE_PLANS` AUTO_INCREMENT = 10;
-ALTER TABLE `SHIPPING_REGIONS` AUTO_INCREMENT = 10;
-ALTER TABLE `TRANSACTIONS` AUTO_INCREMENT = 1000;
-
--- CREATE INDEXES FOR BETTER PERFORMANCE
-CREATE INDEX IDX_PET_STATUS ON `PET_DETAILS` (`STATUS`, `FEATURED`);
-CREATE INDEX IDX_PET_BREED_SIZE ON `PET_DETAILS` (`BREED_ID`, `SIZE`, `AGE`);
-CREATE INDEX IDX_USER_ACTIVITY ON `USERS` (`LAST_LOGIN`, `CREATED_AT`);
-CREATE INDEX IDX_TRANSACTION_DATES ON `TRANSACTIONS` (`CREATED_AT`, `STATUS`);
-CREATE INDEX IDX_APPLICATION_STATUS ON `ADOPTION_APPLICATIONS` (`STATUS`, `APPLICATION_DATE`);
-
+INSERT INTO shopping_cart (pet_id, userid, is_regional)
+VALUES (1, 1, TRUE);
