@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS healthcare CASCADE;
 DROP TABLE IF EXISTS breeds CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 
-CREATE DATABASE pets;
+-- CREATE DATABASE pets;
 -- Create tables in dependency order
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
@@ -537,3 +537,4 @@ VALUES (1, 1, 150.00);
 
 INSERT INTO shopping_cart (pet_id, userid, is_regional)
 VALUES (1, 1, TRUE);
+
