@@ -11,7 +11,7 @@ include_once 'includes/header.php'; ?>
   );
   $btnpressed = false;
   // handles post requests
-  if ($_SERVER['request_method'] === 'post') {
+  if ($_SERVER['REQUEST_METHOD'] === 'post') {
     if (empty($_post['email'])) {
       $errors['emptyemail'] = 'email cannot be left empty.';
     } else if (!filter_var($_post['email'], filter_validate_email)) {
@@ -58,7 +58,7 @@ include_once 'includes/header.php'; ?>
               <span class="section-heading-upper">come on in</span>
               <span class="section-heading-lower">log in</span>
             </h2>
-            <form name="login" id="login" action=<?= $_SERVER['php_self'] ?> method="post">
+            <form name="login" id="login" action=<?= $_SERVER['PHP_SELF'] ?> method="post">
               <div class="form-floating mb-3">
                 <input value="<?= htmlspecialchars($_post['email'] ?? '')  ?>" name="email" id="email" type="email" class="form-control">
                 <label for="email">email address</label>

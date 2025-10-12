@@ -1,4 +1,7 @@
-<?php include_once 'includes/header.php'; ?>
+<?php
+global $pdo, $errors;
+ob_start();
+include_once 'includes/header.php'; ?>
 <?php if (!empty($email)) : ?>
     <?php include_once "pdo.php" ?>
     <?php include_once "models/Pet.php" ?>
