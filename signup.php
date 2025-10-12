@@ -68,7 +68,9 @@ include_once 'includes/header.php';
 
         if (!array_filter($errors)) {
             if (!isset($_COOKIE["PHPSESSID"])) {
-                session_start();
+                if (!isset($_SESSION)) {
+    session_start();
+}
             }
             $fullName = $_POST['fullName'];
             $zipcode = $_POST['zipcode'];

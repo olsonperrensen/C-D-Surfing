@@ -1,6 +1,6 @@
 <?php
 global $pdo;
-if (session_status() === PHP_SESSION_NONE) {
+if (!isset($_SESSION)) {
     session_start();
 }
 include_once __DIR__ . '/../log.php'; ?>
@@ -12,7 +12,9 @@ define('REGIONAL_FEE', 0.62);
 $errors = array(
   'taken' => '',
 );
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 if (isset($_SESSION['email'])) {
   $email = $_SESSION['email'];
   $isAdmin = $_SESSION['isAdmin'];

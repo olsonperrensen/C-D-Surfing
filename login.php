@@ -23,7 +23,9 @@ include_once 'includes/header.php'; ?>
 
     if (!array_filter($errors)) {
       if (!isset($_cookie["phpsessid"])) {
-        session_start();
+        if (!isset($_SESSION)) {
+    session_start();
+}
       }
       $email = $_post['email'];
       $pwd = $_post['password'];

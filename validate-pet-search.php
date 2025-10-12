@@ -1,7 +1,9 @@
 <?php include_once 'pdo.php'; ?>
 <?php include_once 'models/Pet.php'; ?>
 <?php
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 if (
     !empty($_SESSION['email']) && !empty($_GET['q'])
     && !is_numeric($_GET['q'])

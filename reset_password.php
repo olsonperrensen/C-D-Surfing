@@ -1,6 +1,8 @@
 <?php include_once 'pdo.php'; ?>
 <?php
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+}
 $isAdmin = $_SESSION['isAdmin'] ?? '';
 $_POST = json_decode(file_get_contents("php://input"), true);
 if (

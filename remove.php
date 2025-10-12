@@ -12,7 +12,9 @@ if (!empty($_GET['pet_id']) && is_numeric($_GET['pet_id'])) {
     die();
 }
 if (!empty($_GET['breed_id']) && is_numeric($_GET['breed_id'])) {
+    if (!isset($_SESSION)) {
     session_start();
+}
     $isAdmin = $_SESSION['isAdmin'];
     if ($isAdmin) {
         try {
@@ -28,7 +30,9 @@ if (!empty($_GET['breed_id']) && is_numeric($_GET['breed_id'])) {
 }
 if (!empty($_GET['ad_id']) && is_numeric($_GET['ad_id'])) {
     $errors = array();
+    if (!isset($_SESSION)) {
     session_start();
+}
     $isAdmin = $_SESSION['isAdmin'];
     if ($isAdmin) {
         $pid = htmlspecialchars($_GET['ad_id'], ENT_QUOTES);
@@ -65,7 +69,9 @@ if (!empty($_GET['ad_id']) && is_numeric($_GET['ad_id'])) {
 // DELETE ORDER ORDER DETAILS and SHIPPING INFO FOR TESTING ONLY 
 if (isset($_SERVER['HTTP_REFERER']) && str_contains($_SERVER['HTTP_REFERER'], '/admin.php')) {
     $errors = array();
+    if (!isset($_SESSION)) {
     session_start();
+}
     $isAdmin = $_SESSION['isAdmin'];
     if ($isAdmin) {
         try {
@@ -117,7 +123,9 @@ if (!empty($_GET['user_id']) && is_numeric($_GET['user_id'])) {
     die();
 }
 if (!empty($_GET['ruser_id']) && is_numeric($_GET['ruser_id'])) {
+    if (!isset($_SESSION)) {
     session_start();
+}
     $isAdmin = $_SESSION['isAdmin'];
     if ($isAdmin) {
         try {
