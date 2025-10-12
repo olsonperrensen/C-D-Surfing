@@ -1,6 +1,5 @@
 FROM php:8.1-apache
 
-# Install dependencies
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libjpeg62-turbo-dev \
@@ -9,6 +8,7 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     libxml2-dev \
     libcurl4-openssl-dev \
+    libpq-dev \
     unzip \
     git \
     curl \
@@ -16,21 +16,21 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) \
         pdo \
         pdo_mysql \
+        pdo_pgsql \
+        pgsql \
         mysqli \
         mbstring \
         exif \
         gd \
         zip \
         curl \
-        xml
+        xml \
+    && apt-get clean
 
-# Enable Apache modules
 RUN a2enmod rewrite headers
 
-# Copy application
 COPY . /var/www/html/
 
-# Set permissions
 RUN chown -R www-data:www-data /var/www/html/ && \
     chmod -R 755 /var/www/html/
 
