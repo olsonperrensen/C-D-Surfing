@@ -1,4 +1,7 @@
-<?php include_once 'includes/header.php'; ?>
+<?php
+global $pdo;
+ob_start();
+include_once 'includes/header.php'; ?>
 <?php if (!empty($email)) : ?>
     <?php if (!empty($_GET['h']) && is_numeric($_GET['h'])) : ?>
         <?php include_once 'pdo.php'; ?>
