@@ -1,29 +1,33 @@
-<?php include_once 'includes/header.php'; ?>
+<?php
+ob_start();
+global $isAdmin, $pdo;
+include_once 'includes/header.php';
+?>
 <?php if (empty($email) || $isAdmin) : ?>
     <?php require_once 'pdo.php' ?>
     <?php
     $errors = array(
-        'emptyName' => '',
-        'invalidName' => '',
-        'shortName' => '',
-        'emptyEmail' => '',
-        'invalidEmail' => '',
-        'emptyPwd' => '',
-        'shortPwd' => '',
-        'emptyPwdConfirmation' => '',
-        'unmatch' => '',
-        'invalidLogin' => '',
-        'emptyZipcode' => '',
-        'invalidZipcode' => '',
-        'noNumPwd' => '',
-        'noLetterPwd' => '',
-        'invalidLookingFor' => '',
-        'invalidCanAdvertise' => '',
-        'duplicateEmail' => '',
-        'unexpectedError' => ''
+            'emptyName' => '',
+            'invalidName' => '',
+            'shortName' => '',
+            'emptyEmail' => '',
+            'invalidEmail' => '',
+            'emptyPwd' => '',
+            'shortPwd' => '',
+            'emptyPwdConfirmation' => '',
+            'unmatch' => '',
+            'invalidLogin' => '',
+            'emptyZipcode' => '',
+            'invalidZipcode' => '',
+            'noNumPwd' => '',
+            'noLetterPwd' => '',
+            'invalidLookingFor' => '',
+            'invalidCanAdvertise' => '',
+            'duplicateEmail' => '',
+            'unexpectedError' => ''
     );
     $btnPressed = false;
-    // Server-Side form validation : Handles POST requests
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (empty($_POST['fullName'])) {
             $errors['emptyName'] = 'Name cannot be left empty.';
@@ -69,28 +73,29 @@
             $fullName = $_POST['fullName'];
             $zipcode = $_POST['zipcode'];
             $lookingFor = $_POST['lookingFor'];
-            $canAdvertise = $_POST['canAdvertise'] ?? '0';
+            $canAdvertise = isset($_POST['canAdvertise']) && $_POST['canAdvertise'] === '1' ? 'TRUE' : 'FALSE';
             $email = $_POST['email'];
             $pw = password_hash($_POST['password'], PASSWORD_DEFAULT);
             try {
-                $sql = "INSERT INTO USERS(email,password,naam,zipcode,looking_for,can_advertise)
+                $sql = "INSERT INTO users(email,password,naam,zipcode,looking_for,can_advertise)
         VALUES(:em,:pw,:n,:z,:l,:c)";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute(array(
-                    ':em' => $email,
-                    ':pw' => $pw,
-                    ':n' => $fullName,
-                    ':z' => $zipcode,
-                    ':l' => $lookingFor,
-                    ':c' => $canAdvertise
+                        ':em' => $email,
+                        ':pw' => $pw,
+                        ':n' => $fullName,
+                        ':z' => $zipcode,
+                        ':l' => $lookingFor,
+                        ':c' => $canAdvertise
                 ));
-                echo "<script>alert('Sign up successfull!')</script>";
                 header('Location: login.php');
+                exit();
             } catch (PDOException $e) {
                 if ((int)$e->getCode() === 23000) {
                     $errors['duplicateEmail'] = 'An account already exists under this email';
                 } else {
-                    $errors['unexpectedError'] = 'An unexpected error occured.';
+                    $errors['unexpectedError'] = 'An unexpected error occured: ' . $e->getMessage();
+                    error_log("Signup error: " . $e->getMessage());
                 }
             }
         }
@@ -105,7 +110,7 @@
                             <span class="section-heading-upper">Be part of the group</span>
                             <span class="section-heading-lower">SIGN UP</span>
                         </h2>
-                        <form id="signup" name="signup" action=<?= $_SERVER['PHP_SELF'] ?> method="POST">
+                        <form id="signup" name="signup" action="<?= $_SERVER['PHP_SELF'] ?>" method="POST">
                             <div class="form-floating mb-3">
                                 <input value="<?= htmlspecialchars($_POST['fullName'] ?? '', ENT_QUOTES)  ?>" id="fullName" name="fullName" type="text" class="form-control">
                                 <label for="fullName">Full name</label>
@@ -146,11 +151,11 @@
                                 <select name="lookingFor" id="lookingFor" class="form-select" aria-label="Default select example">
                                     <option value="">I am looking for ...</option>
                                     <option <?= htmlspecialchars($_POST['lookingFor'] ?? '', ENT_QUOTES) === 'Cat'
-                                                ? 'selected' : '' ?> value="Cat">Cats</option>
+                                            ? 'selected' : '' ?> value="Cat">Cats</option>
                                     <option <?= htmlspecialchars($_POST['lookingFor'] ?? '', ENT_QUOTES) === 'Dog'
-                                                ? 'selected' : '' ?> value="Dog">Dogs</option>
+                                            ? 'selected' : '' ?> value="Dog">Dogs</option>
                                     <option <?= htmlspecialchars($_POST['lookingFor'] ?? '', ENT_QUOTES) === 'None'
-                                                ? 'selected' : '' ?> value="None">None</option>
+                                            ? 'selected' : '' ?> value="None">None</option>
                                 </select>
                                 <?php if ($errors['invalidLookingFor']) : ?>
                                     <h5 class="userwarn"><?= $errors['invalidLookingFor'] ?></h5>
@@ -193,7 +198,7 @@
                             <div class="form-floating mb-3">
                                 <div class="form-check">
                                     <input <?= htmlspecialchars($_POST['canAdvertise'] ?? '', ENT_QUOTES)
-                                                ? 'checked' : '' ?> name="canAdvertise" id="canAdvertise" class="form-check-input" type="checkbox" value="1">
+                                            ? 'checked' : '' ?> name="canAdvertise" id="canAdvertise" class="form-check-input" type="checkbox" value="1">
                                     <label class="form-check-label" for="canAdvertise">
                                         I want to post my pet for adoption <strong>(advertisements)</strong>
                                     </label>
@@ -225,6 +230,10 @@
     </section>
     <?php include_once 'includes/footer.php'; ?>
 <?php endif; ?>
-<?php if (!empty($email) && $isAdmin !== 1) {
+<?php
+if (!empty($email) && $isAdmin !== 1) {
     header('Location: account.php');
+    exit();
 }
+ob_end_flush();
+?>
