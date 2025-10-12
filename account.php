@@ -1,11 +1,23 @@
-<?php include_once 'includes/header.php'; ?>
+<?php
+global $pdo;
+session_start();
+if (empty($_SESSION['email'])) {
+    header('Location: login.php');
+    exit();
+}
+$email = $_SESSION['email'];
+$isAdmin = $_SESSION['isAdmin'] ?? 0;
+
+include_once 'includes/header.php';
+?>
 <?php if (!empty($email)) : ?>
     <?php include_once 'pdo.php'; ?>
     <?php include_once 'models/User.php'; ?>
     <?php
-    // Check if user has exploited the site too much 
+    // Check if user has exploited the site too much
     if ($_SESSION['warning'] >= 5) {
         header('Location: ban.php');
+        exit();
     }
     // Proceed if user hasn't been banned. 
     $sql = "SELECT naam, can_advertise FROM USERS WHERE email = :em";

@@ -1,4 +1,9 @@
-<?php include_once __DIR__ . '/../log.php'; ?>
+<?php
+global $pdo;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+include_once __DIR__ . '/../log.php'; ?>
 <?php include_once __DIR__ . '/../pdo.php'; ?>
 <?php include_once __DIR__ . '/../models/Basket.php'; ?>
 <?php
