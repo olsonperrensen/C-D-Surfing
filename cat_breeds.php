@@ -23,7 +23,7 @@ function checkLogin()
     <div class="container">
         <div class="row">
             <?php
-            $sql = "SELECT breed_id, image_link,name,origin FROM BREEDS WHERE isFeline = 1;";
+            $sql = "SELECT breed_id, image_link,name,origin FROM BREEDS WHERE isFeline = TRUE;";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
