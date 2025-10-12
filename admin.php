@@ -1,10 +1,11 @@
-    <?php include_once 'includes/header.php'; ?>
+<?php global $isAdmin;
+include_once 'includes/header.php'; ?>
     <?php if ($isAdmin) : ?>
         <script>
             function sec() {
                 stdin = prompt('Enter the secret PIN code')
                 // Dummy prototype... DONT USE in production of course... 
-                if (stdin == 'Lab2021') {
+                if (stdin === 'Lab2021') {
                     alert('Proceeding to delete ALL orders... Stand back while we do the work')
                     deleted = fetch('remove.php')
                         .then((res) => {

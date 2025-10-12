@@ -1,4 +1,5 @@
-<?php include_once 'includes/header.php'; ?>
+<?php global $pdo; global $isadmin;
+include_once 'includes/header.php'; ?>
 <?php if (empty($email)) : ?>
   <?php require_once 'pdo.php' ?>
   <?php
@@ -10,7 +11,7 @@
   );
   $btnpressed = false;
   // handles post requests
-  if ($_server['request_method'] === 'post') {
+  if ($_SERVER['request_method'] === 'post') {
     if (empty($_post['email'])) {
       $errors['emptyemail'] = 'email cannot be left empty.';
     } else if (!filter_var($_post['email'], filter_validate_email)) {
@@ -32,18 +33,18 @@
       $row = $stmt->fetch(pdo::fetch_assoc);
       if (!empty($row)) {
         if (password_verify($pwd, $row['password'])) {
-          unset($_session["invalidlogin"]);
-          $_session['email'] = $email;
-          $_session['isadmin'] = $row['isadmin'];
-          $_session['user_id'] = $row['user_id'];
-          $_session['buyer_zipcode'] = $row['zipcode'];
-          $_session['warning'] = $row['warnings'];
+          unset($_SESSION["invalidlogin"]);
+          $_SESSION['email'] = $email;
+          $_SESSION['isadmin'] = $row['isadmin'];
+          $_SESSION['user_id'] = $row['user_id'];
+          $_SESSION['buyer_zipcode'] = $row['zipcode'];
+          $_SESSION['warning'] = $row['warnings'];
           header('location: account.php');
         } else {
-          $_session['invalidlogin'] = $errors['invalidlogin'] = 'you have entered invalid credentials.';
+          $_SESSION['invalidlogin'] = $errors['invalidlogin'] = 'you have entered invalid credentials.';
         }
       } else {
-        $_session['invalidlogin'] = $errors['invalidlogin'] = 'you must register first.';
+        $_SESSION['invalidlogin'] = $errors['invalidlogin'] = 'you must register first.';
       }
     }
   }
@@ -57,7 +58,7 @@
               <span class="section-heading-upper">come on in</span>
               <span class="section-heading-lower">log in</span>
             </h2>
-            <form name="login" id="login" action=<?= $_server['php_self'] ?> method="post">
+            <form name="login" id="login" action=<?= $_SERVER['php_self'] ?> method="post">
               <div class="form-floating mb-3">
                 <input value="<?= htmlspecialchars($_post['email'] ?? '')  ?>" name="email" id="email" type="email" class="form-control">
                 <label for="email">email address</label>
@@ -74,7 +75,7 @@
                 <?php if ($errors['emptypwd']) : ?>
                   <h5 class="userwarn"><?= $errors['emptypwd'] ?></h5>
                 <?php endif; ?>
-                <?php if (isset($_session['invalidlogin'])) : ?>
+                <?php if (isset($_SESSION['invalidlogin'])) : ?>
                   <h5 class="userwarn"><?= $errors['invalidlogin'] ?></h5>
                 <?php endif; ?>
                 <br>
